@@ -1,0 +1,32 @@
+import jwt from "jsonwebtoken";
+import { db } from "../libs/db.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import ApiError from "../utils/ApiError.js";
+
+export const authMiddleware = asyncHandler(async (req, res, next) => {
+  const token = req.cookies.jwt;
+
+  if (!token) {
+    throw new ApiError(401, "Unauthorized");
+  }
+
+  let decodedToken;
+
+  try {
+    decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+
+  const user = await db.user.findUnique({
+    where: { id: decodedToken.id },
+    select: { id: true, name: true, email: true, role: true },
+  });
+
+  if (!user) {
+    throw new ApiError(404, "Unauthorized");
+  }
+
+  req.user = user;
+  next();
+});
