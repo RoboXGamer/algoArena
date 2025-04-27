@@ -1,16 +1,19 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import authRouter from "./routes/auth.route.js";
-import ErrorMiddleware from "./utils/error.js";
+import { ErrorMiddleware } from "./utils/error.js";
 const app = express();
 
 //plugins
 app.use(express.json());
 app.use(cookieParser());
 
+// Routes import
+import { authRouter } from "./routes/auth.route.js";
+import { problemRouter } from "./routes/problem.route.js";
 
 // routes
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/problems", problemRouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

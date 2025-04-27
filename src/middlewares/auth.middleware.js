@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
 import { db } from "../libs/db.js";
-import asyncHandler from "../utils/asyncHandler.js";
-import ApiError from "../utils/ApiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/ApiError.js";
 
+// Middleware to check if the user is authenticated
 export const authMiddleware = asyncHandler(async (req, res, next) => {
   const token = req.cookies.jwt;
 
@@ -30,3 +31,22 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
   req.user = user;
   next();
 });
+
+// Middleware to check if the user is an admin
+export const checkAdmin = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      select: { role: true },
+    });
+
+    if (!user || user.role !== "ADMIN") {
+      throw new ApiError(403, "Forbidden");
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
