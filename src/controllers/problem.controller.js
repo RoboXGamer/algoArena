@@ -96,3 +96,21 @@ export const getAllProblems = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, problems, "Problems fetched successfully"));
 });
+
+export const getProblemById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const problem = await db.problem.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!problem) {
+    throw new ApiError(404, "Problem not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, problem, "Problem fetched successfully"));
+});
