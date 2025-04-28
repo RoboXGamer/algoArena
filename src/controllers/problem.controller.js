@@ -84,3 +84,15 @@ export const createProblem = asyncHandler(async (req, res) => {
     throw new ApiError(400, error.message);
   }
 });
+
+export const getAllProblems = asyncHandler(async (req, res) => {
+  const problems = await db.problem.findMany();
+
+  if (!problems) {
+    throw new ApiError(404, "No problems found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, problems, "Problems fetched successfully"));
+});

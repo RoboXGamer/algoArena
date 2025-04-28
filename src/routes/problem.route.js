@@ -1,8 +1,16 @@
-import express from 'express';
-import { authMiddleware, checkAdmin } from '../middlewares/auth.middleware.js';
-import { createProblem } from '../controllers/problem.controller.js';
+import express from "express";
+import { authMiddleware, checkAdmin } from "../middlewares/auth.middleware.js";
+import {
+  createProblem,
+  getAllProblems,
+} from "../controllers/problem.controller.js";
 
 export const problemRouter = express.Router();
 
-problemRouter.post("/create-problem",authMiddleware,checkAdmin,createProblem);
-
+problemRouter.post(
+  "/create-problem",
+  authMiddleware,
+  checkAdmin,
+  createProblem
+);
+problemRouter.get("/get-all-problems", authMiddleware, getAllProblems);
