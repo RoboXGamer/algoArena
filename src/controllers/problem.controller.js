@@ -211,3 +211,31 @@ export const updateProblem = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, updatedProblem, "Problem updated successfully"));
 });
+
+export const deleteProblem = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const problem = await db.problem.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!problem) {
+    throw new ApiError(404, "Problem not found");
+  }
+
+  if (problem.userId !== req.user.id) {
+    throw new ApiError(403, "Forbidden");
+  }
+
+  await db.problem.delete({
+    where: {
+      id,
+    },
+  });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Problem deleted successfully"));
+});

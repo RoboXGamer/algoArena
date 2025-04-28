@@ -2,6 +2,7 @@ import express from "express";
 import { authMiddleware, checkAdmin } from "../middlewares/auth.middleware.js";
 import {
   createProblem,
+  deleteProblem,
   getAllProblems,
   getProblemById,
   updateProblem,
@@ -19,6 +20,16 @@ problemRouter.get("/get-all-problems", authMiddleware, getAllProblems);
 
 problemRouter.get("/get-problem/:id", authMiddleware, getProblemById);
 
-problemRouter.put("/update-problem/:id", authMiddleware, checkAdmin, updateProblem);
+problemRouter.put(
+  "/update-problem/:id",
+  authMiddleware,
+  checkAdmin,
+  updateProblem
+);
 
-
+problemRouter.delete(
+  "/delete-problem/:id",
+  authMiddleware,
+  checkAdmin,
+  deleteProblem
+);
