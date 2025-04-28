@@ -1,6 +1,8 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import { ErrorMiddleware } from "./utils/error.js";
+
+
 const app = express();
 
 //plugins

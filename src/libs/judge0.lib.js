@@ -12,9 +12,12 @@ export const getJudge0LanguageId = (language) => {
 
 // submit batch
 export const submitBatch = async (submissions) => {
+  console.log(`${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`)
   const { data } = await axios.post(
     `${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,
-    { submissions }
+    
+    { submissions },
+
   );
   console.log("submission Results : ", data);
   return data;
