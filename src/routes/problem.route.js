@@ -4,6 +4,7 @@ import {
   createProblem,
   getAllProblems,
   getProblemById,
+  updateProblem,
 } from "../controllers/problem.controller.js";
 
 export const problemRouter = express.Router();
@@ -17,3 +18,7 @@ problemRouter.post(
 problemRouter.get("/get-all-problems", authMiddleware, getAllProblems);
 
 problemRouter.get("/get-problem/:id", authMiddleware, getProblemById);
+
+problemRouter.put("/update-problem/:id", authMiddleware, checkAdmin, updateProblem);
+
+
