@@ -4,6 +4,7 @@ import {
   createProblem,
   deleteProblem,
   getAllProblems,
+  getAllProblemsSolvedByUser,
   getProblemById,
   updateProblem,
 } from "../controllers/problem.controller.js";
@@ -32,4 +33,10 @@ problemRouter.delete(
   authMiddleware,
   checkAdmin,
   deleteProblem
+);
+
+problemRouter.get(
+  "/get-solved-problems",
+  authMiddleware,
+  getAllProblemsSolvedByUser
 );
