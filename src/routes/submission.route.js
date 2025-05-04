@@ -2,6 +2,7 @@ import express from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import {
   getAllSubmission,
+  getAllTheSubmissionsForProblem,
   getSubmissionsForProblem,
 } from "../controllers/submission.controller.js";
 
@@ -13,3 +14,4 @@ submissionRouter.get(
   authMiddleware,
   getSubmissionsForProblem
 );
+submissionRouter.get("/get-submission-count/:problemId",authMiddleware,getAllTheSubmissionsForProblem)
