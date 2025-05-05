@@ -28,3 +28,22 @@ export const createPlaylist = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, playlist, "Playlist created successfully"));
 });
+
+export const getAllListDetails = asyncHandler(async (req, res) => {
+  const playlists = await db.playlist.findMany({
+    where: {
+      userId: req.user.id,
+    },
+    include: {
+      problems: {
+        include: {
+          problem: true,
+        },
+      },
+    },
+  });
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, playlists, "Playlist fetched successfully"));
+});
