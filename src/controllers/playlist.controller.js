@@ -115,4 +115,36 @@ export const addProblemToPlaylist = asyncHandler(async (req, res) => {
     );
 });
 
+export const deletePlaylist = asyncHandler(async (req, res) => {
+  const { playlistId } = req.params;
 
+  if (!playlistId) {
+    throw new ApiError(404, "Pls provide the playlist id");
+  }
+
+  const playlist = await db.playlist.findUnique({
+    where:{
+      id: playlistId,
+    }
+  });
+
+  if(playlist.userId !== req.user.id){
+    throw new ApiError(404,"You are not authorized to delete playlist");
+  }
+  
+  const deletedPlaylist = await db.playlist.delete({
+    where: {
+      id: playlistId,
+    },
+  });
+
+  if (!deletedPlaylist) {
+    throw new ApiError(500, "deletion have some problem try after some time");
+  }
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, deletePlaylist, "Playlist deleted successfully")
+    );
+});

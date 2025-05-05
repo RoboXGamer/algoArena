@@ -3,6 +3,7 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 import {
   addProblemToPlaylist,
   createPlaylist,
+  deletePlaylist,
   getAllListDetails,
   getPlaylistDetails,
 } from "../controllers/playlist.controller.js";
@@ -16,3 +17,5 @@ playlistRouter.get("/", authMiddleware, getAllListDetails);
 playlistRouter.get("/:playlistId", authMiddleware, getPlaylistDetails);
 
 playlistRouter.post("/:playlistId/add-problems",authMiddleware ,addProblemToPlaylist);
+
+playlistRouter.delete("/:playlistId", authMiddleware, deletePlaylist);
