@@ -6,6 +6,7 @@ import {
   deletePlaylist,
   getAllListDetails,
   getPlaylistDetails,
+  removeProblemFromPlaylist,
 } from "../controllers/playlist.controller.js";
 
 export const playlistRouter = express.Router();
@@ -19,3 +20,5 @@ playlistRouter.get("/:playlistId", authMiddleware, getPlaylistDetails);
 playlistRouter.post("/:playlistId/add-problems",authMiddleware ,addProblemToPlaylist);
 
 playlistRouter.delete("/:playlistId", authMiddleware, deletePlaylist);
+
+playlistRouter.delete("/:playlistId/remove-problem", authMiddleware, removeProblemFromPlaylist);

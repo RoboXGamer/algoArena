@@ -123,15 +123,15 @@ export const deletePlaylist = asyncHandler(async (req, res) => {
   }
 
   const playlist = await db.playlist.findUnique({
-    where:{
+    where: {
       id: playlistId,
-    }
+    },
   });
 
-  if(playlist.userId !== req.user.id){
-    throw new ApiError(404,"You are not authorized to delete playlist");
+  if (playlist.userId !== req.user.id) {
+    throw new ApiError(404, "You are not authorized to delete playlist");
   }
-  
+
   const deletedPlaylist = await db.playlist.delete({
     where: {
       id: playlistId,
@@ -146,5 +146,41 @@ export const deletePlaylist = asyncHandler(async (req, res) => {
     .status(200)
     .json(
       new ApiResponse(200, deletePlaylist, "Playlist deleted successfully")
+    );
+});
+
+export const removeProblemFromPlaylist = asyncHandler(async (req, res) => {
+  const { playlistId } = req.params;
+  const { problemIds } = req.body;
+
+  if (!playlistId) {
+    throw new ApiError(404, "Pls provide the playlist id");
+  }
+
+  if (!Array.isArray(problemIds) || problemIds.length === 0) {
+    throw new ApiError(400, "Invalid or missing problemIds");
+  }
+
+  const deletedProblem = await db.problemInPlaylist.deleteMany({
+    where: {
+      playlistId,
+      problemId: {
+        in: problemIds,
+      },
+    },
+  });
+
+  if (!deletedProblem) {
+    throw new ApiError(400, "Deletion have some problem pls try again");
+  }
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        deletedProblem,
+        "Problems removed from playlist successfully"
+      )
     );
 });
