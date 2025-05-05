@@ -77,3 +77,42 @@ export const getPlaylistDetails = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, playlist, "Playlist fetched successfully"));
 });
+
+export const addProblemToPlaylist = asyncHandler(async (req, res) => {
+  const { playlistId } = req.params;
+  const { problemIds } = req.body;
+
+  if (!playlistId) {
+    throw new ApiError(404, "Pls provide the playlist id");
+  }
+
+  if (!Array.isArray(problemIds) || problemIds.length === 0) {
+    throw new ApiError(400, "Invalid or missing problemIds");
+  }
+
+  const problemInPlaylist = await db.problemInPlaylist.createMany({
+    data: problemIds.map((problemId) => ({
+      playlistId,
+      problemId,
+    })),
+  });
+
+  if (!problemInPlaylist) {
+    throw new ApiError(
+      500,
+      "Not able to put this problems in this playlist pls try again"
+    );
+  }
+
+  res
+    .status(201)
+    .json(
+      new ApiResponse(
+        201,
+        problemInPlaylist,
+        "Problems added to playlist successfully"
+      )
+    );
+});
+
+
