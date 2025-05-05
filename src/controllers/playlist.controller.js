@@ -47,3 +47,33 @@ export const getAllListDetails = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, playlists, "Playlist fetched successfully"));
 });
+
+export const getPlaylistDetails = asyncHandler(async (req, res) => {
+  const playlistId = req.params.playlistId;
+
+  if (!playlistId) {
+    throw new ApiError(404, "Pls provide the playlist id");
+  }
+
+  const playlist = await db.playlist.findUnique({
+    where: {
+      id: playlistId,
+      userId: req.user.id,
+    },
+    include: {
+      problems: {
+        include: {
+          problem: true,
+        },
+      },
+    },
+  });
+
+  if (!playlist) {
+    throw new ApiError(404, "Playlist not found");
+  }
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, playlist, "Playlist fetched successfully"));
+});
