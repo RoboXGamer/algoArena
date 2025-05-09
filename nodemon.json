@@ -1,0 +1,12 @@
+{
+  "ext": "js,env,json,yml",
+  "watch": [".", ".env"],
+  "ignore": [
+    "dist",
+    "node_modules",
+    ".vscode",
+    ".git",
+    "prisma",
+    "public"
+  ]
+}

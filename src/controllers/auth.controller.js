@@ -1,5 +1,6 @@
+import { myEnvironment } from "../config/env.js";
 import bcrypt from "bcryptjs";
-import { db } from "../libs/db.js";
+import { db } from "../database/db.js";
 import { UserRole } from "../generated/prisma/index.js";
 import jwt from "jsonwebtoken";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -30,13 +31,13 @@ export const register = asyncHandler(async (req, res) => {
     },
   });
 
-  const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: newUser.id }, myEnvironment.JWT_SECRET, {
     expiresIn: "7d",
   });
 
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: myEnvironment.NODE_ENV === "production",
     maxAge: 7 * 24 * 60 * 1000,
   });
 
@@ -69,13 +70,13 @@ export const login = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid credentials");
   }
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user.id }, myEnvironment.JWT_SECRET, {
     expiresIn: "7d",
   });
 
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: myEnvironment.NODE_ENV === "production",
     sameSite: "strict",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
@@ -97,7 +98,7 @@ export const login = asyncHandler(async (req, res) => {
 export const logout = asyncHandler(async (req, res) => {
   res.clearCookie("jwt", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: myEnvironment.NODE_ENV === "production",
     sameSite: "strict",
   });
   res

@@ -1,4 +1,4 @@
-import { db } from "../libs/db.js";
+import { db } from "../database/db.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 

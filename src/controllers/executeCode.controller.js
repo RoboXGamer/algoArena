@@ -1,5 +1,9 @@
-import { db } from "../libs/db.js";
-import { getLanguageName, pollBatchResults, submitBatch } from "../libs/judge0.lib.js";
+import { db } from "../database/db.js";
+import {
+  getLanguageName,
+  pollBatchResults,
+  submitBatch,
+} from "../libs/judge0.lib.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";

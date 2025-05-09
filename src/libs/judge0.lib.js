@@ -1,4 +1,5 @@
 import axios from "axios";
+import { myEnvironment } from "../config/env.js";
 
 // get judge0 language id
 export const getJudge0LanguageId = (language) => {
@@ -13,10 +14,10 @@ export const getJudge0LanguageId = (language) => {
 // submit batch
 export const submitBatch = async (submissions) => {
   console.log(
-    `${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`
+    `${myEnvironment.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`
   );
   const { data } = await axios.post(
-    `${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,
+    `${myEnvironment.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,
 
     { submissions }
   );
@@ -31,7 +32,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export const pollBatchResults = async (tokens) => {
   while (true) {
     const { data } = await axios.get(
-      `${process.env.JUDGE0_API_URL}/submissions/batch`,
+      `${myEnvironment.JUDGE0_API_URL}/submissions/batch`,
       {
         params: { tokens: tokens.join(","), base64_encoded: false },
       }

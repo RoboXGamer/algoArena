@@ -1,4 +1,4 @@
-import { db } from "../libs/db.js";
+import { db } from "../database/db.js";
 import {
   getJudge0LanguageId,
   pollBatchResults,

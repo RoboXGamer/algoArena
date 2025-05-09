@@ -9,9 +9,18 @@ import { ErrorMiddleware } from "./utils/error.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// server initialization
 const app = express();
 
-//plugins
+// file import
+import { authRouter } from "./routes/auth.route.js";
+import { problemRouter } from "./routes/problem.route.js";
+import { executeRouter } from "./routes/executeCode.route.js";
+import { submissionRouter } from "./routes/submission.route.js";
+import { playlistRouter } from "./routes/playlist.route.js";
+
+
+//middlewares
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../", "public")));
@@ -26,12 +35,7 @@ app.use(
 );
 app.use(cookieParser());
 
-// Routes import
-import { authRouter } from "./routes/auth.route.js";
-import { problemRouter } from "./routes/problem.route.js";
-import { executeRouter } from "./routes/executeCode.route.js";
-import { submissionRouter } from "./routes/submission.route.js";
-import { playlistRouter } from "./routes/playlist.route.js";
+
 
 // routes
 app.use("/api/v1/auth", authRouter);
@@ -39,6 +43,8 @@ app.use("/api/v1/problems", problemRouter);
 app.use("/api/v1/execute-code", executeRouter);
 app.use("/api/v1/submission", submissionRouter);
 app.use("/api/v1/playlist", playlistRouter);
+
+// health check route
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
