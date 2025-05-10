@@ -10,7 +10,6 @@ import { authHelper } from "../utils/tokenGenerateAndVerify.js";
 import { sendMail } from "../libs/sendMail.lib.js";
 
 export const register = asyncHandler(async (req, res) => {
-
   const { username, email, password, name } = req.body;
 
   // validate required filed
@@ -19,20 +18,66 @@ export const register = asyncHandler(async (req, res) => {
   }
 
   // check existence
-  const existingEmailUser = await db.user.findUnique({
-    where: { email },
+  const existingUser = await db.user.findFirst({
+    where: {
+      OR: [{ email }, { username }],
+    },
   });
 
-  const existingUsernameUser = await db.user.findUnique({
-    where: { username },
-  });
+  if (existingUser) {
+    if (existingUser.isVerified) {
+      throw new ApiError(409, "User already exist");
+    } else {
+      const hashedPassword = await authHelper.signHash(password);
 
-  // if exist not create one if yes then sent 409 already exist
-  if (
-    (!existingEmailUser && !existingUsernameUser) ||
-    existingUser.isVerified === false
-  ) {
+      const otp = String(Math.floor(100000 + Math.random() * 900000));
 
+      const token = authHelper.signToken({ email }, myEnvironment.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+
+      const newUser = await db.user.update({
+        where: { id: existingUser.id },
+        data: {
+          email,
+          username,
+          password: hashedPassword,
+          name: name,
+          role: UserRole.USER,
+          localPassword: true,
+          otp,
+          token,
+        },
+      });
+
+      if (!newUser) {
+        throw new ApiError(500, "while registering the user have some problem");
+      }
+
+      await sendMail({
+        email,
+        subject: "Activate your account",
+        template: "activation.mail.ejs",
+        data: {
+          name,
+          otp,
+        },
+      });
+
+      res.cookie("verifyToken", token, {
+        httpOnly: true,
+        secure: myEnvironment.NODE_ENV === "production",
+        sameSite: "none",
+        maxAge: 1000 * 60 * 60,
+      });
+
+      res
+        .status(204)
+        .json(
+          new ApiResponse(204, {}, "User register successfully verify yourself")
+        );
+    }
+  } else {
     const hashedPassword = await authHelper.signHash(password);
 
     const otp = String(Math.floor(100000 + Math.random() * 900000));
@@ -40,7 +85,7 @@ export const register = asyncHandler(async (req, res) => {
     const token = authHelper.signToken({ email }, myEnvironment.JWT_SECRET, {
       expiresIn: "1h",
     });
-    
+
     const newUser = await db.user.create({
       data: {
         email,
@@ -80,10 +125,57 @@ export const register = asyncHandler(async (req, res) => {
       .json(
         new ApiResponse(204, {}, "User register successfully verify yourself")
       );
-  } else {
-    throw new ApiError(409, "User already exist");
   }
 });
+
+export const verifyAccount = asyncHandler(async (req, res) => {
+  const { otp } = req.body;
+
+  const token =
+    req.headers.authorization?.split(" ")[1] || req.cookies?.verifyToken;
+
+  if (!otp || !token) {
+    throw new ApiError(400, "Please provide all filed");
+  }
+
+  const decoded = authHelper.verifyToken(token, myEnvironment.JWT_SECRET);
+
+  if (!decoded) {
+    throw new ApiError(401, "unauthorized | token not found");
+  }
+
+  const user = await db.user.findUnique({
+    where: {
+      email: decoded.email,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(401, "Invalid token");
+  }
+
+  if (user.isVerified === true) {
+    throw new ApiError(409, "Already verified user");
+  }
+
+  if (user.otp !== otp) {
+    throw new ApiError(400, "Invalid otp");
+  }
+
+  await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      isVerified: true,
+      otp: "",
+      token: "",
+    },
+  });
+
+  res.status(204).json(new ApiResponse(204, {}, "User verified successfully"));
+});
+
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;

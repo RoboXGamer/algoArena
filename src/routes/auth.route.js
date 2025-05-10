@@ -4,6 +4,7 @@ import {
   login,
   logout,
   register,
+  verifyAccount,
 } from "../controllers/auth.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
@@ -11,6 +12,7 @@ export const authRouter = express.Router();
 
 //routes
 authRouter.post("/register", register);
+authRouter.post("/verify-account",verifyAccount);
 authRouter.post("/login", login);
 authRouter.post("/logout", authMiddleware, logout);
 authRouter.get("/check", authMiddleware, check);
