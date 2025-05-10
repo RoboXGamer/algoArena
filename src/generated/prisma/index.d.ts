@@ -331,8 +331,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -1626,10 +1626,15 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     name: string | null
+    username: string | null
     email: string | null
     image: string | null
     role: $Enums.UserRole | null
     password: string | null
+    localPassword: boolean | null
+    token: string | null
+    otp: string | null
+    isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1637,10 +1642,15 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    username: string | null
     email: string | null
     image: string | null
     role: $Enums.UserRole | null
     password: string | null
+    localPassword: boolean | null
+    token: string | null
+    otp: string | null
+    isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1648,10 +1658,15 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     name: number
+    username: number
     email: number
     image: number
     role: number
     password: number
+    localPassword: number
+    token: number
+    otp: number
+    isVerified: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1661,10 +1676,15 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     name?: true
+    username?: true
     email?: true
     image?: true
     role?: true
     password?: true
+    localPassword?: true
+    token?: true
+    otp?: true
+    isVerified?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1672,10 +1692,15 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     name?: true
+    username?: true
     email?: true
     image?: true
     role?: true
     password?: true
+    localPassword?: true
+    token?: true
+    otp?: true
+    isVerified?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1683,10 +1708,15 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     name?: true
+    username?: true
     email?: true
     image?: true
     role?: true
     password?: true
+    localPassword?: true
+    token?: true
+    otp?: true
+    isVerified?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1767,10 +1797,15 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     name: string | null
+    username: string
     email: string
     image: string | null
     role: $Enums.UserRole
-    password: string
+    password: string | null
+    localPassword: boolean
+    token: string | null
+    otp: string | null
+    isVerified: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1795,10 +1830,15 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    username?: boolean
     email?: boolean
     image?: boolean
     role?: boolean
     password?: boolean
+    localPassword?: boolean
+    token?: boolean
+    otp?: boolean
+    isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     problems?: boolean | User$problemsArgs<ExtArgs>
@@ -1811,10 +1851,15 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    username?: boolean
     email?: boolean
     image?: boolean
     role?: boolean
     password?: boolean
+    localPassword?: boolean
+    token?: boolean
+    otp?: boolean
+    isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1822,10 +1867,15 @@ export namespace Prisma {
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    username?: boolean
     email?: boolean
     image?: boolean
     role?: boolean
     password?: boolean
+    localPassword?: boolean
+    token?: boolean
+    otp?: boolean
+    isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1833,15 +1883,20 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     name?: boolean
+    username?: boolean
     email?: boolean
     image?: boolean
     role?: boolean
     password?: boolean
+    localPassword?: boolean
+    token?: boolean
+    otp?: boolean
+    isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
@@ -1863,10 +1918,15 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string | null
+      username: string
       email: string
       image: string | null
       role: $Enums.UserRole
-      password: string
+      password: string | null
+      localPassword: boolean
+      token: string | null
+      otp: string | null
+      isVerified: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2298,10 +2358,15 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
+    readonly username: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
     readonly password: FieldRef<"User", 'String'>
+    readonly localPassword: FieldRef<"User", 'Boolean'>
+    readonly token: FieldRef<"User", 'String'>
+    readonly otp: FieldRef<"User", 'String'>
+    readonly isVerified: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -9715,10 +9780,15 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    username: 'username',
     email: 'email',
     image: 'image',
     role: 'role',
     password: 'password',
+    localPassword: 'localPassword',
+    token: 'token',
+    otp: 'otp',
+    isVerified: 'isVerified',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9894,6 +9964,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -9950,13 +10027,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -9979,10 +10049,15 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
+    username?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     image?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
-    password?: StringFilter<"User"> | string
+    password?: StringNullableFilter<"User"> | string | null
+    localPassword?: BoolFilter<"User"> | boolean
+    token?: StringNullableFilter<"User"> | string | null
+    otp?: StringNullableFilter<"User"> | string | null
+    isVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     problems?: ProblemListRelationFilter
@@ -9994,10 +10069,15 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
+    username?: SortOrder
     email?: SortOrder
     image?: SortOrderInput | SortOrder
     role?: SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
+    localPassword?: SortOrder
+    token?: SortOrderInput | SortOrder
+    otp?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     problems?: ProblemOrderByRelationAggregateInput
@@ -10008,6 +10088,7 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    username?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -10015,22 +10096,31 @@ export namespace Prisma {
     name?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
-    password?: StringFilter<"User"> | string
+    password?: StringNullableFilter<"User"> | string | null
+    localPassword?: BoolFilter<"User"> | boolean
+    token?: StringNullableFilter<"User"> | string | null
+    otp?: StringNullableFilter<"User"> | string | null
+    isVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     problems?: ProblemListRelationFilter
     submission?: SubmissionListRelationFilter
     problemSolved?: ProblemSolvedListRelationFilter
     playlists?: PlaylistListRelationFilter
-  }, "id" | "email">
+  }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
+    username?: SortOrder
     email?: SortOrder
     image?: SortOrderInput | SortOrder
     role?: SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
+    localPassword?: SortOrder
+    token?: SortOrderInput | SortOrder
+    otp?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -10044,10 +10134,15 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    username?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
-    password?: StringWithAggregatesFilter<"User"> | string
+    password?: StringNullableWithAggregatesFilter<"User"> | string | null
+    localPassword?: BoolWithAggregatesFilter<"User"> | boolean
+    token?: StringNullableWithAggregatesFilter<"User"> | string | null
+    otp?: StringNullableWithAggregatesFilter<"User"> | string | null
+    isVerified?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -10554,10 +10649,15 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -10569,10 +10669,15 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -10584,10 +10689,15 @@ export namespace Prisma {
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -10599,10 +10709,15 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
@@ -10614,10 +10729,15 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10625,10 +10745,15 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10636,10 +10761,15 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11224,6 +11354,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -11283,10 +11418,15 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    username?: SortOrder
     email?: SortOrder
     image?: SortOrder
     role?: SortOrder
     password?: SortOrder
+    localPassword?: SortOrder
+    token?: SortOrder
+    otp?: SortOrder
+    isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11294,10 +11434,15 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    username?: SortOrder
     email?: SortOrder
     image?: SortOrder
     role?: SortOrder
     password?: SortOrder
+    localPassword?: SortOrder
+    token?: SortOrder
+    otp?: SortOrder
+    isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11305,10 +11450,15 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    username?: SortOrder
     email?: SortOrder
     image?: SortOrder
     role?: SortOrder
     password?: SortOrder
+    localPassword?: SortOrder
+    token?: SortOrder
+    otp?: SortOrder
+    isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11357,6 +11507,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -11581,11 +11739,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type SubmissionScalarRelationFilter = {
     is?: SubmissionWhereInput
     isNot?: SubmissionWhereInput
@@ -11661,14 +11814,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ProblemSolvedUserIdProblemIdCompoundUniqueInput = {
@@ -11832,6 +11977,10 @@ export namespace Prisma {
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
     set?: $Enums.UserRole
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -12187,10 +12336,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type SubmissionUpdateOneRequiredWithoutTestCasesNestedInput = {
     create?: XOR<SubmissionCreateWithoutTestCasesInput, SubmissionUncheckedCreateWithoutTestCasesInput>
     connectOrCreate?: SubmissionCreateOrConnectWithoutTestCasesInput
@@ -12346,6 +12491,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -12423,6 +12573,14 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -12477,11 +12635,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -12507,14 +12660,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ProblemCreateWithoutUserInput = {
@@ -12794,10 +12939,15 @@ export namespace Prisma {
   export type UserCreateWithoutProblemsInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionCreateNestedManyWithoutUserInput
@@ -12808,10 +12958,15 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutProblemsInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -12930,10 +13085,15 @@ export namespace Prisma {
   export type UserUpdateWithoutProblemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUpdateManyWithoutUserNestedInput
@@ -12944,10 +13104,15 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutProblemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -13017,10 +13182,15 @@ export namespace Prisma {
   export type UserCreateWithoutSubmissionInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -13031,10 +13201,15 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutSubmissionInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -13146,10 +13321,15 @@ export namespace Prisma {
   export type UserUpdateWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -13160,10 +13340,15 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
@@ -13344,10 +13529,15 @@ export namespace Prisma {
   export type UserCreateWithoutProblemSolvedInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -13358,10 +13548,15 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutProblemSolvedInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -13433,10 +13628,15 @@ export namespace Prisma {
   export type UserUpdateWithoutProblemSolvedInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -13447,10 +13647,15 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutProblemSolvedInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
@@ -13536,10 +13741,15 @@ export namespace Prisma {
   export type UserCreateWithoutPlaylistsInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -13550,10 +13760,15 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutPlaylistsInput = {
     id?: string
     name?: string | null
+    username: string
     email: string
     image?: string | null
     role?: $Enums.UserRole
-    password: string
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -13596,10 +13811,15 @@ export namespace Prisma {
   export type UserUpdateWithoutPlaylistsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -13610,10 +13830,15 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutPlaylistsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput

@@ -22,10 +22,15 @@ enum Difficulty {
 model User {
   id            String          @id @default(uuid())
   name          String?
+  username      String          @unique
   email         String          @unique
   image         String?
   role          UserRole        @default(USER)
-  password      String
+  password      String?
+  localPassword Boolean         @default(false)
+  token         String?
+  otp           String?
+  isVerified    Boolean         @default(false)
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   problems      Problem[]

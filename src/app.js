@@ -6,8 +6,8 @@ import { fileURLToPath } from "url";
 import { ErrorMiddleware } from "./utils/error.js";
 
 //extra processing
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export const __filename = fileURLToPath(import.meta.url);
+export const __dirname = path.dirname(__filename);
 
 // server initialization
 const app = express();

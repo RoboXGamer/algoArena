@@ -20,4 +20,4 @@ export class TokenAndHashGenerator {
   }
 }
 
-export const tokenAndHashGenerator = new TokenAndHashGenerator();
+export const authHelper = new TokenAndHashGenerator();
