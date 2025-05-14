@@ -7,7 +7,10 @@ const _environment = {
   DATABASE_URL: process.env.DATABASE_URL,
   JWT_SECRET: process.env.JWT_SECRET,
   JUDGE0_API_URL: process.env.JUDGE0_API_URL,
-  
+  ACCESS_SECRET: process.env.ACCESS_SECRET,
+  REFRESH_SECRET: process.env.REFRESH_SECRET,
+  FRONTEND_URL : process.env.FRONTEND_URL,
+
   SMTP_HOST: process.env.SMTP_HOST,
   SMTP_PORT: process.env.SMTP_PORT,
   SMTP_SERVICE: process.env.SMTP_SERVICE,

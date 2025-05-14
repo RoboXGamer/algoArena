@@ -6,27 +6,38 @@ import { myEnvironment } from "../config/env.js";
 
 // Middleware to check if the user is authenticated
 export const authMiddleware = asyncHandler(async (req, res, next) => {
-  const token = req.cookies.jwt;
+  const access_token =
+    req.headers.authorization?.split(" ")[1] || req.cookies?.access_token;
 
-  if (!token) {
-    throw new ApiError(401, "Unauthorized");
+  if (!access_token) {
+    throw new ApiError(401, "Unauthorized request");
   }
 
   let decodedToken;
 
   try {
-    decodedToken = jwt.verify(token, myEnvironment.JWT_SECRET);
+    decodedToken = jwt.verify(access_token, myEnvironment.ACCESS_SECRET);
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });
   }
+  console.log(access_token);
+  console.log(decodedToken);
 
   const user = await db.user.findUnique({
     where: { id: decodedToken.id },
-    select: { id: true, name: true, email: true, role: true },
   });
 
+  if (user) {
+    delete user.password;
+    delete user.otp;
+  }
+
   if (!user) {
-    throw new ApiError(404, "Unauthorized");
+    throw new ApiError(401, "Unauthorized");
+  }
+
+  if (user.isVerified !== true) {
+    throw new ApiError(404, "User not verified yet");
   }
 
   req.user = user;

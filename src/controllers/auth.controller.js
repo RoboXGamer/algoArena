@@ -1,14 +1,13 @@
 import { myEnvironment } from "../config/env.js";
-import bcrypt from "bcryptjs";
 import { db } from "../database/db.js";
 import { UserRole } from "../generated/prisma/index.js";
-import jwt from "jsonwebtoken";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { authHelper } from "../utils/tokenGenerateAndVerify.js";
 import { sendMail } from "../libs/sendMail.lib.js";
 
+// Register the user
 export const register = asyncHandler(async (req, res) => {
   const { username, email, password, name } = req.body;
 
@@ -128,6 +127,7 @@ export const register = asyncHandler(async (req, res) => {
   }
 });
 
+// Verify the user
 export const verifyAccount = asyncHandler(async (req, res) => {
   const { otp } = req.body;
 
@@ -176,34 +176,65 @@ export const verifyAccount = asyncHandler(async (req, res) => {
   res.status(204).json(new ApiResponse(204, {}, "User verified successfully"));
 });
 
-
+// Login the user
 export const login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { data, password } = req.body;
+
+  if (!data || !password) {
+    throw new ApiError(400, "All filed are required");
+  }
+
+  const isEmail = data.includes("@");
 
   const user = await db.user.findUnique({
-    where: {
-      email,
-    },
+    where: isEmail ? { email: data } : { username: data },
   });
 
   if (!user) {
     throw new ApiError(401, "User not found");
   }
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+  const isPasswordValid = await authHelper.verifyHash(password, user.password);
 
   if (!isPasswordValid) {
     throw new ApiError(401, "Invalid credentials");
   }
 
-  const token = jwt.sign({ id: user.id }, myEnvironment.JWT_SECRET, {
-    expiresIn: "7d",
+  const access_token = authHelper.signToken(
+    { id: user.id },
+    myEnvironment.ACCESS_SECRET,
+    {
+      expiresIn: "3d",
+    }
+  );
+  const refresh_token = authHelper.signToken(
+    { id: user.id },
+    myEnvironment.REFRESH_SECRET,
+    {
+      expiresIn: "7d",
+    }
+  );
+
+  await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      token: refresh_token,
+    },
   });
 
-  res.cookie("jwt", token, {
+  res.cookie("access_token", access_token, {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "none",
+    maxAge: 3 * 24 * 60 * 60 * 1000,
+  });
+
+  res.cookie("refresh_token", refresh_token, {
+    httpOnly: true,
+    secure: myEnvironment.NODE_ENV === "production",
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -221,26 +252,358 @@ export const login = asyncHandler(async (req, res) => {
   );
 });
 
+//forgot password
+export const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    throw new ApiError(400, "Missing email ple provided");
+  }
+
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(404, "User not exist pls create new account");
+  }
+
+  const token = authHelper.signToken(
+    { id: user.id },
+    myEnvironment.JWT_SECRET,
+    {
+      expiresIn: "1h",
+    }
+  );
+  
+  await sendMail({
+    email,
+    subject: "Activate your account",
+    template: "activation.mail.ejs",
+    data: {
+      name: user.name,
+      otp: `${myEnvironment.FRONTEND_URL}${token}`,
+    },
+  });
+
+  return res
+    .status(204)
+    .json(204, {}, "Otp send in your email pls check your mail box");
+});
+
+//Reset password
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { token, password } = req.body;
+
+  if (!token || !password) {
+    throw new ApiError(404, "Pls provide all filed");
+  }
+
+  const decoded = authHelper.verifyToken(token, myEnvironment.JWT_SECRET);
+
+  if (!decoded) {
+    throw new ApiError(401, "unauthorized | token not found");
+  }
+
+  const user = await db.user.findUnique({
+    where: {
+      id: decoded.id,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(401, "Invalid token");
+  }
+
+  const hashedPassword = await authHelper.signHash(password);
+
+  const newUser = await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      localPassword: true,
+      isVerified: true,
+      otp: "",
+      token: "",
+      password: hashedPassword,
+    },
+  });
+
+  if (!newUser) {
+    throw new ApiError(
+      500,
+      "Something went wrong while update the password pls try after some time"
+    );
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        newUser,
+        "Password update successfully pls login now"
+      )
+    );
+});
+
+// logout
 export const logout = asyncHandler(async (req, res) => {
-  res.clearCookie("jwt", {
+  res.clearCookie("access_token", {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "none",
   });
+  res.clearCookie("refresh_token", {
+    httpOnly: true,
+    secure: myEnvironment.NODE_ENV === "production",
+    sameSite: "none",
+  });
+  await db.user.update({
+    where: {
+      id: req.user.id,
+    },
+    data: {
+      token: "",
+    },
+  });
+
   res
     .status(204)
     .json(new ApiResponse(204, {}, "User logged out successfully"));
 });
 
+// refresh token
+export const refreshToken = asyncHandler(async (req, res) => {
+  const refresh_token =
+    req.headers.authorization?.split(" ")[1] || req.cookies?.refreshToken;
+
+  if (!refreshToken) {
+    throw new ApiError(404, "User not found");
+  }
+
+  const decoded = authHelper.verifyToken(
+    refresh_token,
+    myEnvironment.REFRESH_SECRET
+  );
+
+  if (!decoded) {
+    throw new ApiError(400, "Bad request");
+  }
+
+  const user = await db.user.findUnique({
+    where: {
+      id: decoded.id,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(400, "User not found");
+  }
+
+  const access_token = authHelper.signToken(
+    { id: user.id },
+    myEnvironment.ACCESS_SECRET,
+    {
+      expiresIn: "3d",
+    }
+  );
+  const new_refresh_token = authHelper.signToken(
+    { id: user.id },
+    myEnvironment.REFRESH_SECRET,
+    {
+      expiresIn: "7d",
+    }
+  );
+
+  await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      token: new_refresh_token,
+    },
+  });
+
+  res.cookie("access_token", access_token, {
+    httpOnly: true,
+    secure: myEnvironment.NODE_ENV === "production",
+    sameSite: "none",
+    maxAge: 3 * 24 * 60 * 60 * 1000,
+  });
+
+  res.cookie("refresh_token", new_refresh_token, {
+    httpOnly: true,
+    secure: myEnvironment.NODE_ENV === "production",
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "access token generated"));
+});
+
+// social auth
+export const socialAuth = asyncHandler(async (req, res) => {
+  const { email, name, avatar } = req.body;
+
+  if (!email || !name) {
+    throw new ApiError(404, "Pls provide the all filed");
+  }
+
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  console.log(user)
+
+  if (!user || user.isVerified === false) {
+    console.log("helle")
+    // created new user
+    const newUser = await db.user.create({
+      data: {
+        email,
+        name,
+        image: avatar || "",
+        isVerified: true,
+        localPassword: false,
+        role: UserRole.USER,
+        username: email.split("@")[0],
+      },
+    });
+
+    console.log("hello")
+    const access_token = authHelper.signToken(
+      { id: newUser.id },
+      myEnvironment.ACCESS_SECRET,
+      {
+        expiresIn: "3d",
+      }
+    );
+    const refresh_token = authHelper.signToken(
+      { id: newUser.id },
+      myEnvironment.REFRESH_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    console.log(newUser);
+    await db.user.update({
+      where: {
+        id: newUser.id,
+      },
+      data: {
+        token: refresh_token,
+      },
+    });
+
+    res.cookie("access_token", access_token, {
+      httpOnly: true,
+      secure: myEnvironment.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 3 * 24 * 60 * 60 * 1000,
+    });
+
+    res.cookie("refresh_token", refresh_token, {
+      httpOnly: true,
+      secure: myEnvironment.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          id: newUser.id,
+          email: newUser.email,
+          name: newUser.name,
+          role: newUser.role,
+        },
+        "User logged in successfully"
+      )
+    );
+  } else {
+    console.log("else")
+    const access_token = authHelper.signToken(
+      { id: user.id },
+      myEnvironment.ACCESS_SECRET,
+      {
+        expiresIn: "3d",
+      }
+    );
+    const refresh_token = authHelper.signToken(
+      { id: user.id },
+      myEnvironment.REFRESH_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    await db.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        token: refresh_token,
+      },
+    });
+
+    res.cookie("access_token", access_token, {
+      httpOnly: true,
+      secure: myEnvironment.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 3 * 24 * 60 * 60 * 1000,
+    });
+
+    res.cookie("refresh_token", refresh_token, {
+      httpOnly: true,
+      secure: myEnvironment.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        },
+        "User logged in successfully"
+      )
+    );
+  }
+});
+
+// get me
 export const check = asyncHandler(async (req, res) => {
   res.status(200).json(
     new ApiResponse(
       200,
       {
         id: req.user.id,
-        email: req.user.email,
         name: req.user.name,
+        username: req.user.name,
+        email: req.user.email,
+        image: req.user.image,
         role: req.user.role,
+        localPassword: req.user.localPassword,
+        isVerified: req.user.isVerified,
+        createdAt: req.user.createdAt,
+        updatedAt: req.user.updatedAt,
+        problems: req.user.problems,
+        submission: req.user.submission,
+        problemSolved: req.user.problemSolved,
+        playlists: req.user.playlists,
       },
       "User is authenticated"
     )
