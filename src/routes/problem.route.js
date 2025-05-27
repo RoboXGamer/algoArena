@@ -4,6 +4,7 @@ import {
   createProblem,
   deleteProblem,
   getAllProblems,
+  getAllProblemsCreatedByUser,
   getAllProblemsSolvedByUser,
   getProblemById,
   updateProblem,
@@ -39,4 +40,10 @@ problemRouter.get(
   "/get-solved-problems",
   authMiddleware,
   getAllProblemsSolvedByUser
+);
+
+problemRouter.get(
+  "/problem-created-by-user",
+  authMiddleware,
+  getAllProblemsCreatedByUser
 );

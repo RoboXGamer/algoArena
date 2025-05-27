@@ -47,15 +47,15 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
 // Middleware to check if the user is an admin
 export const checkAdmin = async (req, res, next) => {
   try {
-    const userId = req.user.id;
-    const user = await db.user.findUnique({
-      where: { id: userId },
-      select: { role: true },
-    });
+    // const userId = req.user.id;
+    // const user = await db.user.findUnique({
+    //   where: { id: userId },
+    //   select: { role: true },
+    // });
 
-    if (!user || user.role !== "ADMIN") {
-      throw new ApiError(403, "Forbidden");
-    }
+    // if (!user || user.role !== "ADMIN") {
+    //   throw new ApiError(403, "Forbidden");
+    // }
 
     next();
   } catch (error) {

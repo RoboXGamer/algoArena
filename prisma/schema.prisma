@@ -36,11 +36,11 @@ model User {
   problems      Problem[]
   submission    Submission[]
   problemSolved ProblemSolved[]
-  playlists     Playlist[]
+  sheets        Sheet[]
 }
 
 model Problem {
-  id                 String              @id @default(uuid())
+  id                 String           @id @default(uuid())
   title              String
   description        String
   difficulty         Difficulty
@@ -50,15 +50,16 @@ model Problem {
   constraints        String
   hints              String?
   editorial          String?
-  testcases          Json
+  privateTestcases   Json             @default("[]")
+  publicTestcases    Json             @default("[]")
   codeSnippets       Json
   referenceSolutions Json
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   submission         Submission[]
   solvedBy           ProblemSolved[]
-  problemsPlaylists  ProblemInPlaylist[]
+  problemsSheets     ProblemInSheet[]
 }
 
 model Submission {
@@ -119,7 +120,7 @@ model ProblemSolved {
   @@unique([userId, problemId])
 }
 
-model Playlist {
+model Sheet {
   id          String  @id @default(uuid())
   name        String
   description String?
@@ -128,23 +129,23 @@ model Playlist {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  problems ProblemInPlaylist[]
+  problems ProblemInSheet[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([name, userId])
 }
 
-model ProblemInPlaylist {
-  id         String @id @default(uuid())
-  playlistId String
-  problemId  String
+model ProblemInSheet {
+  id        String @id @default(uuid())
+  sheetId   String
+  problemId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-  problem  Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  sheet   Sheet   @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
-  @@unique([playlistId, problemId])
+  @@unique([sheetId, problemId])
 }

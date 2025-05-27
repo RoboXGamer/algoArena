@@ -23,9 +23,9 @@ export const createProblem = asyncHandler(async (req, res) => {
   } = req.body;
 
   // going to check the user role once again
-  if (req.user.role !== "ADMIN") {
-    throw new ApiError(403, "Forbidden");
-  }
+  // if (req.user.role !== "ADMIN") {
+  //   throw new ApiError(403, "Forbidden");
+  // }
 
   try {
     // loop through each ref solution for different solution
@@ -49,7 +49,7 @@ export const createProblem = asyncHandler(async (req, res) => {
       const tokens = submissionsResults.map((res) => res.token);
 
       const results = await pollBatchResults(tokens);
-      console.log("results : ", results);
+      // console.log("results : ", results);
 
       for (let i = 0; i < results.length; i++) {
         const result = results[i];
@@ -61,6 +61,16 @@ export const createProblem = asyncHandler(async (req, res) => {
         }
       }
     }
+    // Get all public testcases
+    const allPublic = testcases.filter((tc) => !tc.isPrivate);
+
+    // Take first 3 public testcases
+    const publicTestcases = allPublic.slice(0, 3);
+
+    // Store remaining public testcases (after the first 3) + all private testcases
+    const remainingPublic = allPublic.slice(3);
+    const allPrivate = testcases.filter((tc) => tc.isPrivate);
+    const privateTestcases = [...remainingPublic, ...allPrivate];
 
     const newProblem = await db.problem.create({
       data: {
@@ -70,23 +80,69 @@ export const createProblem = asyncHandler(async (req, res) => {
         tags,
         examples,
         constraints,
-        testcases,
+        privateTestcases: privateTestcases,
+        publicTestcases: publicTestcases,
         codeSnippets,
         referenceSolutions,
         userId: req.user.id,
       },
     });
 
+    const createdProblem = await db.problem.findUnique({
+      where: {
+        id: newProblem.id,
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        difficulty: true,
+        tags: true,
+        examples: true,
+        constraints: true,
+        publicTestcases: true, // ✅ only include public
+        codeSnippets: true,
+        referenceSolutions: true,
+        userId: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
     return res
       .status(201)
-      .json(new ApiResponse(201, newProblem, "Problem created successfully"));
+      .json(
+        new ApiResponse(201, createProblem, "Problem created successfully")
+      );
   } catch (error) {
     throw new ApiError(400, error.message);
   }
 });
 
 export const getAllProblems = asyncHandler(async (req, res) => {
-  const problems = await db.problem.findMany();
+  const problems = await db.problem.findMany({
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      difficulty: true,
+      tags: true,
+      userId: true,
+      examples: true,
+      constraints: true,
+      hints: true,
+      editorial: true,
+      publicTestcases: true,
+      codeSnippets: true,
+      referenceSolutions: true,
+      createdAt: true,
+      updatedAt: true,
+      user: true,
+      submission: true,
+      solvedBy: true,
+      problemsSheets: true,
+    },
+  });
 
   if (!problems) {
     throw new ApiError(404, "No problems found");
@@ -103,6 +159,27 @@ export const getProblemById = asyncHandler(async (req, res) => {
   const problem = await db.problem.findUnique({
     where: {
       id,
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      difficulty: true,
+      tags: true,
+      userId: true,
+      examples: true,
+      constraints: true,
+      hints: true,
+      editorial: true,
+      publicTestcases: true,
+      codeSnippets: true,
+      referenceSolutions: true,
+      createdAt: true,
+      updatedAt: true,
+      user: true,
+      submission: true,
+      solvedBy: true,
+      problemsSheets: true,
     },
   });
 
@@ -183,6 +260,17 @@ export const updateProblem = asyncHandler(async (req, res) => {
     throw new ApiError(400, `Testcase failed for language ${language}`);
   }
 
+  // Get all public testcases
+  const allPublic = testcases.filter((tc) => !tc.isPrivate);
+
+  // Take first 3 public testcases
+  const publicTestcases = allPublic.slice(0, 3);
+
+  // Store remaining public testcases (after the first 3) + all private testcases
+  const remainingPublic = allPublic.slice(3);
+  const allPrivate = testcases.filter((tc) => tc.isPrivate);
+  const privateTestcases = [...remainingPublic, ...allPrivate];
+
   // update the problem
   const updatedProblem = await db.problem.update({
     where: {
@@ -197,7 +285,8 @@ export const updateProblem = asyncHandler(async (req, res) => {
       constraints: constraints || problem.constraints,
       hints: hints || problem.hints,
       editorial: editorial || problem.editorial,
-      testcases: testcases || problem.testcases,
+      privateTestcases: privateTestcases || problem.privateTestcases,
+      publicTestcases: publicTestcases || problem.publicTestcases,
       codeSnippets: codeSnippets || problem.codeSnippets,
       referenceSolutions: referenceSolutions || problem.referenceSolutions,
     },
@@ -249,12 +338,58 @@ export const getAllProblemsSolvedByUser = asyncHandler(async (req, res) => {
         },
       },
     },
-    include: {
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      difficulty: true,
+      tags: true,
+      examples: true,
+      constraints: true,
+      publicTestcases: true, // ✅
+      codeSnippets: true,
+      referenceSolutions: true,
+      userId: true,
+      createdAt: true,
+      updatedAt: true,
       solvedBy: {
         where: {
           userId: req.user.id,
         },
       },
+    },
+  });
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, problems, "Problems fetched successfully"));
+});
+
+export const getAllProblemsCreatedByUser = asyncHandler(async (req, res) => {
+  const problems = await db.problem.findMany({
+    where: {
+      userId: req.user.id,
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      difficulty: true,
+      tags: true,
+      userId:true,
+      examples: true,
+      constraints: true,
+      hints:true,
+      editorial:true,
+      publicTestcases: true, 
+      codeSnippets: true,
+      referenceSolutions: true,
+      createdAt: true,
+      updatedAt: true,
+      user:true,
+      submission: true,
+      solvedBy: true,
+      problemsSheets: true,
     },
   });
 

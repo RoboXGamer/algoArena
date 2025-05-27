@@ -66,14 +66,14 @@ export const register = asyncHandler(async (req, res) => {
       res.cookie("verifyToken", token, {
         httpOnly: true,
         secure: myEnvironment.NODE_ENV === "production",
-        sameSite: "none",
+        sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 1000 * 60 * 60,
       });
 
       res
-        .status(204)
+        .status(201)
         .json(
-          new ApiResponse(204, {}, "User register successfully verify yourself")
+          new ApiResponse(201, {}, "User register successfully verify yourself")
         );
     }
   } else {
@@ -115,7 +115,7 @@ export const register = asyncHandler(async (req, res) => {
     res.cookie("verifyToken", token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 1000 * 60 * 60,
     });
 
@@ -173,7 +173,7 @@ export const verifyAccount = asyncHandler(async (req, res) => {
     },
   });
 
-  res.status(204).json(new ApiResponse(204, {}, "User verified successfully"));
+  res.status(201).json(new ApiResponse(201, {}, "User verified successfully"));
 });
 
 // Login the user
@@ -227,14 +227,15 @@ export const login = asyncHandler(async (req, res) => {
   res.cookie("access_token", access_token, {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite: "none",
+    // sameSite: "none", : this work on only production
+    sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 3 * 24 * 60 * 60 * 1000,
   });
 
   res.cookie("refresh_token", refresh_token, {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite: "none",
+    sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -431,14 +432,14 @@ export const refreshToken = asyncHandler(async (req, res) => {
   res.cookie("access_token", access_token, {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite: "none",
+    sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 3 * 24 * 60 * 60 * 1000,
   });
 
   res.cookie("refresh_token", new_refresh_token, {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite: "none",
+    sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -460,10 +461,10 @@ export const socialAuth = asyncHandler(async (req, res) => {
       email,
     },
   });
-  console.log(user)
+  // console.log(user)
 
   if (!user || user.isVerified === false) {
-    console.log("helle")
+    // console.log("helle")
     // created new user
     const newUser = await db.user.create({
       data: {
@@ -477,7 +478,7 @@ export const socialAuth = asyncHandler(async (req, res) => {
       },
     });
 
-    console.log("hello")
+    // console.log("hello")
     const access_token = authHelper.signToken(
       { id: newUser.id },
       myEnvironment.ACCESS_SECRET,
@@ -493,7 +494,7 @@ export const socialAuth = asyncHandler(async (req, res) => {
       }
     );
 
-    console.log(newUser);
+    // console.log(newUser);
     await db.user.update({
       where: {
         id: newUser.id,
@@ -506,14 +507,14 @@ export const socialAuth = asyncHandler(async (req, res) => {
     res.cookie("access_token", access_token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
     res.cookie("refresh_token", refresh_token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -530,7 +531,7 @@ export const socialAuth = asyncHandler(async (req, res) => {
       )
     );
   } else {
-    console.log("else")
+    // console.log("else")
     const access_token = authHelper.signToken(
       { id: user.id },
       myEnvironment.ACCESS_SECRET,
@@ -558,14 +559,14 @@ export const socialAuth = asyncHandler(async (req, res) => {
     res.cookie("access_token", access_token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite: "none",
+     sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
     res.cookie("refresh_token", refresh_token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 

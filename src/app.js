@@ -17,7 +17,9 @@ import { authRouter } from "./routes/auth.route.js";
 import { problemRouter } from "./routes/problem.route.js";
 import { executeRouter } from "./routes/executeCode.route.js";
 import { submissionRouter } from "./routes/submission.route.js";
-import { playlistRouter } from "./routes/playlist.route.js";
+import { sheetRouter } from "./routes/sheet.route.js";
+import { userRouter } from "./routes/user.route.js";
+import { formatRouter } from "./routes/format.route.js";
 
 
 //middlewares
@@ -42,7 +44,9 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/problems", problemRouter);
 app.use("/api/v1/execute-code", executeRouter);
 app.use("/api/v1/submission", submissionRouter);
-app.use("/api/v1/playlist", playlistRouter);
+app.use("/api/v1/sheets", sheetRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/format",formatRouter);
 
 // health check route
 app.get("/", (req, res) => {
