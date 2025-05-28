@@ -7620,6 +7620,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     userId: string | null
+    visibility: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7629,6 +7630,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     userId: string | null
+    visibility: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7638,6 +7640,7 @@ export namespace Prisma {
     name: number
     description: number
     userId: number
+    visibility: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7649,6 +7652,7 @@ export namespace Prisma {
     name?: true
     description?: true
     userId?: true
+    visibility?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7658,6 +7662,7 @@ export namespace Prisma {
     name?: true
     description?: true
     userId?: true
+    visibility?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7667,6 +7672,7 @@ export namespace Prisma {
     name?: true
     description?: true
     userId?: true
+    visibility?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7749,6 +7755,7 @@ export namespace Prisma {
     name: string
     description: string | null
     userId: string
+    visibility: string
     createdAt: Date
     updatedAt: Date
     _count: SheetCountAggregateOutputType | null
@@ -7775,6 +7782,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     userId?: boolean
+    visibility?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     problems?: boolean | Sheet$problemsArgs<ExtArgs>
@@ -7787,6 +7795,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     userId?: boolean
+    visibility?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7797,6 +7806,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     userId?: boolean
+    visibility?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7807,11 +7817,12 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     userId?: boolean
+    visibility?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SheetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["sheet"]>
+  export type SheetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "userId" | "visibility" | "createdAt" | "updatedAt", ExtArgs["result"]["sheet"]>
   export type SheetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | Sheet$problemsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7835,6 +7846,7 @@ export namespace Prisma {
       name: string
       description: string | null
       userId: string
+      visibility: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sheet"]>
@@ -8266,6 +8278,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Sheet", 'String'>
     readonly description: FieldRef<"Sheet", 'String'>
     readonly userId: FieldRef<"Sheet", 'String'>
+    readonly visibility: FieldRef<"Sheet", 'String'>
     readonly createdAt: FieldRef<"Sheet", 'DateTime'>
     readonly updatedAt: FieldRef<"Sheet", 'DateTime'>
   }
@@ -9882,6 +9895,7 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     userId: 'userId',
+    visibility: 'visibility',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10546,6 +10560,7 @@ export namespace Prisma {
     name?: StringFilter<"Sheet"> | string
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
+    visibility?: StringFilter<"Sheet"> | string
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
     updatedAt?: DateTimeFilter<"Sheet"> | Date | string
     problems?: ProblemInSheetListRelationFilter
@@ -10557,6 +10572,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     userId?: SortOrder
+    visibility?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     problems?: ProblemInSheetOrderByRelationAggregateInput
@@ -10572,6 +10588,7 @@ export namespace Prisma {
     name?: StringFilter<"Sheet"> | string
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
+    visibility?: StringFilter<"Sheet"> | string
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
     updatedAt?: DateTimeFilter<"Sheet"> | Date | string
     problems?: ProblemInSheetListRelationFilter
@@ -10583,6 +10600,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     userId?: SortOrder
+    visibility?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SheetCountOrderByAggregateInput
@@ -10598,6 +10616,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Sheet"> | string
     description?: StringNullableWithAggregatesFilter<"Sheet"> | string | null
     userId?: StringWithAggregatesFilter<"Sheet"> | string
+    visibility?: StringWithAggregatesFilter<"Sheet"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Sheet"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Sheet"> | Date | string
   }
@@ -11223,6 +11242,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    visibility?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemInSheetCreateNestedManyWithoutSheetInput
@@ -11234,6 +11254,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     userId: string
+    visibility?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemInSheetUncheckedCreateNestedManyWithoutSheetInput
@@ -11243,6 +11264,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemInSheetUpdateManyWithoutSheetNestedInput
@@ -11254,6 +11276,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemInSheetUncheckedUpdateManyWithoutSheetNestedInput
@@ -11264,6 +11287,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     userId: string
+    visibility?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11272,6 +11296,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11281,6 +11306,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11878,6 +11904,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     userId?: SortOrder
+    visibility?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11887,6 +11914,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     userId?: SortOrder
+    visibility?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11896,6 +11924,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     userId?: SortOrder
+    visibility?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12809,6 +12838,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    visibility?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemInSheetCreateNestedManyWithoutSheetInput
@@ -12818,6 +12848,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    visibility?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemInSheetUncheckedCreateNestedManyWithoutSheetInput
@@ -12958,6 +12989,7 @@ export namespace Prisma {
     name?: StringFilter<"Sheet"> | string
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
+    visibility?: StringFilter<"Sheet"> | string
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
     updatedAt?: DateTimeFilter<"Sheet"> | Date | string
   }
@@ -13884,6 +13916,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    visibility?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSheetsInput
@@ -13894,6 +13927,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     userId: string
+    visibility?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13965,6 +13999,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSheetsNestedInput
@@ -13975,6 +14010,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14077,6 +14113,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    visibility?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14216,6 +14253,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemInSheetUpdateManyWithoutSheetNestedInput
@@ -14225,6 +14263,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemInSheetUncheckedUpdateManyWithoutSheetNestedInput
@@ -14234,6 +14273,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -201,6 +201,7 @@ exports.Prisma.SheetScalarFieldEnum = {
   name: 'name',
   description: 'description',
   userId: 'userId',
+  visibility: 'visibility',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

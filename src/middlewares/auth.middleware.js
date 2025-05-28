@@ -20,8 +20,7 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });
   }
-  console.log(access_token);
-  console.log(decodedToken);
+ 
 
   const user = await db.user.findUnique({
     where: { id: decodedToken.id },

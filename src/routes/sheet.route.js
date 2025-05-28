@@ -1,7 +1,7 @@
 import express from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import {
-  addProblemToSheet,
+  addProblemsToSheet,
   createSheet,
   deleteSheet,
   getAllSheetDetails,
@@ -23,8 +23,8 @@ sheetRouter.get("/sheet-created-by-user",authMiddleware,getCreatedByUser);
 
 sheetRouter.get("/:sheetId", authMiddleware, getSheetDetails);
 
-sheetRouter.post("/:sheetId/add-problems",authMiddleware ,addProblemToSheet);
+sheetRouter.post("/:sheetId/add-problems",authMiddleware ,addProblemsToSheet);
 
 sheetRouter.delete("/:sheetId", authMiddleware, deleteSheet);
 
-sheetRouter.delete("/:sheetId/remove-problem", authMiddleware, removeProblemFromSheet);
+sheetRouter.post("/:sheetId/remove-problem", authMiddleware, removeProblemFromSheet);

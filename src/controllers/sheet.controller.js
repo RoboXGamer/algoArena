@@ -5,7 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const createSheet = asyncHandler(async (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, visibility } = req.body;
 
   const userId = req.user.id;
 
@@ -18,6 +18,7 @@ export const createSheet = asyncHandler(async (req, res) => {
       name,
       description,
       userId,
+      visibility,
     },
   });
 
@@ -34,11 +35,34 @@ export const getAllSheetDetails = asyncHandler(async (req, res) => {
   const sheets = await db.sheet.findMany({
     where: {
       userId: req.user.id,
+      visibility: "public",
     },
     include: {
       problems: {
         include: {
-          problem: true,
+          problem: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              difficulty: true,
+              tags: true,
+              userId: true,
+              examples: true,
+              constraints: true,
+              hints: true,
+              editorial: true,
+              publicTestcases: true,
+              codeSnippets: true,
+              referenceSolutions: true,
+              createdAt: true,
+              updatedAt: true,
+              user: true,
+              submission: true,
+              solvedBy: true,
+              problemsSheets: true,
+            },
+          },
         },
       },
     },
@@ -57,7 +81,29 @@ export const getCreatedByUser = asyncHandler(async (req, res) => {
     include: {
       problems: {
         include: {
-          problem: true,
+          problem: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              difficulty: true,
+              tags: true,
+              userId: true,
+              examples: true,
+              constraints: true,
+              hints: true,
+              editorial: true,
+              publicTestcases: true,
+              codeSnippets: true,
+              referenceSolutions: true,
+              createdAt: true,
+              updatedAt: true,
+              user: true,
+              submission: true,
+              solvedBy: true,
+              problemsSheets: true,
+            },
+          },
         },
       },
     },
@@ -70,6 +116,9 @@ export const getCreatedByUser = asyncHandler(async (req, res) => {
 
 export const getTopThreeSheet = asyncHandler(async (req, res) => {
   const sheets = await db.sheet.findMany({
+    where: {
+      visibility: "public",
+    },
     orderBy: {
       createdAt: "desc", // ✅ newest first
     },
@@ -77,7 +126,29 @@ export const getTopThreeSheet = asyncHandler(async (req, res) => {
     include: {
       problems: {
         include: {
-          problem: true,
+          problem: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              difficulty: true,
+              tags: true,
+              userId: true,
+              examples: true,
+              constraints: true,
+              hints: true,
+              editorial: true,
+              publicTestcases: true,
+              codeSnippets: true,
+              referenceSolutions: true,
+              createdAt: true,
+              updatedAt: true,
+              user: true,
+              submission: true,
+              solvedBy: true,
+              problemsSheets: true,
+            },
+          },
         },
       },
     },
@@ -103,7 +174,29 @@ export const getSheetDetails = asyncHandler(async (req, res) => {
     include: {
       problems: {
         include: {
-          problem: true,
+          problem: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              difficulty: true,
+              tags: true,
+              userId: true,
+              examples: true,
+              constraints: true,
+              hints: true,
+              editorial: true,
+              publicTestcases: true,
+              codeSnippets: true,
+              referenceSolutions: true,
+              createdAt: true,
+              updatedAt: true,
+              user: true,
+              submission: true,
+              solvedBy: true,
+              problemsSheets: true,
+            },
+          },
         },
       },
     },
@@ -118,9 +211,10 @@ export const getSheetDetails = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, sheet, "sheet fetched successfully"));
 });
 
-export const addProblemToSheet = asyncHandler(async (req, res) => {
+export const addProblemsToSheet = asyncHandler(async (req, res) => {
   const { sheetId } = req.params;
   const { problemIds } = req.body;
+  console.log(problemIds);
 
   if (!sheetId) {
     throw new ApiError(404, "Pls provide the sheet id");
@@ -190,6 +284,8 @@ export const deleteSheet = asyncHandler(async (req, res) => {
 export const removeProblemFromSheet = asyncHandler(async (req, res) => {
   const { sheetId } = req.params;
   const { problemIds } = req.body;
+  console.log(problemIds);
+  console.log("hel");
 
   if (!sheetId) {
     throw new ApiError(404, "Pls provide the sheet id");
