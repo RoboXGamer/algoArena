@@ -2,7 +2,7 @@ import express from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
-import { pollBatchResults, submitBatch } from "../libs/judge0.lib.js";
+import { pollBatchResults, submitBatch } from "../libs/rapidApiJudge0.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const playgroundRouter = express.Router();
