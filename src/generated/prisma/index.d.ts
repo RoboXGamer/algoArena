@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model YearlyGrid
+ * 
+ */
+export type YearlyGrid = $Result.DefaultSelection<Prisma.$YearlyGridPayload>
+/**
  * Model User
  * 
  */
@@ -86,8 +91,8 @@ export const Difficulty: typeof $Enums.Difficulty
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more YearlyGrids
+ * const yearlyGrids = await prisma.yearlyGrid.findMany()
  * ```
  *
  *
@@ -107,8 +112,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more YearlyGrids
+   * const yearlyGrids = await prisma.yearlyGrid.findMany()
    * ```
    *
    *
@@ -205,6 +210,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.yearlyGrid`: Exposes CRUD operations for the **YearlyGrid** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more YearlyGrids
+    * const yearlyGrids = await prisma.yearlyGrid.findMany()
+    * ```
+    */
+  get yearlyGrid(): Prisma.YearlyGridDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -713,6 +728,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    YearlyGrid: 'YearlyGrid',
     User: 'User',
     Problem: 'Problem',
     Submission: 'Submission',
@@ -738,10 +754,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "problem" | "submission" | "testCaseResult" | "problemSolved" | "sheet" | "problemInSheet"
+      modelProps: "yearlyGrid" | "user" | "problem" | "submission" | "testCaseResult" | "problemSolved" | "sheet" | "problemInSheet"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      YearlyGrid: {
+        payload: Prisma.$YearlyGridPayload<ExtArgs>
+        fields: Prisma.YearlyGridFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.YearlyGridFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.YearlyGridFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>
+          }
+          findFirst: {
+            args: Prisma.YearlyGridFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.YearlyGridFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>
+          }
+          findMany: {
+            args: Prisma.YearlyGridFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>[]
+          }
+          create: {
+            args: Prisma.YearlyGridCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>
+          }
+          createMany: {
+            args: Prisma.YearlyGridCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.YearlyGridCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>[]
+          }
+          delete: {
+            args: Prisma.YearlyGridDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>
+          }
+          update: {
+            args: Prisma.YearlyGridUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>
+          }
+          deleteMany: {
+            args: Prisma.YearlyGridDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.YearlyGridUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.YearlyGridUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>[]
+          }
+          upsert: {
+            args: Prisma.YearlyGridUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyGridPayload>
+          }
+          aggregate: {
+            args: Prisma.YearlyGridAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateYearlyGrid>
+          }
+          groupBy: {
+            args: Prisma.YearlyGridGroupByArgs<ExtArgs>
+            result: $Utils.Optional<YearlyGridGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.YearlyGridCountArgs<ExtArgs>
+            result: $Utils.Optional<YearlyGridCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -1344,6 +1434,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    yearlyGrid?: YearlyGridOmit
     user?: UserOmit
     problem?: ProblemOmit
     submission?: SubmissionOmit
@@ -1449,6 +1540,7 @@ export namespace Prisma {
     submission: number
     problemSolved: number
     sheets: number
+    yearlyGrid: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1456,6 +1548,7 @@ export namespace Prisma {
     submission?: boolean | UserCountOutputTypeCountSubmissionArgs
     problemSolved?: boolean | UserCountOutputTypeCountProblemSolvedArgs
     sheets?: boolean | UserCountOutputTypeCountSheetsArgs
+    yearlyGrid?: boolean | UserCountOutputTypeCountYearlyGridArgs
   }
 
   // Custom InputTypes
@@ -1495,6 +1588,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSheetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SheetWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountYearlyGridArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: YearlyGridWhereInput
   }
 
 
@@ -1614,13 +1714,1057 @@ export namespace Prisma {
    */
 
   /**
+   * Model YearlyGrid
+   */
+
+  export type AggregateYearlyGrid = {
+    _count: YearlyGridCountAggregateOutputType | null
+    _min: YearlyGridMinAggregateOutputType | null
+    _max: YearlyGridMaxAggregateOutputType | null
+  }
+
+  export type YearlyGridMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+  }
+
+  export type YearlyGridMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+  }
+
+  export type YearlyGridCountAggregateOutputType = {
+    id: number
+    userId: number
+    date: number
+    _all: number
+  }
+
+
+  export type YearlyGridMinAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+  }
+
+  export type YearlyGridMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+  }
+
+  export type YearlyGridCountAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    _all?: true
+  }
+
+  export type YearlyGridAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which YearlyGrid to aggregate.
+     */
+    where?: YearlyGridWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyGrids to fetch.
+     */
+    orderBy?: YearlyGridOrderByWithRelationInput | YearlyGridOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: YearlyGridWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyGrids from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyGrids.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned YearlyGrids
+    **/
+    _count?: true | YearlyGridCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: YearlyGridMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: YearlyGridMaxAggregateInputType
+  }
+
+  export type GetYearlyGridAggregateType<T extends YearlyGridAggregateArgs> = {
+        [P in keyof T & keyof AggregateYearlyGrid]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateYearlyGrid[P]>
+      : GetScalarType<T[P], AggregateYearlyGrid[P]>
+  }
+
+
+
+
+  export type YearlyGridGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: YearlyGridWhereInput
+    orderBy?: YearlyGridOrderByWithAggregationInput | YearlyGridOrderByWithAggregationInput[]
+    by: YearlyGridScalarFieldEnum[] | YearlyGridScalarFieldEnum
+    having?: YearlyGridScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: YearlyGridCountAggregateInputType | true
+    _min?: YearlyGridMinAggregateInputType
+    _max?: YearlyGridMaxAggregateInputType
+  }
+
+  export type YearlyGridGroupByOutputType = {
+    id: string
+    userId: string
+    date: Date
+    _count: YearlyGridCountAggregateOutputType | null
+    _min: YearlyGridMinAggregateOutputType | null
+    _max: YearlyGridMaxAggregateOutputType | null
+  }
+
+  type GetYearlyGridGroupByPayload<T extends YearlyGridGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<YearlyGridGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof YearlyGridGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], YearlyGridGroupByOutputType[P]>
+            : GetScalarType<T[P], YearlyGridGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type YearlyGridSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["yearlyGrid"]>
+
+  export type YearlyGridSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["yearlyGrid"]>
+
+  export type YearlyGridSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["yearlyGrid"]>
+
+  export type YearlyGridSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+  }
+
+  export type YearlyGridOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date", ExtArgs["result"]["yearlyGrid"]>
+  export type YearlyGridInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type YearlyGridIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type YearlyGridIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $YearlyGridPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "YearlyGrid"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      date: Date
+    }, ExtArgs["result"]["yearlyGrid"]>
+    composites: {}
+  }
+
+  type YearlyGridGetPayload<S extends boolean | null | undefined | YearlyGridDefaultArgs> = $Result.GetResult<Prisma.$YearlyGridPayload, S>
+
+  type YearlyGridCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<YearlyGridFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: YearlyGridCountAggregateInputType | true
+    }
+
+  export interface YearlyGridDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['YearlyGrid'], meta: { name: 'YearlyGrid' } }
+    /**
+     * Find zero or one YearlyGrid that matches the filter.
+     * @param {YearlyGridFindUniqueArgs} args - Arguments to find a YearlyGrid
+     * @example
+     * // Get one YearlyGrid
+     * const yearlyGrid = await prisma.yearlyGrid.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends YearlyGridFindUniqueArgs>(args: SelectSubset<T, YearlyGridFindUniqueArgs<ExtArgs>>): Prisma__YearlyGridClient<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one YearlyGrid that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {YearlyGridFindUniqueOrThrowArgs} args - Arguments to find a YearlyGrid
+     * @example
+     * // Get one YearlyGrid
+     * const yearlyGrid = await prisma.yearlyGrid.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends YearlyGridFindUniqueOrThrowArgs>(args: SelectSubset<T, YearlyGridFindUniqueOrThrowArgs<ExtArgs>>): Prisma__YearlyGridClient<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first YearlyGrid that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyGridFindFirstArgs} args - Arguments to find a YearlyGrid
+     * @example
+     * // Get one YearlyGrid
+     * const yearlyGrid = await prisma.yearlyGrid.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends YearlyGridFindFirstArgs>(args?: SelectSubset<T, YearlyGridFindFirstArgs<ExtArgs>>): Prisma__YearlyGridClient<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first YearlyGrid that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyGridFindFirstOrThrowArgs} args - Arguments to find a YearlyGrid
+     * @example
+     * // Get one YearlyGrid
+     * const yearlyGrid = await prisma.yearlyGrid.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends YearlyGridFindFirstOrThrowArgs>(args?: SelectSubset<T, YearlyGridFindFirstOrThrowArgs<ExtArgs>>): Prisma__YearlyGridClient<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more YearlyGrids that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyGridFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all YearlyGrids
+     * const yearlyGrids = await prisma.yearlyGrid.findMany()
+     * 
+     * // Get first 10 YearlyGrids
+     * const yearlyGrids = await prisma.yearlyGrid.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const yearlyGridWithIdOnly = await prisma.yearlyGrid.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends YearlyGridFindManyArgs>(args?: SelectSubset<T, YearlyGridFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a YearlyGrid.
+     * @param {YearlyGridCreateArgs} args - Arguments to create a YearlyGrid.
+     * @example
+     * // Create one YearlyGrid
+     * const YearlyGrid = await prisma.yearlyGrid.create({
+     *   data: {
+     *     // ... data to create a YearlyGrid
+     *   }
+     * })
+     * 
+     */
+    create<T extends YearlyGridCreateArgs>(args: SelectSubset<T, YearlyGridCreateArgs<ExtArgs>>): Prisma__YearlyGridClient<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many YearlyGrids.
+     * @param {YearlyGridCreateManyArgs} args - Arguments to create many YearlyGrids.
+     * @example
+     * // Create many YearlyGrids
+     * const yearlyGrid = await prisma.yearlyGrid.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends YearlyGridCreateManyArgs>(args?: SelectSubset<T, YearlyGridCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many YearlyGrids and returns the data saved in the database.
+     * @param {YearlyGridCreateManyAndReturnArgs} args - Arguments to create many YearlyGrids.
+     * @example
+     * // Create many YearlyGrids
+     * const yearlyGrid = await prisma.yearlyGrid.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many YearlyGrids and only return the `id`
+     * const yearlyGridWithIdOnly = await prisma.yearlyGrid.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends YearlyGridCreateManyAndReturnArgs>(args?: SelectSubset<T, YearlyGridCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a YearlyGrid.
+     * @param {YearlyGridDeleteArgs} args - Arguments to delete one YearlyGrid.
+     * @example
+     * // Delete one YearlyGrid
+     * const YearlyGrid = await prisma.yearlyGrid.delete({
+     *   where: {
+     *     // ... filter to delete one YearlyGrid
+     *   }
+     * })
+     * 
+     */
+    delete<T extends YearlyGridDeleteArgs>(args: SelectSubset<T, YearlyGridDeleteArgs<ExtArgs>>): Prisma__YearlyGridClient<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one YearlyGrid.
+     * @param {YearlyGridUpdateArgs} args - Arguments to update one YearlyGrid.
+     * @example
+     * // Update one YearlyGrid
+     * const yearlyGrid = await prisma.yearlyGrid.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends YearlyGridUpdateArgs>(args: SelectSubset<T, YearlyGridUpdateArgs<ExtArgs>>): Prisma__YearlyGridClient<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more YearlyGrids.
+     * @param {YearlyGridDeleteManyArgs} args - Arguments to filter YearlyGrids to delete.
+     * @example
+     * // Delete a few YearlyGrids
+     * const { count } = await prisma.yearlyGrid.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends YearlyGridDeleteManyArgs>(args?: SelectSubset<T, YearlyGridDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more YearlyGrids.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyGridUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many YearlyGrids
+     * const yearlyGrid = await prisma.yearlyGrid.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends YearlyGridUpdateManyArgs>(args: SelectSubset<T, YearlyGridUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more YearlyGrids and returns the data updated in the database.
+     * @param {YearlyGridUpdateManyAndReturnArgs} args - Arguments to update many YearlyGrids.
+     * @example
+     * // Update many YearlyGrids
+     * const yearlyGrid = await prisma.yearlyGrid.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more YearlyGrids and only return the `id`
+     * const yearlyGridWithIdOnly = await prisma.yearlyGrid.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends YearlyGridUpdateManyAndReturnArgs>(args: SelectSubset<T, YearlyGridUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one YearlyGrid.
+     * @param {YearlyGridUpsertArgs} args - Arguments to update or create a YearlyGrid.
+     * @example
+     * // Update or create a YearlyGrid
+     * const yearlyGrid = await prisma.yearlyGrid.upsert({
+     *   create: {
+     *     // ... data to create a YearlyGrid
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the YearlyGrid we want to update
+     *   }
+     * })
+     */
+    upsert<T extends YearlyGridUpsertArgs>(args: SelectSubset<T, YearlyGridUpsertArgs<ExtArgs>>): Prisma__YearlyGridClient<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of YearlyGrids.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyGridCountArgs} args - Arguments to filter YearlyGrids to count.
+     * @example
+     * // Count the number of YearlyGrids
+     * const count = await prisma.yearlyGrid.count({
+     *   where: {
+     *     // ... the filter for the YearlyGrids we want to count
+     *   }
+     * })
+    **/
+    count<T extends YearlyGridCountArgs>(
+      args?: Subset<T, YearlyGridCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], YearlyGridCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a YearlyGrid.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyGridAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends YearlyGridAggregateArgs>(args: Subset<T, YearlyGridAggregateArgs>): Prisma.PrismaPromise<GetYearlyGridAggregateType<T>>
+
+    /**
+     * Group by YearlyGrid.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyGridGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends YearlyGridGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: YearlyGridGroupByArgs['orderBy'] }
+        : { orderBy?: YearlyGridGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, YearlyGridGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetYearlyGridGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the YearlyGrid model
+   */
+  readonly fields: YearlyGridFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for YearlyGrid.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__YearlyGridClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the YearlyGrid model
+   */
+  interface YearlyGridFieldRefs {
+    readonly id: FieldRef<"YearlyGrid", 'String'>
+    readonly userId: FieldRef<"YearlyGrid", 'String'>
+    readonly date: FieldRef<"YearlyGrid", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * YearlyGrid findUnique
+   */
+  export type YearlyGridFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * Filter, which YearlyGrid to fetch.
+     */
+    where: YearlyGridWhereUniqueInput
+  }
+
+  /**
+   * YearlyGrid findUniqueOrThrow
+   */
+  export type YearlyGridFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * Filter, which YearlyGrid to fetch.
+     */
+    where: YearlyGridWhereUniqueInput
+  }
+
+  /**
+   * YearlyGrid findFirst
+   */
+  export type YearlyGridFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * Filter, which YearlyGrid to fetch.
+     */
+    where?: YearlyGridWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyGrids to fetch.
+     */
+    orderBy?: YearlyGridOrderByWithRelationInput | YearlyGridOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for YearlyGrids.
+     */
+    cursor?: YearlyGridWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyGrids from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyGrids.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YearlyGrids.
+     */
+    distinct?: YearlyGridScalarFieldEnum | YearlyGridScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyGrid findFirstOrThrow
+   */
+  export type YearlyGridFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * Filter, which YearlyGrid to fetch.
+     */
+    where?: YearlyGridWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyGrids to fetch.
+     */
+    orderBy?: YearlyGridOrderByWithRelationInput | YearlyGridOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for YearlyGrids.
+     */
+    cursor?: YearlyGridWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyGrids from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyGrids.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YearlyGrids.
+     */
+    distinct?: YearlyGridScalarFieldEnum | YearlyGridScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyGrid findMany
+   */
+  export type YearlyGridFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * Filter, which YearlyGrids to fetch.
+     */
+    where?: YearlyGridWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyGrids to fetch.
+     */
+    orderBy?: YearlyGridOrderByWithRelationInput | YearlyGridOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing YearlyGrids.
+     */
+    cursor?: YearlyGridWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyGrids from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyGrids.
+     */
+    skip?: number
+    distinct?: YearlyGridScalarFieldEnum | YearlyGridScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyGrid create
+   */
+  export type YearlyGridCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * The data needed to create a YearlyGrid.
+     */
+    data: XOR<YearlyGridCreateInput, YearlyGridUncheckedCreateInput>
+  }
+
+  /**
+   * YearlyGrid createMany
+   */
+  export type YearlyGridCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many YearlyGrids.
+     */
+    data: YearlyGridCreateManyInput | YearlyGridCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * YearlyGrid createManyAndReturn
+   */
+  export type YearlyGridCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * The data used to create many YearlyGrids.
+     */
+    data: YearlyGridCreateManyInput | YearlyGridCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * YearlyGrid update
+   */
+  export type YearlyGridUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * The data needed to update a YearlyGrid.
+     */
+    data: XOR<YearlyGridUpdateInput, YearlyGridUncheckedUpdateInput>
+    /**
+     * Choose, which YearlyGrid to update.
+     */
+    where: YearlyGridWhereUniqueInput
+  }
+
+  /**
+   * YearlyGrid updateMany
+   */
+  export type YearlyGridUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update YearlyGrids.
+     */
+    data: XOR<YearlyGridUpdateManyMutationInput, YearlyGridUncheckedUpdateManyInput>
+    /**
+     * Filter which YearlyGrids to update
+     */
+    where?: YearlyGridWhereInput
+    /**
+     * Limit how many YearlyGrids to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * YearlyGrid updateManyAndReturn
+   */
+  export type YearlyGridUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * The data used to update YearlyGrids.
+     */
+    data: XOR<YearlyGridUpdateManyMutationInput, YearlyGridUncheckedUpdateManyInput>
+    /**
+     * Filter which YearlyGrids to update
+     */
+    where?: YearlyGridWhereInput
+    /**
+     * Limit how many YearlyGrids to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * YearlyGrid upsert
+   */
+  export type YearlyGridUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * The filter to search for the YearlyGrid to update in case it exists.
+     */
+    where: YearlyGridWhereUniqueInput
+    /**
+     * In case the YearlyGrid found by the `where` argument doesn't exist, create a new YearlyGrid with this data.
+     */
+    create: XOR<YearlyGridCreateInput, YearlyGridUncheckedCreateInput>
+    /**
+     * In case the YearlyGrid was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<YearlyGridUpdateInput, YearlyGridUncheckedUpdateInput>
+  }
+
+  /**
+   * YearlyGrid delete
+   */
+  export type YearlyGridDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    /**
+     * Filter which YearlyGrid to delete.
+     */
+    where: YearlyGridWhereUniqueInput
+  }
+
+  /**
+   * YearlyGrid deleteMany
+   */
+  export type YearlyGridDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which YearlyGrids to delete
+     */
+    where?: YearlyGridWhereInput
+    /**
+     * Limit how many YearlyGrids to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * YearlyGrid without action
+   */
+  export type YearlyGridDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model User
    */
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    currentStreak: number | null
+    maxStreak: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    currentStreak: number | null
+    maxStreak: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1634,6 +2778,10 @@ export namespace Prisma {
     localPassword: boolean | null
     token: string | null
     otp: string | null
+    bio: string | null
+    currentStreak: number | null
+    maxStreak: number | null
+    lastSubmission: Date | null
     isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1650,6 +2798,10 @@ export namespace Prisma {
     localPassword: boolean | null
     token: string | null
     otp: string | null
+    bio: string | null
+    currentStreak: number | null
+    maxStreak: number | null
+    lastSubmission: Date | null
     isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1666,12 +2818,27 @@ export namespace Prisma {
     localPassword: number
     token: number
     otp: number
+    bio: number
+    currentStreak: number
+    maxStreak: number
+    lastSubmission: number
     isVerified: number
     createdAt: number
     updatedAt: number
+    links: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    currentStreak?: true
+    maxStreak?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    currentStreak?: true
+    maxStreak?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -1684,6 +2851,10 @@ export namespace Prisma {
     localPassword?: true
     token?: true
     otp?: true
+    bio?: true
+    currentStreak?: true
+    maxStreak?: true
+    lastSubmission?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
@@ -1700,6 +2871,10 @@ export namespace Prisma {
     localPassword?: true
     token?: true
     otp?: true
+    bio?: true
+    currentStreak?: true
+    maxStreak?: true
+    lastSubmission?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
@@ -1716,9 +2891,14 @@ export namespace Prisma {
     localPassword?: true
     token?: true
     otp?: true
+    bio?: true
+    currentStreak?: true
+    maxStreak?: true
+    lastSubmission?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
+    links?: true
     _all?: true
   }
 
@@ -1760,6 +2940,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -1790,6 +2982,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -1805,10 +2999,17 @@ export namespace Prisma {
     localPassword: boolean
     token: string | null
     otp: string | null
+    bio: string | null
+    currentStreak: number
+    maxStreak: number
+    lastSubmission: Date | null
     isVerified: boolean
     createdAt: Date
     updatedAt: Date
+    links: JsonValue | null
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -1838,13 +3039,19 @@ export namespace Prisma {
     localPassword?: boolean
     token?: boolean
     otp?: boolean
+    bio?: boolean
+    currentStreak?: boolean
+    maxStreak?: boolean
+    lastSubmission?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    links?: boolean
     problems?: boolean | User$problemsArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
     problemSolved?: boolean | User$problemSolvedArgs<ExtArgs>
     sheets?: boolean | User$sheetsArgs<ExtArgs>
+    yearlyGrid?: boolean | User$yearlyGridArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1859,9 +3066,14 @@ export namespace Prisma {
     localPassword?: boolean
     token?: boolean
     otp?: boolean
+    bio?: boolean
+    currentStreak?: boolean
+    maxStreak?: boolean
+    lastSubmission?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    links?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1875,9 +3087,14 @@ export namespace Prisma {
     localPassword?: boolean
     token?: boolean
     otp?: boolean
+    bio?: boolean
+    currentStreak?: boolean
+    maxStreak?: boolean
+    lastSubmission?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    links?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1891,17 +3108,23 @@ export namespace Prisma {
     localPassword?: boolean
     token?: boolean
     otp?: boolean
+    bio?: boolean
+    currentStreak?: boolean
+    maxStreak?: boolean
+    lastSubmission?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    links?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "bio" | "currentStreak" | "maxStreak" | "lastSubmission" | "isVerified" | "createdAt" | "updatedAt" | "links", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
     problemSolved?: boolean | User$problemSolvedArgs<ExtArgs>
     sheets?: boolean | User$sheetsArgs<ExtArgs>
+    yearlyGrid?: boolean | User$yearlyGridArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1914,6 +3137,7 @@ export namespace Prisma {
       submission: Prisma.$SubmissionPayload<ExtArgs>[]
       problemSolved: Prisma.$ProblemSolvedPayload<ExtArgs>[]
       sheets: Prisma.$SheetPayload<ExtArgs>[]
+      yearlyGrid: Prisma.$YearlyGridPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1926,9 +3150,14 @@ export namespace Prisma {
       localPassword: boolean
       token: string | null
       otp: string | null
+      bio: string | null
+      currentStreak: number
+      maxStreak: number
+      lastSubmission: Date | null
       isVerified: boolean
       createdAt: Date
       updatedAt: Date
+      links: Prisma.JsonValue | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2327,6 +3556,7 @@ export namespace Prisma {
     submission<T extends User$submissionArgs<ExtArgs> = {}>(args?: Subset<T, User$submissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     problemSolved<T extends User$problemSolvedArgs<ExtArgs> = {}>(args?: Subset<T, User$problemSolvedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemSolvedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sheets<T extends User$sheetsArgs<ExtArgs> = {}>(args?: Subset<T, User$sheetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    yearlyGrid<T extends User$yearlyGridArgs<ExtArgs> = {}>(args?: Subset<T, User$yearlyGridArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyGridPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2366,9 +3596,14 @@ export namespace Prisma {
     readonly localPassword: FieldRef<"User", 'Boolean'>
     readonly token: FieldRef<"User", 'String'>
     readonly otp: FieldRef<"User", 'String'>
+    readonly bio: FieldRef<"User", 'String'>
+    readonly currentStreak: FieldRef<"User", 'Int'>
+    readonly maxStreak: FieldRef<"User", 'Int'>
+    readonly lastSubmission: FieldRef<"User", 'DateTime'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly links: FieldRef<"User", 'Json'>
   }
     
 
@@ -2850,6 +4085,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SheetScalarFieldEnum | SheetScalarFieldEnum[]
+  }
+
+  /**
+   * User.yearlyGrid
+   */
+  export type User$yearlyGridArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyGrid
+     */
+    select?: YearlyGridSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyGrid
+     */
+    omit?: YearlyGridOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YearlyGridInclude<ExtArgs> | null
+    where?: YearlyGridWhereInput
+    orderBy?: YearlyGridOrderByWithRelationInput | YearlyGridOrderByWithRelationInput[]
+    cursor?: YearlyGridWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: YearlyGridScalarFieldEnum | YearlyGridScalarFieldEnum[]
   }
 
   /**
@@ -9799,6 +11058,15 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const YearlyGridScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    date: 'date'
+  };
+
+  export type YearlyGridScalarFieldEnum = (typeof YearlyGridScalarFieldEnum)[keyof typeof YearlyGridScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -9810,9 +11078,14 @@ export namespace Prisma {
     localPassword: 'localPassword',
     token: 'token',
     otp: 'otp',
+    bio: 'bio',
+    currentStreak: 'currentStreak',
+    maxStreak: 'maxStreak',
+    lastSubmission: 'lastSubmission',
     isVerified: 'isVerified',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    links: 'links'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -9922,6 +11195,14 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const JsonNullValueInput: {
     JsonNull: typeof JsonNull
   };
@@ -9937,14 +11218,6 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
   export const JsonNullValueFilter: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull,
@@ -9952,6 +11225,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -9970,6 +11251,20 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -9995,30 +11290,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
+   * Reference to a field of type 'Int'
    */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'DateTime[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Difficulty'
-   */
-  export type EnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty'>
-    
-
-
-  /**
-   * Reference to a field of type 'Difficulty[]'
-   */
-  export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -10037,16 +11318,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Difficulty'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type EnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Difficulty[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
     
 
 
@@ -10067,6 +11348,51 @@ export namespace Prisma {
    */
 
 
+  export type YearlyGridWhereInput = {
+    AND?: YearlyGridWhereInput | YearlyGridWhereInput[]
+    OR?: YearlyGridWhereInput[]
+    NOT?: YearlyGridWhereInput | YearlyGridWhereInput[]
+    id?: StringFilter<"YearlyGrid"> | string
+    userId?: StringFilter<"YearlyGrid"> | string
+    date?: DateTimeFilter<"YearlyGrid"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type YearlyGridOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type YearlyGridWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: YearlyGridWhereInput | YearlyGridWhereInput[]
+    OR?: YearlyGridWhereInput[]
+    NOT?: YearlyGridWhereInput | YearlyGridWhereInput[]
+    userId?: StringFilter<"YearlyGrid"> | string
+    date?: DateTimeFilter<"YearlyGrid"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type YearlyGridOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    _count?: YearlyGridCountOrderByAggregateInput
+    _max?: YearlyGridMaxOrderByAggregateInput
+    _min?: YearlyGridMinOrderByAggregateInput
+  }
+
+  export type YearlyGridScalarWhereWithAggregatesInput = {
+    AND?: YearlyGridScalarWhereWithAggregatesInput | YearlyGridScalarWhereWithAggregatesInput[]
+    OR?: YearlyGridScalarWhereWithAggregatesInput[]
+    NOT?: YearlyGridScalarWhereWithAggregatesInput | YearlyGridScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"YearlyGrid"> | string
+    userId?: StringWithAggregatesFilter<"YearlyGrid"> | string
+    date?: DateTimeWithAggregatesFilter<"YearlyGrid"> | Date | string
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -10081,13 +11407,19 @@ export namespace Prisma {
     localPassword?: BoolFilter<"User"> | boolean
     token?: StringNullableFilter<"User"> | string | null
     otp?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    currentStreak?: IntFilter<"User"> | number
+    maxStreak?: IntFilter<"User"> | number
+    lastSubmission?: DateTimeNullableFilter<"User"> | Date | string | null
     isVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    links?: JsonNullableFilter<"User">
     problems?: ProblemListRelationFilter
     submission?: SubmissionListRelationFilter
     problemSolved?: ProblemSolvedListRelationFilter
     sheets?: SheetListRelationFilter
+    yearlyGrid?: YearlyGridListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10101,13 +11433,19 @@ export namespace Prisma {
     localPassword?: SortOrder
     token?: SortOrderInput | SortOrder
     otp?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    currentStreak?: SortOrder
+    maxStreak?: SortOrder
+    lastSubmission?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    links?: SortOrderInput | SortOrder
     problems?: ProblemOrderByRelationAggregateInput
     submission?: SubmissionOrderByRelationAggregateInput
     problemSolved?: ProblemSolvedOrderByRelationAggregateInput
     sheets?: SheetOrderByRelationAggregateInput
+    yearlyGrid?: YearlyGridOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10124,13 +11462,19 @@ export namespace Prisma {
     localPassword?: BoolFilter<"User"> | boolean
     token?: StringNullableFilter<"User"> | string | null
     otp?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    currentStreak?: IntFilter<"User"> | number
+    maxStreak?: IntFilter<"User"> | number
+    lastSubmission?: DateTimeNullableFilter<"User"> | Date | string | null
     isVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    links?: JsonNullableFilter<"User">
     problems?: ProblemListRelationFilter
     submission?: SubmissionListRelationFilter
     problemSolved?: ProblemSolvedListRelationFilter
     sheets?: SheetListRelationFilter
+    yearlyGrid?: YearlyGridListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10144,12 +11488,19 @@ export namespace Prisma {
     localPassword?: SortOrder
     token?: SortOrderInput | SortOrder
     otp?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    currentStreak?: SortOrder
+    maxStreak?: SortOrder
+    lastSubmission?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    links?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -10166,9 +11517,14 @@ export namespace Prisma {
     localPassword?: BoolWithAggregatesFilter<"User"> | boolean
     token?: StringNullableWithAggregatesFilter<"User"> | string | null
     otp?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    currentStreak?: IntWithAggregatesFilter<"User"> | number
+    maxStreak?: IntWithAggregatesFilter<"User"> | number
+    lastSubmission?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    links?: JsonNullableWithAggregatesFilter<"User">
   }
 
   export type ProblemWhereInput = {
@@ -10680,6 +12036,47 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ProblemInSheet"> | Date | string
   }
 
+  export type YearlyGridCreateInput = {
+    id?: string
+    date: Date | string
+    user: UserCreateNestedOneWithoutYearlyGridInput
+  }
+
+  export type YearlyGridUncheckedCreateInput = {
+    id?: string
+    userId: string
+    date: Date | string
+  }
+
+  export type YearlyGridUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutYearlyGridNestedInput
+  }
+
+  export type YearlyGridUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyGridCreateManyInput = {
+    id?: string
+    userId: string
+    date: Date | string
+  }
+
+  export type YearlyGridUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyGridUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -10691,13 +12088,19 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10711,13 +12114,19 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10731,13 +12140,19 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10751,13 +12166,19 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10771,9 +12192,14 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserUpdateManyMutationInput = {
@@ -10787,9 +12213,14 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -10803,9 +12234,14 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ProblemCreateInput = {
@@ -11380,6 +12816,72 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type YearlyGridCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+  }
+
+  export type YearlyGridMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+  }
+
+  export type YearlyGridMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -11407,15 +12909,49 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type ProblemListRelationFilter = {
@@ -11442,6 +12978,12 @@ export namespace Prisma {
     none?: SheetWhereInput
   }
 
+  export type YearlyGridListRelationFilter = {
+    every?: YearlyGridWhereInput
+    some?: YearlyGridWhereInput
+    none?: YearlyGridWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11463,6 +13005,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type YearlyGridOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -11474,9 +13020,19 @@ export namespace Prisma {
     localPassword?: SortOrder
     token?: SortOrder
     otp?: SortOrder
+    bio?: SortOrder
+    currentStreak?: SortOrder
+    maxStreak?: SortOrder
+    lastSubmission?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    links?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    currentStreak?: SortOrder
+    maxStreak?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -11490,6 +13046,10 @@ export namespace Prisma {
     localPassword?: SortOrder
     token?: SortOrder
     otp?: SortOrder
+    bio?: SortOrder
+    currentStreak?: SortOrder
+    maxStreak?: SortOrder
+    lastSubmission?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11506,27 +13066,18 @@ export namespace Prisma {
     localPassword?: SortOrder
     token?: SortOrder
     otp?: SortOrder
+    bio?: SortOrder
+    currentStreak?: SortOrder
+    maxStreak?: SortOrder
+    lastSubmission?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
+  export type UserSumOrderByAggregateInput = {
+    currentStreak?: SortOrder
+    maxStreak?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11565,18 +13116,60 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type EnumDifficultyFilter<$PrismaModel = never> = {
@@ -11615,11 +13208,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type ProblemInSheetListRelationFilter = {
@@ -11777,17 +13365,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type SubmissionScalarRelationFilter = {
     is?: SubmissionWhereInput
     isNot?: SubmissionWhereInput
@@ -11847,22 +13424,6 @@ export namespace Prisma {
 
   export type TestCaseResultSumOrderByAggregateInput = {
     testCase?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type ProblemSolvedUserIdProblemIdCompoundUniqueInput = {
@@ -11963,6 +13524,28 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type UserCreateNestedOneWithoutYearlyGridInput = {
+    create?: XOR<UserCreateWithoutYearlyGridInput, UserUncheckedCreateWithoutYearlyGridInput>
+    connectOrCreate?: UserCreateOrConnectWithoutYearlyGridInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type UserUpdateOneRequiredWithoutYearlyGridNestedInput = {
+    create?: XOR<UserCreateWithoutYearlyGridInput, UserUncheckedCreateWithoutYearlyGridInput>
+    connectOrCreate?: UserCreateOrConnectWithoutYearlyGridInput
+    upsert?: UserUpsertWithoutYearlyGridInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutYearlyGridInput, UserUpdateWithoutYearlyGridInput>, UserUncheckedUpdateWithoutYearlyGridInput>
+  }
+
   export type ProblemCreateNestedManyWithoutUserInput = {
     create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
@@ -11989,6 +13572,13 @@ export namespace Prisma {
     connectOrCreate?: SheetCreateOrConnectWithoutUserInput | SheetCreateOrConnectWithoutUserInput[]
     createMany?: SheetCreateManyUserInputEnvelope
     connect?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
+  }
+
+  export type YearlyGridCreateNestedManyWithoutUserInput = {
+    create?: XOR<YearlyGridCreateWithoutUserInput, YearlyGridUncheckedCreateWithoutUserInput> | YearlyGridCreateWithoutUserInput[] | YearlyGridUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: YearlyGridCreateOrConnectWithoutUserInput | YearlyGridCreateOrConnectWithoutUserInput[]
+    createMany?: YearlyGridCreateManyUserInputEnvelope
+    connect?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
   }
 
   export type ProblemUncheckedCreateNestedManyWithoutUserInput = {
@@ -12019,8 +13609,11 @@ export namespace Prisma {
     connect?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type YearlyGridUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<YearlyGridCreateWithoutUserInput, YearlyGridUncheckedCreateWithoutUserInput> | YearlyGridCreateWithoutUserInput[] | YearlyGridUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: YearlyGridCreateOrConnectWithoutUserInput | YearlyGridCreateOrConnectWithoutUserInput[]
+    createMany?: YearlyGridCreateManyUserInputEnvelope
+    connect?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -12035,8 +13628,16 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type ProblemUpdateManyWithoutUserNestedInput = {
@@ -12095,6 +13696,20 @@ export namespace Prisma {
     deleteMany?: SheetScalarWhereInput | SheetScalarWhereInput[]
   }
 
+  export type YearlyGridUpdateManyWithoutUserNestedInput = {
+    create?: XOR<YearlyGridCreateWithoutUserInput, YearlyGridUncheckedCreateWithoutUserInput> | YearlyGridCreateWithoutUserInput[] | YearlyGridUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: YearlyGridCreateOrConnectWithoutUserInput | YearlyGridCreateOrConnectWithoutUserInput[]
+    upsert?: YearlyGridUpsertWithWhereUniqueWithoutUserInput | YearlyGridUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: YearlyGridCreateManyUserInputEnvelope
+    set?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
+    disconnect?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
+    delete?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
+    connect?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
+    update?: YearlyGridUpdateWithWhereUniqueWithoutUserInput | YearlyGridUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: YearlyGridUpdateManyWithWhereWithoutUserInput | YearlyGridUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: YearlyGridScalarWhereInput | YearlyGridScalarWhereInput[]
+  }
+
   export type ProblemUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
@@ -12149,6 +13764,20 @@ export namespace Prisma {
     update?: SheetUpdateWithWhereUniqueWithoutUserInput | SheetUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SheetUpdateManyWithWhereWithoutUserInput | SheetUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SheetScalarWhereInput | SheetScalarWhereInput[]
+  }
+
+  export type YearlyGridUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<YearlyGridCreateWithoutUserInput, YearlyGridUncheckedCreateWithoutUserInput> | YearlyGridCreateWithoutUserInput[] | YearlyGridUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: YearlyGridCreateOrConnectWithoutUserInput | YearlyGridCreateOrConnectWithoutUserInput[]
+    upsert?: YearlyGridUpsertWithWhereUniqueWithoutUserInput | YearlyGridUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: YearlyGridCreateManyUserInputEnvelope
+    set?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
+    disconnect?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
+    delete?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
+    connect?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
+    update?: YearlyGridUpdateWithWhereUniqueWithoutUserInput | YearlyGridUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: YearlyGridUpdateManyWithWhereWithoutUserInput | YearlyGridUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: YearlyGridScalarWhereInput | YearlyGridScalarWhereInput[]
   }
 
   export type ProblemCreatetagsInput = {
@@ -12380,14 +14009,6 @@ export namespace Prisma {
     connect?: SubmissionWhereUniqueInput
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type SubmissionUpdateOneRequiredWithoutTestCasesNestedInput = {
     create?: XOR<SubmissionCreateWithoutTestCasesInput, SubmissionUncheckedCreateWithoutTestCasesInput>
     connectOrCreate?: SubmissionCreateOrConnectWithoutTestCasesInput
@@ -12522,32 +14143,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -12585,6 +14180,57 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12633,18 +14279,68 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
@@ -12687,31 +14383,120 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+  export type UserCreateWithoutYearlyGridInput = {
+    id?: string
+    name?: string | null
+    username: string
+    email: string
+    image?: string | null
+    role?: $Enums.UserRole
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
+    problems?: ProblemCreateNestedManyWithoutUserInput
+    submission?: SubmissionCreateNestedManyWithoutUserInput
+    problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
+    sheets?: SheetCreateNestedManyWithoutUserInput
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type UserUncheckedCreateWithoutYearlyGridInput = {
+    id?: string
+    name?: string | null
+    username: string
+    email: string
+    image?: string | null
+    role?: $Enums.UserRole
+    password?: string | null
+    localPassword?: boolean
+    token?: string | null
+    otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
+    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
+    sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutYearlyGridInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutYearlyGridInput, UserUncheckedCreateWithoutYearlyGridInput>
+  }
+
+  export type UserUpsertWithoutYearlyGridInput = {
+    update: XOR<UserUpdateWithoutYearlyGridInput, UserUncheckedUpdateWithoutYearlyGridInput>
+    create: XOR<UserCreateWithoutYearlyGridInput, UserUncheckedCreateWithoutYearlyGridInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutYearlyGridInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutYearlyGridInput, UserUncheckedUpdateWithoutYearlyGridInput>
+  }
+
+  export type UserUpdateWithoutYearlyGridInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
+    problems?: ProblemUpdateManyWithoutUserNestedInput
+    submission?: SubmissionUpdateManyWithoutUserNestedInput
+    problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
+    sheets?: SheetUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutYearlyGridInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    localPassword?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
+    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
+    submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
+    sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProblemCreateWithoutUserInput = {
@@ -12864,6 +14649,26 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type YearlyGridCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+  }
+
+  export type YearlyGridUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+  }
+
+  export type YearlyGridCreateOrConnectWithoutUserInput = {
+    where: YearlyGridWhereUniqueInput
+    create: XOR<YearlyGridCreateWithoutUserInput, YearlyGridUncheckedCreateWithoutUserInput>
+  }
+
+  export type YearlyGridCreateManyUserInputEnvelope = {
+    data: YearlyGridCreateManyUserInput | YearlyGridCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProblemUpsertWithWhereUniqueWithoutUserInput = {
     where: ProblemWhereUniqueInput
     update: XOR<ProblemUpdateWithoutUserInput, ProblemUncheckedUpdateWithoutUserInput>
@@ -12994,6 +14799,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Sheet"> | Date | string
   }
 
+  export type YearlyGridUpsertWithWhereUniqueWithoutUserInput = {
+    where: YearlyGridWhereUniqueInput
+    update: XOR<YearlyGridUpdateWithoutUserInput, YearlyGridUncheckedUpdateWithoutUserInput>
+    create: XOR<YearlyGridCreateWithoutUserInput, YearlyGridUncheckedCreateWithoutUserInput>
+  }
+
+  export type YearlyGridUpdateWithWhereUniqueWithoutUserInput = {
+    where: YearlyGridWhereUniqueInput
+    data: XOR<YearlyGridUpdateWithoutUserInput, YearlyGridUncheckedUpdateWithoutUserInput>
+  }
+
+  export type YearlyGridUpdateManyWithWhereWithoutUserInput = {
+    where: YearlyGridScalarWhereInput
+    data: XOR<YearlyGridUpdateManyMutationInput, YearlyGridUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type YearlyGridScalarWhereInput = {
+    AND?: YearlyGridScalarWhereInput | YearlyGridScalarWhereInput[]
+    OR?: YearlyGridScalarWhereInput[]
+    NOT?: YearlyGridScalarWhereInput | YearlyGridScalarWhereInput[]
+    id?: StringFilter<"YearlyGrid"> | string
+    userId?: StringFilter<"YearlyGrid"> | string
+    date?: DateTimeFilter<"YearlyGrid"> | Date | string
+  }
+
   export type UserCreateWithoutProblemsInput = {
     id?: string
     name?: string | null
@@ -13005,12 +14835,18 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProblemsInput = {
@@ -13024,12 +14860,18 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProblemsInput = {
@@ -13151,12 +14993,18 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProblemsInput = {
@@ -13170,12 +15018,18 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SubmissionUpsertWithWhereUniqueWithoutProblemInput = {
@@ -13248,12 +15102,18 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubmissionInput = {
@@ -13267,12 +15127,18 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubmissionInput = {
@@ -13389,12 +15255,18 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmissionInput = {
@@ -13408,12 +15280,18 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProblemUpsertWithoutSubmissionInput = {
@@ -13599,12 +15477,18 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProblemSolvedInput = {
@@ -13618,12 +15502,18 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProblemSolvedInput = {
@@ -13700,12 +15590,18 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProblemSolvedInput = {
@@ -13719,12 +15615,18 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProblemUpsertWithoutSolvedByInput = {
@@ -13815,12 +15717,18 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSheetsInput = {
@@ -13834,12 +15742,18 @@ export namespace Prisma {
     localPassword?: boolean
     token?: string | null
     otp?: string | null
+    bio?: string | null
+    currentStreak?: number
+    maxStreak?: number
+    lastSubmission?: Date | string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
+    yearlyGrid?: YearlyGridUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSheetsInput = {
@@ -13885,12 +15799,18 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSheetsInput = {
@@ -13904,12 +15824,18 @@ export namespace Prisma {
     localPassword?: BoolFieldUpdateOperationsInput | boolean
     token?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    lastSubmission?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
+    yearlyGrid?: YearlyGridUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SheetCreateWithoutProblemsInput = {
@@ -14118,6 +16044,11 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type YearlyGridCreateManyUserInput = {
+    id?: string
+    date: Date | string
+  }
+
   export type ProblemUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -14276,6 +16207,21 @@ export namespace Prisma {
     visibility?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyGridUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyGridUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyGridUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SubmissionCreateManyProblemInput = {

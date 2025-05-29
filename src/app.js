@@ -20,7 +20,8 @@ import { submissionRouter } from "./routes/submission.route.js";
 import { sheetRouter } from "./routes/sheet.route.js";
 import { userRouter } from "./routes/user.route.js";
 import { formatRouter } from "./routes/format.route.js";
-
+import { yearlyGridRouter } from "./routes/yearlyGrid.route.js";
+import { playgroundRouter } from "./routes/playground.route.js";
 
 //middlewares
 app.use(express.json({ limit: "2mb" }));
@@ -37,8 +38,6 @@ app.use(
 );
 app.use(cookieParser());
 
-
-
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/problems", problemRouter);
@@ -46,8 +45,9 @@ app.use("/api/v1/execute-code", executeRouter);
 app.use("/api/v1/submission", submissionRouter);
 app.use("/api/v1/sheets", sheetRouter);
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/format",formatRouter);
-
+app.use("/api/v1/format", formatRouter);
+app.use("/api/v1/yearlyGrid", yearlyGridRouter);
+app.use("/api/v1/playground", playgroundRouter);
 // health check route
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -66,7 +66,7 @@ export const register = asyncHandler(async (req, res) => {
       res.cookie("verifyToken", token, {
         httpOnly: true,
         secure: myEnvironment.NODE_ENV === "production",
-        sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+        sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 1000 * 60 * 60,
       });
 
@@ -115,7 +115,7 @@ export const register = asyncHandler(async (req, res) => {
     res.cookie("verifyToken", token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+      sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 1000 * 60 * 60,
     });
 
@@ -228,14 +228,14 @@ export const login = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
     // sameSite: "none", : this work on only production
-    sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+    sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 3 * 24 * 60 * 60 * 1000,
   });
 
   res.cookie("refresh_token", refresh_token, {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+    sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -278,20 +278,20 @@ export const forgotPassword = asyncHandler(async (req, res) => {
       expiresIn: "1h",
     }
   );
-  
+
   await sendMail({
     email,
     subject: "Activate your account",
-    template: "activation.mail.ejs",
+    template: "forgot.mail.ejs",
     data: {
       name: user.name,
-      otp: `${myEnvironment.FRONTEND_URL}${token}`,
+      Link: `${myEnvironment.FRONTEND_URL}${token}`,
     },
   });
 
   return res
-    .status(204)
-    .json(204, {}, "Otp send in your email pls check your mail box");
+    .status(201)
+    .json(new ApiResponse(201, {}, "Otp send in your email pls check your mail box"));
 });
 
 //Reset password
@@ -356,12 +356,12 @@ export const logout = asyncHandler(async (req, res) => {
   res.clearCookie("access_token", {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite: "none",
+    sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
   });
   res.clearCookie("refresh_token", {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite: "none",
+    sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
   });
   await db.user.update({
     where: {
@@ -432,14 +432,14 @@ export const refreshToken = asyncHandler(async (req, res) => {
   res.cookie("access_token", access_token, {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+    sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 3 * 24 * 60 * 60 * 1000,
   });
 
   res.cookie("refresh_token", new_refresh_token, {
     httpOnly: true,
     secure: myEnvironment.NODE_ENV === "production",
-    sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+    sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -507,14 +507,14 @@ export const socialAuth = asyncHandler(async (req, res) => {
     res.cookie("access_token", access_token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+      sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
     res.cookie("refresh_token", refresh_token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+      sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -559,14 +559,14 @@ export const socialAuth = asyncHandler(async (req, res) => {
     res.cookie("access_token", access_token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-     sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+      sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
     res.cookie("refresh_token", refresh_token, {
       httpOnly: true,
       secure: myEnvironment.NODE_ENV === "production",
-      sameSite:myEnvironment.NODE_ENV === "production" ? "none" : "lax",
+      sameSite: myEnvironment.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -598,13 +598,18 @@ export const check = asyncHandler(async (req, res) => {
         image: req.user.image,
         role: req.user.role,
         localPassword: req.user.localPassword,
+        bio: req.user.bio,
+        currentStreak: req.user.currentStreak,
+        lastSubmission: req.user.lastSubmission,
         isVerified: req.user.isVerified,
         createdAt: req.user.createdAt,
         updatedAt: req.user.updatedAt,
         problems: req.user.problems,
         submission: req.user.submission,
         problemSolved: req.user.problemSolved,
-        playlists: req.user.playlists,
+        sheets: req.user.sheets,
+        links: req.user.links,
+        yearlyGrid: req.user.yearlyGrid,
       },
       "User is authenticated"
     )

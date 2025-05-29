@@ -12,6 +12,11 @@ export const executeSubmit = asyncHandler(async (req, res) => {
   const { source_code, language_id, problemId } = req.body;
 
   const userId = req.user.id;
+  const user = await db.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
 
   // stdin, expected_outputs
 
@@ -144,6 +149,61 @@ export const executeSubmit = asyncHandler(async (req, res) => {
     },
   });
 
+  const today = new Date();
+  const startOfToday = new Date(today.setHours(0, 0, 0, 0));
+  const endOfToday = new Date(today.setHours(23, 59, 59, 999));
+
+  const existingGrid = await db.yearlyGrid.findFirst({
+    where: {
+      userId: user.id,
+      date: {
+        gte: startOfToday,
+        lte: endOfToday,
+      },
+    },
+  });
+
+  if (!existingGrid) {
+    await db.yearlyGrid.create({
+      data: {
+        userId: req.user.id,
+        date: new Date(),
+      },
+    });
+  }
+
+  const yesterday = new Date(Date.now() - 86400000);
+  const startOfYesterday = new Date(yesterday.setHours(0, 0, 0, 0));
+  const endOfYesterday = new Date(yesterday.setHours(23, 59, 59, 999));
+
+  const yesterdayGird = await db.yearlyGrid.findFirst({
+    where: {
+      userId: req.user.id,
+      date: {
+        gte: startOfYesterday,
+        lte: endOfYesterday,
+      },
+    },
+  });
+
+  if (yesterdayGird) {
+    await db.user.update({
+      where: { id: req.user.id },
+      data: {
+        currentStreak: user.currentStreak + 1,
+        maxStreak:
+          user.currentStreak + 1 > user.maxStreak
+            ? user.currentStreak + 1
+            : user.maxStreak,
+      },
+    });
+  } else {
+    await db.user.update({
+      where: { id: user.id },
+      data: { currentStreak: 1 },
+    });
+  }
+
   return res
     .status(200)
     .json(
@@ -172,8 +232,6 @@ export const executeRun = asyncHandler(async (req, res) => {
 
   const stdin = problem.publicTestcases.map((p) => p.input);
   const expected_outputs = problem.publicTestcases.map((p) => p.output);
-
-  
 
   if (
     !Array.isArray(stdin) ||
@@ -292,7 +350,5 @@ export const executeRun = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(
-      new ApiResponse(200, detailedResults, "code executed successfully")
-    );
+    .json(new ApiResponse(200, detailedResults, "code executed successfully"));
 });

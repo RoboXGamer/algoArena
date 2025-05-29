@@ -17,7 +17,8 @@ export const submitBatch = async (submissions) => {
   console.log(
     `${myEnvironment.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`
   );
-  const { data } = await axios.post(
+  console.log(submissions)
+  const {data} = await axios.post(
     `${myEnvironment.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,
 
     { submissions }

@@ -19,24 +19,45 @@ enum Difficulty {
   HARD
 }
 
+// model Link {
+//   id     String @id @default(uuid())
+//   name   String
+//   url    String
+//   user   User   @relation(fields: [userId], references: [id])
+//   userId String
+// }
+// 
+model YearlyGrid {
+  id     String   @id @default(uuid())
+  user   User     @relation(fields: [userId], references: [id])
+  userId String
+  date   DateTime
+}
+
 model User {
-  id            String          @id @default(uuid())
-  name          String?
-  username      String          @unique
-  email         String          @unique
-  image         String?
-  role          UserRole        @default(USER)
-  password      String?
-  localPassword Boolean         @default(false)
-  token         String?
-  otp           String?
-  isVerified    Boolean         @default(false)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  problems      Problem[]
-  submission    Submission[]
-  problemSolved ProblemSolved[]
-  sheets        Sheet[]
+  id             String          @id @default(uuid())
+  name           String?
+  username       String          @unique
+  email          String          @unique
+  image          String?
+  role           UserRole        @default(USER)
+  password       String?
+  localPassword  Boolean         @default(false)
+  token          String?
+  otp            String?
+  bio            String?
+  currentStreak  Int             @default(0)
+  maxStreak      Int             @default(0)
+  lastSubmission DateTime? // to check streak continuity
+  isVerified     Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  problems       Problem[]
+  submission     Submission[]
+  problemSolved  ProblemSolved[]
+  sheets         Sheet[]
+  links          Json?
+  yearlyGrid     YearlyGrid[]
 }
 
 model Problem {
