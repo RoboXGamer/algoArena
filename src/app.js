@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../", "public")));
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: "http://localhost:5173",
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
