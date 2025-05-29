@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../", "public")));
 app.use(
   cors({
-    origin: "https://algoarenaa.netlify.app/",
+    origin: "https://algoarenaa.netlify.app",
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
