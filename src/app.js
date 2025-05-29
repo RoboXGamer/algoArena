@@ -23,13 +23,25 @@ import { formatRouter } from "./routes/format.route.js";
 import { yearlyGridRouter } from "./routes/yearlyGrid.route.js";
 import { playgroundRouter } from "./routes/playground.route.js";
 
+const allowedOrigins = [
+  "http://localhost:5000",
+  "https://algoarenaa.netlify.app",
+];
+
 //middlewares
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../", "public")));
 app.use(
   cors({
-    origin: "https://algoarenaa.netlify.app",
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
