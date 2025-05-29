@@ -290,7 +290,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:Iamhacker420@@db.gdhcvcwycedkrdqgnpln.supabase.co:5432/postgres"
+        "value": "postgresql://postgres.gdhcvcwycedkrdqgnpln:Iamhacker420@@aws-0-ap-south-1.pooler.supabase.com:5432/postgres?sslmode=require"
       }
     }
   },
