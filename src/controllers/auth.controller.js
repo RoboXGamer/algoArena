@@ -120,9 +120,9 @@ export const register = asyncHandler(async (req, res) => {
     });
 
     res
-      .status(204)
+      .status(201)
       .json(
-        new ApiResponse(204, {}, "User register successfully verify yourself")
+        new ApiResponse(201, {}, "User register successfully verify yourself")
       );
   }
 });

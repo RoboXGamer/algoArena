@@ -291,7 +291,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://myuser:mypassword@localhost:5432/mynewdb"
+        "value": "postgresql://postgres:Iamhacker420@@db.gdhcvcwycedkrdqgnpln.supabase.co:5432/postgres"
       }
     }
   },
