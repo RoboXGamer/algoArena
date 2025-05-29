@@ -373,8 +373,8 @@ export const logout = asyncHandler(async (req, res) => {
   });
 
   res
-    .status(204)
-    .json(new ApiResponse(204, {}, "User logged out successfully"));
+    .status(201)
+    .json(new ApiResponse(201, {}, "User logged out successfully"));
 });
 
 // refresh token
