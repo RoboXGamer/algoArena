@@ -24,7 +24,7 @@ import { yearlyGridRouter } from "./routes/yearlyGrid.route.js";
 import { playgroundRouter } from "./routes/playground.route.js";
 
 const allowedOrigins = [
-  "http://localhost:5000",
+  "http://localhost:5173",
   "https://algoarenaa.netlify.app",
   "https://bbfch6vp-5000.inc1.devtunnels.ms/"
 ];
