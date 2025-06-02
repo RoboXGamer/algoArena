@@ -4,6 +4,83 @@ import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
+export const getAllUserProfiles = asyncHandler(async (req, res) => {
+  const users = await db.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      username: true,
+      xp: true,
+      tier: true,
+      level: true,
+    },
+  });
+
+  if (!users || users.length === 0) {
+    throw new ApiError(404, "No users found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, users, "All user profiles fetched successfully"));
+});
+
+export const getUserByUsername = asyncHandler(async (req, res) => {
+  const { username } = req.body;
+
+  if (!username) {
+    throw new ApiError(400, "Username is required or user must be authenticated");
+  } 
+
+
+  const user = await db.user.findUnique({
+    where: {
+      username: username,
+    },
+    select: {
+      id: true,
+      name: true,
+      username: true,
+      image: true,
+      role: true,
+      localPassword: true,
+      bio: true,
+      currentStreak: true,
+      maxStreak: true,
+      lastSubmission: true,
+      problems: {
+        select: {
+          id: true,
+          title: true,
+          difficulty: true,
+          solvedBy: {
+            select: {
+              userId: true,
+            },
+          },
+        },
+      },
+      submission: true,
+      problemsSolved: true,
+      sheets: true,
+      links: true,
+      yearlyGrid: true,
+      achievements: true,
+      badges: true,
+      xp: true,
+      tier: true,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "User profile fetched successfully"));
+})
+
 export const uploadImage = asyncHandler(async (req, res) => {
   const imageLocalPath = req.file?.path;
 

@@ -8,6 +8,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
+// Controller to create a new problem
 export const createProblem = asyncHandler(async (req, res) => {
   // going to get the all the data from the request
   const {
@@ -20,12 +21,25 @@ export const createProblem = asyncHandler(async (req, res) => {
     testcases,
     codeSnippets,
     referenceSolutions,
+    hints,
+    editorial,
+    companyTags: companyTagString,
   } = req.body;
 
-  // going to check the user role once again
-  // if (req.user.role !== "ADMIN") {
-  //   throw new ApiError(403, "Forbidden");
-  // }
+  console.log(
+    title,
+    description,
+    difficulty,
+    tags,
+    examples,
+    constraints,
+    testcases,
+    codeSnippets,
+    referenceSolutions,
+    hints,
+    editorial,
+    companyTagString
+  );
 
   try {
     // loop through each ref solution for different solution
@@ -43,6 +57,7 @@ export const createProblem = asyncHandler(async (req, res) => {
         stdin: input,
         expected_output: output,
       }));
+      console.log("submissions : ", submissions);
       // submit all submissions at once for one language
       const submissionsResults = await submitBatch(submissions);
 
@@ -72,11 +87,18 @@ export const createProblem = asyncHandler(async (req, res) => {
     const allPrivate = testcases.filter((tc) => tc.isPrivate);
     const privateTestcases = [...remainingPublic, ...allPrivate];
 
+    const companyTagArray = companyTagString
+      ? companyTagString
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag.length > 0)
+      : [];
+
     const newProblem = await db.problem.create({
       data: {
         title,
         description,
-        difficulty,
+        difficulty: difficulty.toUpperCase(),
         tags,
         examples,
         constraints,
@@ -85,6 +107,9 @@ export const createProblem = asyncHandler(async (req, res) => {
         codeSnippets,
         referenceSolutions,
         userId: req.user.id,
+        companyTags: companyTagArray,
+        hints: hints || [],
+        editorial: editorial || "",
       },
     });
 
@@ -112,86 +137,14 @@ export const createProblem = asyncHandler(async (req, res) => {
     return res
       .status(201)
       .json(
-        new ApiResponse(201, createProblem, "Problem created successfully")
+        new ApiResponse(201, createdProblem, "Problem created successfully")
       );
   } catch (error) {
     throw new ApiError(400, error.message);
   }
 });
 
-export const getAllProblems = asyncHandler(async (req, res) => {
-  const problems = await db.problem.findMany({
-    select: {
-      id: true,
-      title: true,
-      description: true,
-      difficulty: true,
-      tags: true,
-      userId: true,
-      examples: true,
-      constraints: true,
-      hints: true,
-      editorial: true,
-      publicTestcases: true,
-      codeSnippets: true,
-      referenceSolutions: true,
-      createdAt: true,
-      updatedAt: true,
-      user: true,
-      submission: true,
-      solvedBy: true,
-      problemsSheets: true,
-    },
-  });
-
-  if (!problems) {
-    throw new ApiError(404, "No problems found");
-  }
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, problems, "Problems fetched successfully"));
-});
-
-export const getProblemById = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-
-  const problem = await db.problem.findUnique({
-    where: {
-      id,
-    },
-    select: {
-      id: true,
-      title: true,
-      description: true,
-      difficulty: true,
-      tags: true,
-      userId: true,
-      examples: true,
-      constraints: true,
-      hints: true,
-      editorial: true,
-      publicTestcases: true,
-      codeSnippets: true,
-      referenceSolutions: true,
-      createdAt: true,
-      updatedAt: true,
-      user: true,
-      submission: true,
-      solvedBy: true,
-      problemsSheets: true,
-    },
-  });
-
-  if (!problem) {
-    throw new ApiError(404, "Problem not found");
-  }
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, problem, "Problem fetched successfully"));
-});
-
+// Controller to update an existing problem
 export const updateProblem = asyncHandler(async (req, res) => {
   const { id } = req.params;
   // checking ownership of the problem
@@ -301,6 +254,7 @@ export const updateProblem = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, updatedProblem, "Problem updated successfully"));
 });
 
+// Controller to delete a problem
 export const deleteProblem = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -329,6 +283,104 @@ export const deleteProblem = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Problem deleted successfully"));
 });
 
+// Controller to get all problems with pagination
+export const getAllProblems = asyncHandler(async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Default to page 1
+  const limit = 20;
+  const skip = (page - 1) * limit;
+  const totalProblems = await db.problem.count();
+
+  const problems = await db.problem.findMany({
+    skip,
+    take: limit,
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      difficulty: true,
+      tags: true,
+      userId: true,
+      examples: true,
+      constraints: true,
+      hints: true,
+      editorial: true,
+      publicTestcases: true,
+      codeSnippets: true,
+      referenceSolutions: true,
+      createdAt: true,
+      updatedAt: true,
+      user: true,
+      submission: true,
+      solvedBy: true,
+      problemsSheets: true,
+    },
+  });
+
+  if (!problems) {
+    throw new ApiError(404, "No problems found");
+  }
+
+  const start = skip + 1;
+  const end = Math.min(skip + limit, totalProblems);
+
+  const problemsData = {
+    problems,
+    pagination: {
+      currentPage: page,
+      totalPages: Math.ceil(totalProblems / limit),
+      totalProblems,
+      start,
+      end,
+      message: `Showing problems ${start} to ${end} of ${totalProblems}`,
+    },
+  };
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, problemsData, "Problems fetched successfully"));
+});
+
+// Controller to get a specific problem by ID
+export const getProblemById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const problem = await db.problem.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      difficulty: true,
+      tags: true,
+      userId: true,
+      examples: true,
+      constraints: true,
+      hints: true,
+      editorial: true,
+      publicTestcases: true,
+      codeSnippets: true,
+      referenceSolutions: true,
+      createdAt: true,
+      updatedAt: true,
+      user: true,
+      submission: true,
+      solvedBy: true,
+      problemsSheets: true,
+    },
+  });
+
+  if (!problem) {
+    throw new ApiError(404, "Problem not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, problem, "Problem fetched successfully"));
+});
+
+// Controller to get all problems solved by a user
 export const getAllProblemsSolvedByUser = asyncHandler(async (req, res) => {
   const problems = await db.problem.findMany({
     where: {
@@ -365,6 +417,7 @@ export const getAllProblemsSolvedByUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, problems, "Problems fetched successfully"));
 });
 
+// Controller to get all problems created by a user
 export const getAllProblemsCreatedByUser = asyncHandler(async (req, res) => {
   const problems = await db.problem.findMany({
     where: {
@@ -376,17 +429,17 @@ export const getAllProblemsCreatedByUser = asyncHandler(async (req, res) => {
       description: true,
       difficulty: true,
       tags: true,
-      userId:true,
+      userId: true,
       examples: true,
       constraints: true,
-      hints:true,
-      editorial:true,
-      publicTestcases: true, 
+      hints: true,
+      editorial: true,
+      publicTestcases: true,
       codeSnippets: true,
       referenceSolutions: true,
       createdAt: true,
       updatedAt: true,
-      user:true,
+      user: true,
       submission: true,
       solvedBy: true,
       problemsSheets: true,
@@ -396,4 +449,104 @@ export const getAllProblemsCreatedByUser = asyncHandler(async (req, res) => {
   res
     .status(200)
     .json(new ApiResponse(200, problems, "Problems fetched successfully"));
+});
+
+// Controller to get most solved 3 problems
+export const getMostSolved3Problem = asyncHandler(async (req, res) => {
+  const problems = await db.problem.findMany({
+    orderBy: {
+      solvedBy: {
+        _count: "desc",
+      },
+    },
+    take: 3,
+    select: {
+      id: true,
+      title: true,
+      difficulty: true,
+      tags: true,
+      solvedBy: {
+        select: {
+          userId: true,
+        },
+      },
+    },
+  });
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, problems, "Most solved problems fetched"));
+});
+
+// Controller to get all problems with company tags
+export const getProblemsByCompanyChallenges = asyncHandler(async (req, res) => {
+  const problems = await db.problem.findMany({
+    select: {
+      companyTags: true,
+      solvedBy: true,
+    },
+  });
+
+  if (!problems || problems.length === 0) {
+    throw new ApiError(404, "No problems found");
+  }
+
+  const companyStats = {};
+
+  problems.forEach((problem) => {
+    const solveCount = problem.solvedBy.length || 0;
+
+    problem.companyTags.forEach((tag) => {
+      if (!companyStats[tag]) {
+        companyStats[tag] = {
+          totalProblems: 0,
+          totalSolvedRate: 0,
+        };
+      }
+      companyStats[tag].totalProblems += 1;
+      companyStats[tag].totalSolvedRate += solveCount;
+    });
+  });
+
+  const formattedData = Object.entries(companyStats).map(
+    ([companyName, { totalProblems, totalSolveRate }]) => ({
+      companyName,
+      totalProblems,
+      averageSolveRate: parseFloat((totalSolveRate / totalProblems).toFixed(2)),
+    })
+  );
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, formattedData, "Company problem stats fetched"));
+});
+
+// Controller to get all tags
+export const getAllTags = asyncHandler(async (req, res) => {
+  const problems = await db.problem.findMany({
+    select: {
+      tags: true,
+    },
+  });
+
+  if (!problems || problems.length === 0) {
+    throw new ApiError(404, "No tags found");
+  }
+
+  const tagCountMap = new Map();
+
+  problems.forEach((problem) => {
+    problem.tags.forEach((tag) => {
+      tagCountMap.set(tag,(tagCountMap.get(tag) || 0) + 1)
+    });
+  });
+
+  const tagWithCount = Array.from(tagCountMap.entries()).map(
+    ([tag, count]) => ({ tag, count })
+  );
+ 
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, tagWithCount, "Tags fetched successfully"));
 });

@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Potd
+ * 
+ */
+export type Potd = $Result.DefaultSelection<Prisma.$PotdPayload>
+/**
  * Model YearlyGrid
  * 
  */
@@ -91,8 +96,8 @@ export const Difficulty: typeof $Enums.Difficulty
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more YearlyGrids
- * const yearlyGrids = await prisma.yearlyGrid.findMany()
+ * // Fetch zero or more Potds
+ * const potds = await prisma.potd.findMany()
  * ```
  *
  *
@@ -112,8 +117,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more YearlyGrids
-   * const yearlyGrids = await prisma.yearlyGrid.findMany()
+   * // Fetch zero or more Potds
+   * const potds = await prisma.potd.findMany()
    * ```
    *
    *
@@ -210,6 +215,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.potd`: Exposes CRUD operations for the **Potd** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Potds
+    * const potds = await prisma.potd.findMany()
+    * ```
+    */
+  get potd(): Prisma.PotdDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.yearlyGrid`: Exposes CRUD operations for the **YearlyGrid** model.
     * Example usage:
     * ```ts
@@ -728,6 +743,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Potd: 'Potd',
     YearlyGrid: 'YearlyGrid',
     User: 'User',
     Problem: 'Problem',
@@ -754,10 +770,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "yearlyGrid" | "user" | "problem" | "submission" | "testCaseResult" | "problemSolved" | "sheet" | "problemInSheet"
+      modelProps: "potd" | "yearlyGrid" | "user" | "problem" | "submission" | "testCaseResult" | "problemSolved" | "sheet" | "problemInSheet"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Potd: {
+        payload: Prisma.$PotdPayload<ExtArgs>
+        fields: Prisma.PotdFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PotdFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PotdFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>
+          }
+          findFirst: {
+            args: Prisma.PotdFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PotdFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>
+          }
+          findMany: {
+            args: Prisma.PotdFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>[]
+          }
+          create: {
+            args: Prisma.PotdCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>
+          }
+          createMany: {
+            args: Prisma.PotdCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PotdCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>[]
+          }
+          delete: {
+            args: Prisma.PotdDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>
+          }
+          update: {
+            args: Prisma.PotdUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>
+          }
+          deleteMany: {
+            args: Prisma.PotdDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PotdUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PotdUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>[]
+          }
+          upsert: {
+            args: Prisma.PotdUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PotdPayload>
+          }
+          aggregate: {
+            args: Prisma.PotdAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePotd>
+          }
+          groupBy: {
+            args: Prisma.PotdGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PotdGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PotdCountArgs<ExtArgs>
+            result: $Utils.Optional<PotdCountAggregateOutputType> | number
+          }
+        }
+      }
       YearlyGrid: {
         payload: Prisma.$YearlyGridPayload<ExtArgs>
         fields: Prisma.YearlyGridFieldRefs
@@ -1434,6 +1524,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    potd?: PotdOmit
     yearlyGrid?: YearlyGridOmit
     user?: UserOmit
     problem?: ProblemOmit
@@ -1606,12 +1697,14 @@ export namespace Prisma {
     submission: number
     solvedBy: number
     problemsSheets: number
+    potd: number
   }
 
   export type ProblemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     submission?: boolean | ProblemCountOutputTypeCountSubmissionArgs
     solvedBy?: boolean | ProblemCountOutputTypeCountSolvedByArgs
     problemsSheets?: boolean | ProblemCountOutputTypeCountProblemsSheetsArgs
+    potd?: boolean | ProblemCountOutputTypeCountPotdArgs
   }
 
   // Custom InputTypes
@@ -1644,6 +1737,13 @@ export namespace Prisma {
    */
   export type ProblemCountOutputTypeCountProblemsSheetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProblemInSheetWhereInput
+  }
+
+  /**
+   * ProblemCountOutputType without action
+   */
+  export type ProblemCountOutputTypeCountPotdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PotdWhereInput
   }
 
 
@@ -1712,6 +1812,1086 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model Potd
+   */
+
+  export type AggregatePotd = {
+    _count: PotdCountAggregateOutputType | null
+    _min: PotdMinAggregateOutputType | null
+    _max: PotdMaxAggregateOutputType | null
+  }
+
+  export type PotdMinAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    problemId: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PotdMaxAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    problemId: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PotdCountAggregateOutputType = {
+    id: number
+    date: number
+    problemId: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    solvedUsers: number
+    _all: number
+  }
+
+
+  export type PotdMinAggregateInputType = {
+    id?: true
+    date?: true
+    problemId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PotdMaxAggregateInputType = {
+    id?: true
+    date?: true
+    problemId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PotdCountAggregateInputType = {
+    id?: true
+    date?: true
+    problemId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    solvedUsers?: true
+    _all?: true
+  }
+
+  export type PotdAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Potd to aggregate.
+     */
+    where?: PotdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Potds to fetch.
+     */
+    orderBy?: PotdOrderByWithRelationInput | PotdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PotdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Potds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Potds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Potds
+    **/
+    _count?: true | PotdCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PotdMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PotdMaxAggregateInputType
+  }
+
+  export type GetPotdAggregateType<T extends PotdAggregateArgs> = {
+        [P in keyof T & keyof AggregatePotd]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePotd[P]>
+      : GetScalarType<T[P], AggregatePotd[P]>
+  }
+
+
+
+
+  export type PotdGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PotdWhereInput
+    orderBy?: PotdOrderByWithAggregationInput | PotdOrderByWithAggregationInput[]
+    by: PotdScalarFieldEnum[] | PotdScalarFieldEnum
+    having?: PotdScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PotdCountAggregateInputType | true
+    _min?: PotdMinAggregateInputType
+    _max?: PotdMaxAggregateInputType
+  }
+
+  export type PotdGroupByOutputType = {
+    id: string
+    date: Date
+    problemId: string
+    userId: string | null
+    createdAt: Date
+    updatedAt: Date
+    solvedUsers: string[]
+    _count: PotdCountAggregateOutputType | null
+    _min: PotdMinAggregateOutputType | null
+    _max: PotdMaxAggregateOutputType | null
+  }
+
+  type GetPotdGroupByPayload<T extends PotdGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PotdGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PotdGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PotdGroupByOutputType[P]>
+            : GetScalarType<T[P], PotdGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PotdSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    problemId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    solvedUsers?: boolean
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["potd"]>
+
+  export type PotdSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    problemId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    solvedUsers?: boolean
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["potd"]>
+
+  export type PotdSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    problemId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    solvedUsers?: boolean
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["potd"]>
+
+  export type PotdSelectScalar = {
+    id?: boolean
+    date?: boolean
+    problemId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    solvedUsers?: boolean
+  }
+
+  export type PotdOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "problemId" | "userId" | "createdAt" | "updatedAt" | "solvedUsers", ExtArgs["result"]["potd"]>
+  export type PotdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
+  }
+  export type PotdIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
+  }
+  export type PotdIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
+  }
+
+  export type $PotdPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Potd"
+    objects: {
+      problem: Prisma.$ProblemPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: Date
+      problemId: string
+      userId: string | null
+      createdAt: Date
+      updatedAt: Date
+      solvedUsers: string[]
+    }, ExtArgs["result"]["potd"]>
+    composites: {}
+  }
+
+  type PotdGetPayload<S extends boolean | null | undefined | PotdDefaultArgs> = $Result.GetResult<Prisma.$PotdPayload, S>
+
+  type PotdCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PotdFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PotdCountAggregateInputType | true
+    }
+
+  export interface PotdDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Potd'], meta: { name: 'Potd' } }
+    /**
+     * Find zero or one Potd that matches the filter.
+     * @param {PotdFindUniqueArgs} args - Arguments to find a Potd
+     * @example
+     * // Get one Potd
+     * const potd = await prisma.potd.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PotdFindUniqueArgs>(args: SelectSubset<T, PotdFindUniqueArgs<ExtArgs>>): Prisma__PotdClient<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Potd that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PotdFindUniqueOrThrowArgs} args - Arguments to find a Potd
+     * @example
+     * // Get one Potd
+     * const potd = await prisma.potd.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PotdFindUniqueOrThrowArgs>(args: SelectSubset<T, PotdFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PotdClient<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Potd that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PotdFindFirstArgs} args - Arguments to find a Potd
+     * @example
+     * // Get one Potd
+     * const potd = await prisma.potd.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PotdFindFirstArgs>(args?: SelectSubset<T, PotdFindFirstArgs<ExtArgs>>): Prisma__PotdClient<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Potd that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PotdFindFirstOrThrowArgs} args - Arguments to find a Potd
+     * @example
+     * // Get one Potd
+     * const potd = await prisma.potd.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PotdFindFirstOrThrowArgs>(args?: SelectSubset<T, PotdFindFirstOrThrowArgs<ExtArgs>>): Prisma__PotdClient<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Potds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PotdFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Potds
+     * const potds = await prisma.potd.findMany()
+     * 
+     * // Get first 10 Potds
+     * const potds = await prisma.potd.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const potdWithIdOnly = await prisma.potd.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PotdFindManyArgs>(args?: SelectSubset<T, PotdFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Potd.
+     * @param {PotdCreateArgs} args - Arguments to create a Potd.
+     * @example
+     * // Create one Potd
+     * const Potd = await prisma.potd.create({
+     *   data: {
+     *     // ... data to create a Potd
+     *   }
+     * })
+     * 
+     */
+    create<T extends PotdCreateArgs>(args: SelectSubset<T, PotdCreateArgs<ExtArgs>>): Prisma__PotdClient<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Potds.
+     * @param {PotdCreateManyArgs} args - Arguments to create many Potds.
+     * @example
+     * // Create many Potds
+     * const potd = await prisma.potd.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PotdCreateManyArgs>(args?: SelectSubset<T, PotdCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Potds and returns the data saved in the database.
+     * @param {PotdCreateManyAndReturnArgs} args - Arguments to create many Potds.
+     * @example
+     * // Create many Potds
+     * const potd = await prisma.potd.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Potds and only return the `id`
+     * const potdWithIdOnly = await prisma.potd.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PotdCreateManyAndReturnArgs>(args?: SelectSubset<T, PotdCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Potd.
+     * @param {PotdDeleteArgs} args - Arguments to delete one Potd.
+     * @example
+     * // Delete one Potd
+     * const Potd = await prisma.potd.delete({
+     *   where: {
+     *     // ... filter to delete one Potd
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PotdDeleteArgs>(args: SelectSubset<T, PotdDeleteArgs<ExtArgs>>): Prisma__PotdClient<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Potd.
+     * @param {PotdUpdateArgs} args - Arguments to update one Potd.
+     * @example
+     * // Update one Potd
+     * const potd = await prisma.potd.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PotdUpdateArgs>(args: SelectSubset<T, PotdUpdateArgs<ExtArgs>>): Prisma__PotdClient<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Potds.
+     * @param {PotdDeleteManyArgs} args - Arguments to filter Potds to delete.
+     * @example
+     * // Delete a few Potds
+     * const { count } = await prisma.potd.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PotdDeleteManyArgs>(args?: SelectSubset<T, PotdDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Potds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PotdUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Potds
+     * const potd = await prisma.potd.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PotdUpdateManyArgs>(args: SelectSubset<T, PotdUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Potds and returns the data updated in the database.
+     * @param {PotdUpdateManyAndReturnArgs} args - Arguments to update many Potds.
+     * @example
+     * // Update many Potds
+     * const potd = await prisma.potd.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Potds and only return the `id`
+     * const potdWithIdOnly = await prisma.potd.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PotdUpdateManyAndReturnArgs>(args: SelectSubset<T, PotdUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Potd.
+     * @param {PotdUpsertArgs} args - Arguments to update or create a Potd.
+     * @example
+     * // Update or create a Potd
+     * const potd = await prisma.potd.upsert({
+     *   create: {
+     *     // ... data to create a Potd
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Potd we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PotdUpsertArgs>(args: SelectSubset<T, PotdUpsertArgs<ExtArgs>>): Prisma__PotdClient<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Potds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PotdCountArgs} args - Arguments to filter Potds to count.
+     * @example
+     * // Count the number of Potds
+     * const count = await prisma.potd.count({
+     *   where: {
+     *     // ... the filter for the Potds we want to count
+     *   }
+     * })
+    **/
+    count<T extends PotdCountArgs>(
+      args?: Subset<T, PotdCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PotdCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Potd.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PotdAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PotdAggregateArgs>(args: Subset<T, PotdAggregateArgs>): Prisma.PrismaPromise<GetPotdAggregateType<T>>
+
+    /**
+     * Group by Potd.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PotdGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PotdGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PotdGroupByArgs['orderBy'] }
+        : { orderBy?: PotdGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PotdGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPotdGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Potd model
+   */
+  readonly fields: PotdFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Potd.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PotdClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    problem<T extends ProblemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProblemDefaultArgs<ExtArgs>>): Prisma__ProblemClient<$Result.GetResult<Prisma.$ProblemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Potd model
+   */
+  interface PotdFieldRefs {
+    readonly id: FieldRef<"Potd", 'String'>
+    readonly date: FieldRef<"Potd", 'DateTime'>
+    readonly problemId: FieldRef<"Potd", 'String'>
+    readonly userId: FieldRef<"Potd", 'String'>
+    readonly createdAt: FieldRef<"Potd", 'DateTime'>
+    readonly updatedAt: FieldRef<"Potd", 'DateTime'>
+    readonly solvedUsers: FieldRef<"Potd", 'String[]'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Potd findUnique
+   */
+  export type PotdFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * Filter, which Potd to fetch.
+     */
+    where: PotdWhereUniqueInput
+  }
+
+  /**
+   * Potd findUniqueOrThrow
+   */
+  export type PotdFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * Filter, which Potd to fetch.
+     */
+    where: PotdWhereUniqueInput
+  }
+
+  /**
+   * Potd findFirst
+   */
+  export type PotdFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * Filter, which Potd to fetch.
+     */
+    where?: PotdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Potds to fetch.
+     */
+    orderBy?: PotdOrderByWithRelationInput | PotdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Potds.
+     */
+    cursor?: PotdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Potds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Potds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Potds.
+     */
+    distinct?: PotdScalarFieldEnum | PotdScalarFieldEnum[]
+  }
+
+  /**
+   * Potd findFirstOrThrow
+   */
+  export type PotdFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * Filter, which Potd to fetch.
+     */
+    where?: PotdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Potds to fetch.
+     */
+    orderBy?: PotdOrderByWithRelationInput | PotdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Potds.
+     */
+    cursor?: PotdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Potds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Potds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Potds.
+     */
+    distinct?: PotdScalarFieldEnum | PotdScalarFieldEnum[]
+  }
+
+  /**
+   * Potd findMany
+   */
+  export type PotdFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * Filter, which Potds to fetch.
+     */
+    where?: PotdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Potds to fetch.
+     */
+    orderBy?: PotdOrderByWithRelationInput | PotdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Potds.
+     */
+    cursor?: PotdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Potds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Potds.
+     */
+    skip?: number
+    distinct?: PotdScalarFieldEnum | PotdScalarFieldEnum[]
+  }
+
+  /**
+   * Potd create
+   */
+  export type PotdCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Potd.
+     */
+    data: XOR<PotdCreateInput, PotdUncheckedCreateInput>
+  }
+
+  /**
+   * Potd createMany
+   */
+  export type PotdCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Potds.
+     */
+    data: PotdCreateManyInput | PotdCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Potd createManyAndReturn
+   */
+  export type PotdCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * The data used to create many Potds.
+     */
+    data: PotdCreateManyInput | PotdCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Potd update
+   */
+  export type PotdUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Potd.
+     */
+    data: XOR<PotdUpdateInput, PotdUncheckedUpdateInput>
+    /**
+     * Choose, which Potd to update.
+     */
+    where: PotdWhereUniqueInput
+  }
+
+  /**
+   * Potd updateMany
+   */
+  export type PotdUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Potds.
+     */
+    data: XOR<PotdUpdateManyMutationInput, PotdUncheckedUpdateManyInput>
+    /**
+     * Filter which Potds to update
+     */
+    where?: PotdWhereInput
+    /**
+     * Limit how many Potds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Potd updateManyAndReturn
+   */
+  export type PotdUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * The data used to update Potds.
+     */
+    data: XOR<PotdUpdateManyMutationInput, PotdUncheckedUpdateManyInput>
+    /**
+     * Filter which Potds to update
+     */
+    where?: PotdWhereInput
+    /**
+     * Limit how many Potds to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Potd upsert
+   */
+  export type PotdUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Potd to update in case it exists.
+     */
+    where: PotdWhereUniqueInput
+    /**
+     * In case the Potd found by the `where` argument doesn't exist, create a new Potd with this data.
+     */
+    create: XOR<PotdCreateInput, PotdUncheckedCreateInput>
+    /**
+     * In case the Potd was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PotdUpdateInput, PotdUncheckedUpdateInput>
+  }
+
+  /**
+   * Potd delete
+   */
+  export type PotdDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    /**
+     * Filter which Potd to delete.
+     */
+    where: PotdWhereUniqueInput
+  }
+
+  /**
+   * Potd deleteMany
+   */
+  export type PotdDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Potds to delete
+     */
+    where?: PotdWhereInput
+    /**
+     * Limit how many Potds to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Potd without action
+   */
+  export type PotdDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model YearlyGrid
@@ -2826,6 +4006,9 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     links: number
+    companyTags: number
+    achievements: number
+    badges: number
     _all: number
   }
 
@@ -2899,6 +4082,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     links?: true
+    companyTags?: true
+    achievements?: true
+    badges?: true
     _all?: true
   }
 
@@ -3007,6 +4193,9 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     links: JsonValue | null
+    companyTags: JsonValue | null
+    achievements: JsonValue | null
+    badges: JsonValue | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -3047,6 +4236,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     links?: boolean
+    companyTags?: boolean
+    achievements?: boolean
+    badges?: boolean
     problems?: boolean | User$problemsArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
     problemSolved?: boolean | User$problemSolvedArgs<ExtArgs>
@@ -3074,6 +4266,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     links?: boolean
+    companyTags?: boolean
+    achievements?: boolean
+    badges?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3095,6 +4290,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     links?: boolean
+    companyTags?: boolean
+    achievements?: boolean
+    badges?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -3116,9 +4314,12 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     links?: boolean
+    companyTags?: boolean
+    achievements?: boolean
+    badges?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "bio" | "currentStreak" | "maxStreak" | "lastSubmission" | "isVerified" | "createdAt" | "updatedAt" | "links", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "bio" | "currentStreak" | "maxStreak" | "lastSubmission" | "isVerified" | "createdAt" | "updatedAt" | "links" | "companyTags" | "achievements" | "badges", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
@@ -3158,6 +4359,9 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       links: Prisma.JsonValue | null
+      companyTags: Prisma.JsonValue | null
+      achievements: Prisma.JsonValue | null
+      badges: Prisma.JsonValue | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3604,6 +4808,9 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly links: FieldRef<"User", 'Json'>
+    readonly companyTags: FieldRef<"User", 'Json'>
+    readonly achievements: FieldRef<"User", 'Json'>
+    readonly badges: FieldRef<"User", 'Json'>
   }
     
 
@@ -4147,8 +5354,6 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty | null
     userId: string | null
     constraints: string | null
-    hints: string | null
-    editorial: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4160,8 +5365,6 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty | null
     userId: string | null
     constraints: string | null
-    hints: string | null
-    editorial: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4183,6 +5386,7 @@ export namespace Prisma {
     referenceSolutions: number
     createdAt: number
     updatedAt: number
+    companyTags: number
     _all: number
   }
 
@@ -4194,8 +5398,6 @@ export namespace Prisma {
     difficulty?: true
     userId?: true
     constraints?: true
-    hints?: true
-    editorial?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4207,8 +5409,6 @@ export namespace Prisma {
     difficulty?: true
     userId?: true
     constraints?: true
-    hints?: true
-    editorial?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4230,6 +5430,7 @@ export namespace Prisma {
     referenceSolutions?: true
     createdAt?: true
     updatedAt?: true
+    companyTags?: true
     _all?: true
   }
 
@@ -4314,14 +5515,15 @@ export namespace Prisma {
     userId: string
     examples: JsonValue
     constraints: string
-    hints: string | null
-    editorial: string | null
+    hints: JsonValue | null
+    editorial: JsonValue | null
     privateTestcases: JsonValue
     publicTestcases: JsonValue
     codeSnippets: JsonValue
     referenceSolutions: JsonValue
     createdAt: Date
     updatedAt: Date
+    companyTags: JsonValue | null
     _count: ProblemCountAggregateOutputType | null
     _min: ProblemMinAggregateOutputType | null
     _max: ProblemMaxAggregateOutputType | null
@@ -4358,10 +5560,12 @@ export namespace Prisma {
     referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    companyTags?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     submission?: boolean | Problem$submissionArgs<ExtArgs>
     solvedBy?: boolean | Problem$solvedByArgs<ExtArgs>
     problemsSheets?: boolean | Problem$problemsSheetsArgs<ExtArgs>
+    potd?: boolean | Problem$potdArgs<ExtArgs>
     _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["problem"]>
 
@@ -4382,6 +5586,7 @@ export namespace Prisma {
     referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    companyTags?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["problem"]>
 
@@ -4402,6 +5607,7 @@ export namespace Prisma {
     referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    companyTags?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["problem"]>
 
@@ -4422,14 +5628,16 @@ export namespace Prisma {
     referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    companyTags?: boolean
   }
 
-  export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "difficulty" | "tags" | "userId" | "examples" | "constraints" | "hints" | "editorial" | "privateTestcases" | "publicTestcases" | "codeSnippets" | "referenceSolutions" | "createdAt" | "updatedAt", ExtArgs["result"]["problem"]>
+  export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "difficulty" | "tags" | "userId" | "examples" | "constraints" | "hints" | "editorial" | "privateTestcases" | "publicTestcases" | "codeSnippets" | "referenceSolutions" | "createdAt" | "updatedAt" | "companyTags", ExtArgs["result"]["problem"]>
   export type ProblemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     submission?: boolean | Problem$submissionArgs<ExtArgs>
     solvedBy?: boolean | Problem$solvedByArgs<ExtArgs>
     problemsSheets?: boolean | Problem$problemsSheetsArgs<ExtArgs>
+    potd?: boolean | Problem$potdArgs<ExtArgs>
     _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProblemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4446,6 +5654,7 @@ export namespace Prisma {
       submission: Prisma.$SubmissionPayload<ExtArgs>[]
       solvedBy: Prisma.$ProblemSolvedPayload<ExtArgs>[]
       problemsSheets: Prisma.$ProblemInSheetPayload<ExtArgs>[]
+      potd: Prisma.$PotdPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4456,14 +5665,15 @@ export namespace Prisma {
       userId: string
       examples: Prisma.JsonValue
       constraints: string
-      hints: string | null
-      editorial: string | null
+      hints: Prisma.JsonValue | null
+      editorial: Prisma.JsonValue | null
       privateTestcases: Prisma.JsonValue
       publicTestcases: Prisma.JsonValue
       codeSnippets: Prisma.JsonValue
       referenceSolutions: Prisma.JsonValue
       createdAt: Date
       updatedAt: Date
+      companyTags: Prisma.JsonValue | null
     }, ExtArgs["result"]["problem"]>
     composites: {}
   }
@@ -4862,6 +6072,7 @@ export namespace Prisma {
     submission<T extends Problem$submissionArgs<ExtArgs> = {}>(args?: Subset<T, Problem$submissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     solvedBy<T extends Problem$solvedByArgs<ExtArgs> = {}>(args?: Subset<T, Problem$solvedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemSolvedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     problemsSheets<T extends Problem$problemsSheetsArgs<ExtArgs> = {}>(args?: Subset<T, Problem$problemsSheetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemInSheetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    potd<T extends Problem$potdArgs<ExtArgs> = {}>(args?: Subset<T, Problem$potdArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PotdPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4899,14 +6110,15 @@ export namespace Prisma {
     readonly userId: FieldRef<"Problem", 'String'>
     readonly examples: FieldRef<"Problem", 'Json'>
     readonly constraints: FieldRef<"Problem", 'String'>
-    readonly hints: FieldRef<"Problem", 'String'>
-    readonly editorial: FieldRef<"Problem", 'String'>
+    readonly hints: FieldRef<"Problem", 'Json'>
+    readonly editorial: FieldRef<"Problem", 'Json'>
     readonly privateTestcases: FieldRef<"Problem", 'Json'>
     readonly publicTestcases: FieldRef<"Problem", 'Json'>
     readonly codeSnippets: FieldRef<"Problem", 'Json'>
     readonly referenceSolutions: FieldRef<"Problem", 'Json'>
     readonly createdAt: FieldRef<"Problem", 'DateTime'>
     readonly updatedAt: FieldRef<"Problem", 'DateTime'>
+    readonly companyTags: FieldRef<"Problem", 'Json'>
   }
     
 
@@ -5372,6 +6584,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProblemInSheetScalarFieldEnum | ProblemInSheetScalarFieldEnum[]
+  }
+
+  /**
+   * Problem.potd
+   */
+  export type Problem$potdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Potd
+     */
+    select?: PotdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Potd
+     */
+    omit?: PotdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PotdInclude<ExtArgs> | null
+    where?: PotdWhereInput
+    orderBy?: PotdOrderByWithRelationInput | PotdOrderByWithRelationInput[]
+    cursor?: PotdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PotdScalarFieldEnum | PotdScalarFieldEnum[]
   }
 
   /**
@@ -11058,6 +12294,19 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const PotdScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    problemId: 'problemId',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    solvedUsers: 'solvedUsers'
+  };
+
+  export type PotdScalarFieldEnum = (typeof PotdScalarFieldEnum)[keyof typeof PotdScalarFieldEnum]
+
+
   export const YearlyGridScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -11085,7 +12334,10 @@ export namespace Prisma {
     isVerified: 'isVerified',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    links: 'links'
+    links: 'links',
+    companyTags: 'companyTags',
+    achievements: 'achievements',
+    badges: 'badges'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -11107,7 +12359,8 @@ export namespace Prisma {
     codeSnippets: 'codeSnippets',
     referenceSolutions: 'referenceSolutions',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    companyTags: 'companyTags'
   };
 
   export type ProblemScalarFieldEnum = (typeof ProblemScalarFieldEnum)[keyof typeof ProblemScalarFieldEnum]
@@ -11218,6 +12471,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   export const JsonNullValueFilter: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull,
@@ -11225,14 +12486,6 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -11348,6 +12601,71 @@ export namespace Prisma {
    */
 
 
+  export type PotdWhereInput = {
+    AND?: PotdWhereInput | PotdWhereInput[]
+    OR?: PotdWhereInput[]
+    NOT?: PotdWhereInput | PotdWhereInput[]
+    id?: StringFilter<"Potd"> | string
+    date?: DateTimeFilter<"Potd"> | Date | string
+    problemId?: StringFilter<"Potd"> | string
+    userId?: StringNullableFilter<"Potd"> | string | null
+    createdAt?: DateTimeFilter<"Potd"> | Date | string
+    updatedAt?: DateTimeFilter<"Potd"> | Date | string
+    solvedUsers?: StringNullableListFilter<"Potd">
+    problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
+  }
+
+  export type PotdOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    problemId?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    solvedUsers?: SortOrder
+    problem?: ProblemOrderByWithRelationInput
+  }
+
+  export type PotdWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    date?: Date | string
+    AND?: PotdWhereInput | PotdWhereInput[]
+    OR?: PotdWhereInput[]
+    NOT?: PotdWhereInput | PotdWhereInput[]
+    problemId?: StringFilter<"Potd"> | string
+    userId?: StringNullableFilter<"Potd"> | string | null
+    createdAt?: DateTimeFilter<"Potd"> | Date | string
+    updatedAt?: DateTimeFilter<"Potd"> | Date | string
+    solvedUsers?: StringNullableListFilter<"Potd">
+    problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
+  }, "id" | "date">
+
+  export type PotdOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    problemId?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    solvedUsers?: SortOrder
+    _count?: PotdCountOrderByAggregateInput
+    _max?: PotdMaxOrderByAggregateInput
+    _min?: PotdMinOrderByAggregateInput
+  }
+
+  export type PotdScalarWhereWithAggregatesInput = {
+    AND?: PotdScalarWhereWithAggregatesInput | PotdScalarWhereWithAggregatesInput[]
+    OR?: PotdScalarWhereWithAggregatesInput[]
+    NOT?: PotdScalarWhereWithAggregatesInput | PotdScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Potd"> | string
+    date?: DateTimeWithAggregatesFilter<"Potd"> | Date | string
+    problemId?: StringWithAggregatesFilter<"Potd"> | string
+    userId?: StringNullableWithAggregatesFilter<"Potd"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Potd"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Potd"> | Date | string
+    solvedUsers?: StringNullableListFilter<"Potd">
+  }
+
   export type YearlyGridWhereInput = {
     AND?: YearlyGridWhereInput | YearlyGridWhereInput[]
     OR?: YearlyGridWhereInput[]
@@ -11415,6 +12733,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     links?: JsonNullableFilter<"User">
+    companyTags?: JsonNullableFilter<"User">
+    achievements?: JsonNullableFilter<"User">
+    badges?: JsonNullableFilter<"User">
     problems?: ProblemListRelationFilter
     submission?: SubmissionListRelationFilter
     problemSolved?: ProblemSolvedListRelationFilter
@@ -11441,6 +12762,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     links?: SortOrderInput | SortOrder
+    companyTags?: SortOrderInput | SortOrder
+    achievements?: SortOrderInput | SortOrder
+    badges?: SortOrderInput | SortOrder
     problems?: ProblemOrderByRelationAggregateInput
     submission?: SubmissionOrderByRelationAggregateInput
     problemSolved?: ProblemSolvedOrderByRelationAggregateInput
@@ -11470,6 +12794,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     links?: JsonNullableFilter<"User">
+    companyTags?: JsonNullableFilter<"User">
+    achievements?: JsonNullableFilter<"User">
+    badges?: JsonNullableFilter<"User">
     problems?: ProblemListRelationFilter
     submission?: SubmissionListRelationFilter
     problemSolved?: ProblemSolvedListRelationFilter
@@ -11496,6 +12823,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     links?: SortOrderInput | SortOrder
+    companyTags?: SortOrderInput | SortOrder
+    achievements?: SortOrderInput | SortOrder
+    badges?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -11525,6 +12855,9 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     links?: JsonNullableWithAggregatesFilter<"User">
+    companyTags?: JsonNullableWithAggregatesFilter<"User">
+    achievements?: JsonNullableWithAggregatesFilter<"User">
+    badges?: JsonNullableWithAggregatesFilter<"User">
   }
 
   export type ProblemWhereInput = {
@@ -11539,18 +12872,20 @@ export namespace Prisma {
     userId?: StringFilter<"Problem"> | string
     examples?: JsonFilter<"Problem">
     constraints?: StringFilter<"Problem"> | string
-    hints?: StringNullableFilter<"Problem"> | string | null
-    editorial?: StringNullableFilter<"Problem"> | string | null
+    hints?: JsonNullableFilter<"Problem">
+    editorial?: JsonNullableFilter<"Problem">
     privateTestcases?: JsonFilter<"Problem">
     publicTestcases?: JsonFilter<"Problem">
     codeSnippets?: JsonFilter<"Problem">
     referenceSolutions?: JsonFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
+    companyTags?: JsonNullableFilter<"Problem">
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     submission?: SubmissionListRelationFilter
     solvedBy?: ProblemSolvedListRelationFilter
     problemsSheets?: ProblemInSheetListRelationFilter
+    potd?: PotdListRelationFilter
   }
 
   export type ProblemOrderByWithRelationInput = {
@@ -11570,10 +12905,12 @@ export namespace Prisma {
     referenceSolutions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    companyTags?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     submission?: SubmissionOrderByRelationAggregateInput
     solvedBy?: ProblemSolvedOrderByRelationAggregateInput
     problemsSheets?: ProblemInSheetOrderByRelationAggregateInput
+    potd?: PotdOrderByRelationAggregateInput
   }
 
   export type ProblemWhereUniqueInput = Prisma.AtLeast<{
@@ -11588,18 +12925,20 @@ export namespace Prisma {
     userId?: StringFilter<"Problem"> | string
     examples?: JsonFilter<"Problem">
     constraints?: StringFilter<"Problem"> | string
-    hints?: StringNullableFilter<"Problem"> | string | null
-    editorial?: StringNullableFilter<"Problem"> | string | null
+    hints?: JsonNullableFilter<"Problem">
+    editorial?: JsonNullableFilter<"Problem">
     privateTestcases?: JsonFilter<"Problem">
     publicTestcases?: JsonFilter<"Problem">
     codeSnippets?: JsonFilter<"Problem">
     referenceSolutions?: JsonFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
+    companyTags?: JsonNullableFilter<"Problem">
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     submission?: SubmissionListRelationFilter
     solvedBy?: ProblemSolvedListRelationFilter
     problemsSheets?: ProblemInSheetListRelationFilter
+    potd?: PotdListRelationFilter
   }, "id">
 
   export type ProblemOrderByWithAggregationInput = {
@@ -11619,6 +12958,7 @@ export namespace Prisma {
     referenceSolutions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    companyTags?: SortOrderInput | SortOrder
     _count?: ProblemCountOrderByAggregateInput
     _max?: ProblemMaxOrderByAggregateInput
     _min?: ProblemMinOrderByAggregateInput
@@ -11636,14 +12976,15 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Problem"> | string
     examples?: JsonWithAggregatesFilter<"Problem">
     constraints?: StringWithAggregatesFilter<"Problem"> | string
-    hints?: StringNullableWithAggregatesFilter<"Problem"> | string | null
-    editorial?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    hints?: JsonNullableWithAggregatesFilter<"Problem">
+    editorial?: JsonNullableWithAggregatesFilter<"Problem">
     privateTestcases?: JsonWithAggregatesFilter<"Problem">
     publicTestcases?: JsonWithAggregatesFilter<"Problem">
     codeSnippets?: JsonWithAggregatesFilter<"Problem">
     referenceSolutions?: JsonWithAggregatesFilter<"Problem">
     createdAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
+    companyTags?: JsonNullableWithAggregatesFilter<"Problem">
   }
 
   export type SubmissionWhereInput = {
@@ -12036,6 +13377,75 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ProblemInSheet"> | Date | string
   }
 
+  export type PotdCreateInput = {
+    id?: string
+    date: Date | string
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solvedUsers?: PotdCreatesolvedUsersInput | string[]
+    problem: ProblemCreateNestedOneWithoutPotdInput
+  }
+
+  export type PotdUncheckedCreateInput = {
+    id?: string
+    date: Date | string
+    problemId: string
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solvedUsers?: PotdCreatesolvedUsersInput | string[]
+  }
+
+  export type PotdUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solvedUsers?: PotdUpdatesolvedUsersInput | string[]
+    problem?: ProblemUpdateOneRequiredWithoutPotdNestedInput
+  }
+
+  export type PotdUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solvedUsers?: PotdUpdatesolvedUsersInput | string[]
+  }
+
+  export type PotdCreateManyInput = {
+    id?: string
+    date: Date | string
+    problemId: string
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solvedUsers?: PotdCreatesolvedUsersInput | string[]
+  }
+
+  export type PotdUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solvedUsers?: PotdUpdatesolvedUsersInput | string[]
+  }
+
+  export type PotdUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solvedUsers?: PotdUpdatesolvedUsersInput | string[]
+  }
+
   export type YearlyGridCreateInput = {
     id?: string
     date: Date | string
@@ -12096,6 +13506,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -12122,6 +13535,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -12148,6 +13564,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -12174,6 +13593,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -12200,6 +13622,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserUpdateManyMutationInput = {
@@ -12221,6 +13646,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -12242,6 +13670,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ProblemCreateInput = {
@@ -12252,18 +13683,20 @@ export namespace Prisma {
     tags?: ProblemCreatetagsInput | string[]
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     user: UserCreateNestedOneWithoutProblemsInput
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsSheets?: ProblemInSheetCreateNestedManyWithoutProblemInput
+    potd?: PotdCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateInput = {
@@ -12275,17 +13708,19 @@ export namespace Prisma {
     userId: string
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     problemsSheets?: ProblemInSheetUncheckedCreateNestedManyWithoutProblemInput
+    potd?: PotdUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUpdateInput = {
@@ -12296,18 +13731,20 @@ export namespace Prisma {
     tags?: ProblemUpdatetagsInput | string[]
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsSheets?: ProblemInSheetUpdateManyWithoutProblemNestedInput
+    potd?: PotdUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateInput = {
@@ -12319,17 +13756,19 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     problemsSheets?: ProblemInSheetUncheckedUpdateManyWithoutProblemNestedInput
+    potd?: PotdUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemCreateManyInput = {
@@ -12341,14 +13780,15 @@ export namespace Prisma {
     userId: string
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ProblemUpdateManyMutationInput = {
@@ -12359,14 +13799,15 @@ export namespace Prisma {
     tags?: ProblemUpdatetagsInput | string[]
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ProblemUncheckedUpdateManyInput = {
@@ -12378,14 +13819,15 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SubmissionCreateInput = {
@@ -12827,27 +14269,65 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type YearlyGridCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    date?: SortOrder
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
-  export type YearlyGridMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    date?: SortOrder
+  export type ProblemScalarRelationFilter = {
+    is?: ProblemWhereInput
+    isNot?: ProblemWhereInput
   }
 
-  export type YearlyGridMinOrderByAggregateInput = {
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type PotdCountOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     date?: SortOrder
+    problemId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    solvedUsers?: SortOrder
+  }
+
+  export type PotdMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    problemId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PotdMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    problemId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -12882,7 +14362,7 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12894,7 +14374,33 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type YearlyGridCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+  }
+
+  export type YearlyGridMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+  }
+
+  export type YearlyGridMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
   }
 
   export type EnumUserRoleFilter<$PrismaModel = never> = {
@@ -12984,11 +14490,6 @@ export namespace Prisma {
     none?: YearlyGridWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type ProblemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -13028,6 +14529,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     links?: SortOrder
+    companyTags?: SortOrder
+    achievements?: SortOrder
+    badges?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -13078,24 +14582,6 @@ export namespace Prisma {
   export type UserSumOrderByAggregateInput = {
     currentStreak?: SortOrder
     maxStreak?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -13178,14 +14664,6 @@ export namespace Prisma {
     notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
   }
-
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -13216,7 +14694,17 @@ export namespace Prisma {
     none?: ProblemInSheetWhereInput
   }
 
+  export type PotdListRelationFilter = {
+    every?: PotdWhereInput
+    some?: PotdWhereInput
+    none?: PotdWhereInput
+  }
+
   export type ProblemInSheetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PotdOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13237,6 +14725,7 @@ export namespace Prisma {
     referenceSolutions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    companyTags?: SortOrder
   }
 
   export type ProblemMaxOrderByAggregateInput = {
@@ -13246,8 +14735,6 @@ export namespace Prisma {
     difficulty?: SortOrder
     userId?: SortOrder
     constraints?: SortOrder
-    hints?: SortOrder
-    editorial?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13259,8 +14746,6 @@ export namespace Prisma {
     difficulty?: SortOrder
     userId?: SortOrder
     constraints?: SortOrder
-    hints?: SortOrder
-    editorial?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13299,11 +14784,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedJsonFilter<$PrismaModel>
     _max?: NestedJsonFilter<$PrismaModel>
-  }
-
-  export type ProblemScalarRelationFilter = {
-    is?: ProblemWhereInput
-    isNot?: ProblemWhereInput
   }
 
   export type TestCaseResultListRelationFilter = {
@@ -13524,10 +15004,14 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UserCreateNestedOneWithoutYearlyGridInput = {
-    create?: XOR<UserCreateWithoutYearlyGridInput, UserUncheckedCreateWithoutYearlyGridInput>
-    connectOrCreate?: UserCreateOrConnectWithoutYearlyGridInput
-    connect?: UserWhereUniqueInput
+  export type PotdCreatesolvedUsersInput = {
+    set: string[]
+  }
+
+  export type ProblemCreateNestedOneWithoutPotdInput = {
+    create?: XOR<ProblemCreateWithoutPotdInput, ProblemUncheckedCreateWithoutPotdInput>
+    connectOrCreate?: ProblemCreateOrConnectWithoutPotdInput
+    connect?: ProblemWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -13536,6 +15020,29 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type PotdUpdatesolvedUsersInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ProblemUpdateOneRequiredWithoutPotdNestedInput = {
+    create?: XOR<ProblemCreateWithoutPotdInput, ProblemUncheckedCreateWithoutPotdInput>
+    connectOrCreate?: ProblemCreateOrConnectWithoutPotdInput
+    upsert?: ProblemUpsertWithoutPotdInput
+    connect?: ProblemWhereUniqueInput
+    update?: XOR<XOR<ProblemUpdateToOneWithWhereWithoutPotdInput, ProblemUpdateWithoutPotdInput>, ProblemUncheckedUpdateWithoutPotdInput>
+  }
+
+  export type UserCreateNestedOneWithoutYearlyGridInput = {
+    create?: XOR<UserCreateWithoutYearlyGridInput, UserUncheckedCreateWithoutYearlyGridInput>
+    connectOrCreate?: UserCreateOrConnectWithoutYearlyGridInput
+    connect?: UserWhereUniqueInput
   }
 
   export type UserUpdateOneRequiredWithoutYearlyGridNestedInput = {
@@ -13614,10 +15121,6 @@ export namespace Prisma {
     connectOrCreate?: YearlyGridCreateOrConnectWithoutUserInput | YearlyGridCreateOrConnectWithoutUserInput[]
     createMany?: YearlyGridCreateManyUserInputEnvelope
     connect?: YearlyGridWhereUniqueInput | YearlyGridWhereUniqueInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -13811,6 +15314,13 @@ export namespace Prisma {
     connect?: ProblemInSheetWhereUniqueInput | ProblemInSheetWhereUniqueInput[]
   }
 
+  export type PotdCreateNestedManyWithoutProblemInput = {
+    create?: XOR<PotdCreateWithoutProblemInput, PotdUncheckedCreateWithoutProblemInput> | PotdCreateWithoutProblemInput[] | PotdUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: PotdCreateOrConnectWithoutProblemInput | PotdCreateOrConnectWithoutProblemInput[]
+    createMany?: PotdCreateManyProblemInputEnvelope
+    connect?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+  }
+
   export type SubmissionUncheckedCreateNestedManyWithoutProblemInput = {
     create?: XOR<SubmissionCreateWithoutProblemInput, SubmissionUncheckedCreateWithoutProblemInput> | SubmissionCreateWithoutProblemInput[] | SubmissionUncheckedCreateWithoutProblemInput[]
     connectOrCreate?: SubmissionCreateOrConnectWithoutProblemInput | SubmissionCreateOrConnectWithoutProblemInput[]
@@ -13830,6 +15340,13 @@ export namespace Prisma {
     connectOrCreate?: ProblemInSheetCreateOrConnectWithoutProblemInput | ProblemInSheetCreateOrConnectWithoutProblemInput[]
     createMany?: ProblemInSheetCreateManyProblemInputEnvelope
     connect?: ProblemInSheetWhereUniqueInput | ProblemInSheetWhereUniqueInput[]
+  }
+
+  export type PotdUncheckedCreateNestedManyWithoutProblemInput = {
+    create?: XOR<PotdCreateWithoutProblemInput, PotdUncheckedCreateWithoutProblemInput> | PotdCreateWithoutProblemInput[] | PotdUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: PotdCreateOrConnectWithoutProblemInput | PotdCreateOrConnectWithoutProblemInput[]
+    createMany?: PotdCreateManyProblemInputEnvelope
+    connect?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
   }
 
   export type EnumDifficultyFieldUpdateOperationsInput = {
@@ -13891,6 +15408,20 @@ export namespace Prisma {
     deleteMany?: ProblemInSheetScalarWhereInput | ProblemInSheetScalarWhereInput[]
   }
 
+  export type PotdUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<PotdCreateWithoutProblemInput, PotdUncheckedCreateWithoutProblemInput> | PotdCreateWithoutProblemInput[] | PotdUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: PotdCreateOrConnectWithoutProblemInput | PotdCreateOrConnectWithoutProblemInput[]
+    upsert?: PotdUpsertWithWhereUniqueWithoutProblemInput | PotdUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: PotdCreateManyProblemInputEnvelope
+    set?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+    disconnect?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+    delete?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+    connect?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+    update?: PotdUpdateWithWhereUniqueWithoutProblemInput | PotdUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: PotdUpdateManyWithWhereWithoutProblemInput | PotdUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: PotdScalarWhereInput | PotdScalarWhereInput[]
+  }
+
   export type SubmissionUncheckedUpdateManyWithoutProblemNestedInput = {
     create?: XOR<SubmissionCreateWithoutProblemInput, SubmissionUncheckedCreateWithoutProblemInput> | SubmissionCreateWithoutProblemInput[] | SubmissionUncheckedCreateWithoutProblemInput[]
     connectOrCreate?: SubmissionCreateOrConnectWithoutProblemInput | SubmissionCreateOrConnectWithoutProblemInput[]
@@ -13931,6 +15462,20 @@ export namespace Prisma {
     update?: ProblemInSheetUpdateWithWhereUniqueWithoutProblemInput | ProblemInSheetUpdateWithWhereUniqueWithoutProblemInput[]
     updateMany?: ProblemInSheetUpdateManyWithWhereWithoutProblemInput | ProblemInSheetUpdateManyWithWhereWithoutProblemInput[]
     deleteMany?: ProblemInSheetScalarWhereInput | ProblemInSheetScalarWhereInput[]
+  }
+
+  export type PotdUncheckedUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<PotdCreateWithoutProblemInput, PotdUncheckedCreateWithoutProblemInput> | PotdCreateWithoutProblemInput[] | PotdUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: PotdCreateOrConnectWithoutProblemInput | PotdCreateOrConnectWithoutProblemInput[]
+    upsert?: PotdUpsertWithWhereUniqueWithoutProblemInput | PotdUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: PotdCreateManyProblemInputEnvelope
+    set?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+    disconnect?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+    delete?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+    connect?: PotdWhereUniqueInput | PotdWhereUniqueInput[]
+    update?: PotdUpdateWithWhereUniqueWithoutProblemInput | PotdUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: PotdUpdateManyWithWhereWithoutProblemInput | PotdUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: PotdScalarWhereInput | PotdScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSubmissionInput = {
@@ -14154,6 +15699,20 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -14196,43 +15755,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -14259,6 +15781,29 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -14383,6 +15928,114 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type ProblemCreateWithoutPotdInput = {
+    id?: string
+    title: string
+    description: string
+    difficulty: $Enums.Difficulty
+    tags?: ProblemCreatetagsInput | string[]
+    examples: JsonNullValueInput | InputJsonValue
+    constraints: string
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
+    privateTestcases?: JsonNullValueInput | InputJsonValue
+    publicTestcases?: JsonNullValueInput | InputJsonValue
+    codeSnippets: JsonNullValueInput | InputJsonValue
+    referenceSolutions: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    user: UserCreateNestedOneWithoutProblemsInput
+    submission?: SubmissionCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
+    problemsSheets?: ProblemInSheetCreateNestedManyWithoutProblemInput
+  }
+
+  export type ProblemUncheckedCreateWithoutPotdInput = {
+    id?: string
+    title: string
+    description: string
+    difficulty: $Enums.Difficulty
+    tags?: ProblemCreatetagsInput | string[]
+    userId: string
+    examples: JsonNullValueInput | InputJsonValue
+    constraints: string
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
+    privateTestcases?: JsonNullValueInput | InputJsonValue
+    publicTestcases?: JsonNullValueInput | InputJsonValue
+    codeSnippets: JsonNullValueInput | InputJsonValue
+    referenceSolutions: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
+    problemsSheets?: ProblemInSheetUncheckedCreateNestedManyWithoutProblemInput
+  }
+
+  export type ProblemCreateOrConnectWithoutPotdInput = {
+    where: ProblemWhereUniqueInput
+    create: XOR<ProblemCreateWithoutPotdInput, ProblemUncheckedCreateWithoutPotdInput>
+  }
+
+  export type ProblemUpsertWithoutPotdInput = {
+    update: XOR<ProblemUpdateWithoutPotdInput, ProblemUncheckedUpdateWithoutPotdInput>
+    create: XOR<ProblemCreateWithoutPotdInput, ProblemUncheckedCreateWithoutPotdInput>
+    where?: ProblemWhereInput
+  }
+
+  export type ProblemUpdateToOneWithWhereWithoutPotdInput = {
+    where?: ProblemWhereInput
+    data: XOR<ProblemUpdateWithoutPotdInput, ProblemUncheckedUpdateWithoutPotdInput>
+  }
+
+  export type ProblemUpdateWithoutPotdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    tags?: ProblemUpdatetagsInput | string[]
+    examples?: JsonNullValueInput | InputJsonValue
+    constraints?: StringFieldUpdateOperationsInput | string
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
+    privateTestcases?: JsonNullValueInput | InputJsonValue
+    publicTestcases?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    user?: UserUpdateOneRequiredWithoutProblemsNestedInput
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
+    problemsSheets?: ProblemInSheetUpdateManyWithoutProblemNestedInput
+  }
+
+  export type ProblemUncheckedUpdateWithoutPotdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    tags?: ProblemUpdatetagsInput | string[]
+    userId?: StringFieldUpdateOperationsInput | string
+    examples?: JsonNullValueInput | InputJsonValue
+    constraints?: StringFieldUpdateOperationsInput | string
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
+    privateTestcases?: JsonNullValueInput | InputJsonValue
+    publicTestcases?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
+    problemsSheets?: ProblemInSheetUncheckedUpdateManyWithoutProblemNestedInput
+  }
+
   export type UserCreateWithoutYearlyGridInput = {
     id?: string
     name?: string | null
@@ -14402,6 +16055,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -14427,6 +16083,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -14468,6 +16127,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -14493,6 +16155,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -14507,17 +16172,19 @@ export namespace Prisma {
     tags?: ProblemCreatetagsInput | string[]
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsSheets?: ProblemInSheetCreateNestedManyWithoutProblemInput
+    potd?: PotdCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutUserInput = {
@@ -14528,17 +16195,19 @@ export namespace Prisma {
     tags?: ProblemCreatetagsInput | string[]
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     problemsSheets?: ProblemInSheetUncheckedCreateNestedManyWithoutProblemInput
+    potd?: PotdUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutUserInput = {
@@ -14697,14 +16366,15 @@ export namespace Prisma {
     userId?: StringFilter<"Problem"> | string
     examples?: JsonFilter<"Problem">
     constraints?: StringFilter<"Problem"> | string
-    hints?: StringNullableFilter<"Problem"> | string | null
-    editorial?: StringNullableFilter<"Problem"> | string | null
+    hints?: JsonNullableFilter<"Problem">
+    editorial?: JsonNullableFilter<"Problem">
     privateTestcases?: JsonFilter<"Problem">
     publicTestcases?: JsonFilter<"Problem">
     codeSnippets?: JsonFilter<"Problem">
     referenceSolutions?: JsonFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
+    companyTags?: JsonNullableFilter<"Problem">
   }
 
   export type SubmissionUpsertWithWhereUniqueWithoutUserInput = {
@@ -14843,6 +16513,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
@@ -14868,6 +16541,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
@@ -14971,6 +16647,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PotdCreateWithoutProblemInput = {
+    id?: string
+    date: Date | string
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solvedUsers?: PotdCreatesolvedUsersInput | string[]
+  }
+
+  export type PotdUncheckedCreateWithoutProblemInput = {
+    id?: string
+    date: Date | string
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solvedUsers?: PotdCreatesolvedUsersInput | string[]
+  }
+
+  export type PotdCreateOrConnectWithoutProblemInput = {
+    where: PotdWhereUniqueInput
+    create: XOR<PotdCreateWithoutProblemInput, PotdUncheckedCreateWithoutProblemInput>
+  }
+
+  export type PotdCreateManyProblemInputEnvelope = {
+    data: PotdCreateManyProblemInput | PotdCreateManyProblemInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutProblemsInput = {
     update: XOR<UserUpdateWithoutProblemsInput, UserUncheckedUpdateWithoutProblemsInput>
     create: XOR<UserCreateWithoutProblemsInput, UserUncheckedCreateWithoutProblemsInput>
@@ -15001,6 +16705,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
@@ -15026,6 +16733,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
@@ -15091,6 +16801,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ProblemInSheet"> | Date | string
   }
 
+  export type PotdUpsertWithWhereUniqueWithoutProblemInput = {
+    where: PotdWhereUniqueInput
+    update: XOR<PotdUpdateWithoutProblemInput, PotdUncheckedUpdateWithoutProblemInput>
+    create: XOR<PotdCreateWithoutProblemInput, PotdUncheckedCreateWithoutProblemInput>
+  }
+
+  export type PotdUpdateWithWhereUniqueWithoutProblemInput = {
+    where: PotdWhereUniqueInput
+    data: XOR<PotdUpdateWithoutProblemInput, PotdUncheckedUpdateWithoutProblemInput>
+  }
+
+  export type PotdUpdateManyWithWhereWithoutProblemInput = {
+    where: PotdScalarWhereInput
+    data: XOR<PotdUpdateManyMutationInput, PotdUncheckedUpdateManyWithoutProblemInput>
+  }
+
+  export type PotdScalarWhereInput = {
+    AND?: PotdScalarWhereInput | PotdScalarWhereInput[]
+    OR?: PotdScalarWhereInput[]
+    NOT?: PotdScalarWhereInput | PotdScalarWhereInput[]
+    id?: StringFilter<"Potd"> | string
+    date?: DateTimeFilter<"Potd"> | Date | string
+    problemId?: StringFilter<"Potd"> | string
+    userId?: StringNullableFilter<"Potd"> | string | null
+    createdAt?: DateTimeFilter<"Potd"> | Date | string
+    updatedAt?: DateTimeFilter<"Potd"> | Date | string
+    solvedUsers?: StringNullableListFilter<"Potd">
+  }
+
   export type UserCreateWithoutSubmissionInput = {
     id?: string
     name?: string | null
@@ -15110,6 +16849,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
@@ -15135,6 +16877,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
@@ -15154,17 +16899,19 @@ export namespace Prisma {
     tags?: ProblemCreatetagsInput | string[]
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     user: UserCreateNestedOneWithoutProblemsInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsSheets?: ProblemInSheetCreateNestedManyWithoutProblemInput
+    potd?: PotdCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutSubmissionInput = {
@@ -15176,16 +16923,18 @@ export namespace Prisma {
     userId: string
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     problemsSheets?: ProblemInSheetUncheckedCreateNestedManyWithoutProblemInput
+    potd?: PotdUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutSubmissionInput = {
@@ -15263,6 +17012,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
@@ -15288,6 +17040,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
@@ -15313,17 +17068,19 @@ export namespace Prisma {
     tags?: ProblemUpdatetagsInput | string[]
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsSheets?: ProblemInSheetUpdateManyWithoutProblemNestedInput
+    potd?: PotdUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutSubmissionInput = {
@@ -15335,16 +17092,18 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     problemsSheets?: ProblemInSheetUncheckedUpdateManyWithoutProblemNestedInput
+    potd?: PotdUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type TestCaseResultUpsertWithWhereUniqueWithoutSubmissionInput = {
@@ -15485,6 +17244,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
@@ -15510,6 +17272,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
@@ -15529,17 +17294,19 @@ export namespace Prisma {
     tags?: ProblemCreatetagsInput | string[]
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     user: UserCreateNestedOneWithoutProblemsInput
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     problemsSheets?: ProblemInSheetCreateNestedManyWithoutProblemInput
+    potd?: PotdCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutSolvedByInput = {
@@ -15551,16 +17318,18 @@ export namespace Prisma {
     userId: string
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
     problemsSheets?: ProblemInSheetUncheckedCreateNestedManyWithoutProblemInput
+    potd?: PotdUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutSolvedByInput = {
@@ -15598,6 +17367,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
@@ -15623,6 +17395,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
@@ -15648,17 +17423,19 @@ export namespace Prisma {
     tags?: ProblemUpdatetagsInput | string[]
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     problemsSheets?: ProblemInSheetUpdateManyWithoutProblemNestedInput
+    potd?: PotdUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutSolvedByInput = {
@@ -15670,16 +17447,18 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
     problemsSheets?: ProblemInSheetUncheckedUpdateManyWithoutProblemNestedInput
+    potd?: PotdUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemInSheetCreateWithoutSheetInput = {
@@ -15725,6 +17504,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -15750,6 +17532,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -15807,6 +17592,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -15832,6 +17620,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
+    achievements?: NullableJsonNullValueInput | InputJsonValue
+    badges?: NullableJsonNullValueInput | InputJsonValue
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -15871,17 +17662,19 @@ export namespace Prisma {
     tags?: ProblemCreatetagsInput | string[]
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     user: UserCreateNestedOneWithoutProblemsInput
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
+    potd?: PotdCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutProblemsSheetsInput = {
@@ -15893,16 +17686,18 @@ export namespace Prisma {
     userId: string
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
+    potd?: PotdUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutProblemsSheetsInput = {
@@ -15960,17 +17755,19 @@ export namespace Prisma {
     tags?: ProblemUpdatetagsInput | string[]
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
+    potd?: PotdUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutProblemsSheetsInput = {
@@ -15982,16 +17779,18 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
+    potd?: PotdUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemCreateManyUserInput = {
@@ -16002,14 +17801,15 @@ export namespace Prisma {
     tags?: ProblemCreatetagsInput | string[]
     examples: JsonNullValueInput | InputJsonValue
     constraints: string
-    hints?: string | null
-    editorial?: string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SubmissionCreateManyUserInput = {
@@ -16057,17 +17857,19 @@ export namespace Prisma {
     tags?: ProblemUpdatetagsInput | string[]
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsSheets?: ProblemInSheetUpdateManyWithoutProblemNestedInput
+    potd?: PotdUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutUserInput = {
@@ -16078,17 +17880,19 @@ export namespace Prisma {
     tags?: ProblemUpdatetagsInput | string[]
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     problemsSheets?: ProblemInSheetUncheckedUpdateManyWithoutProblemNestedInput
+    potd?: PotdUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateManyWithoutUserInput = {
@@ -16099,14 +17903,15 @@ export namespace Prisma {
     tags?: ProblemUpdatetagsInput | string[]
     examples?: JsonNullValueInput | InputJsonValue
     constraints?: StringFieldUpdateOperationsInput | string
-    hints?: NullableStringFieldUpdateOperationsInput | string | null
-    editorial?: NullableStringFieldUpdateOperationsInput | string | null
+    hints?: NullableJsonNullValueInput | InputJsonValue
+    editorial?: NullableJsonNullValueInput | InputJsonValue
     privateTestcases?: JsonNullValueInput | InputJsonValue
     publicTestcases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyTags?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SubmissionUpdateWithoutUserInput = {
@@ -16254,6 +18059,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type PotdCreateManyProblemInput = {
+    id?: string
+    date: Date | string
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solvedUsers?: PotdCreatesolvedUsersInput | string[]
+  }
+
   export type SubmissionUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string
     sourceCode?: JsonNullValueInput | InputJsonValue
@@ -16344,6 +18158,33 @@ export namespace Prisma {
     sheetId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PotdUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solvedUsers?: PotdUpdatesolvedUsersInput | string[]
+  }
+
+  export type PotdUncheckedUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solvedUsers?: PotdUpdatesolvedUsersInput | string[]
+  }
+
+  export type PotdUncheckedUpdateManyWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solvedUsers?: PotdUpdatesolvedUsersInput | string[]
   }
 
   export type TestCaseResultCreateManySubmissionInput = {

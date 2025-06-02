@@ -6,7 +6,10 @@ import {
   getAllProblems,
   getAllProblemsCreatedByUser,
   getAllProblemsSolvedByUser,
+  getAllTags,
+  getMostSolved3Problem,
   getProblemById,
+  getProblemsByCompanyChallenges,
   updateProblem,
 } from "../controllers/problem.controller.js";
 
@@ -18,32 +21,30 @@ problemRouter.post(
   checkAdmin,
   createProblem
 );
-problemRouter.get("/get-all-problems", authMiddleware, getAllProblems);
-
-problemRouter.get("/get-problem/:id", authMiddleware, getProblemById);
-
 problemRouter.put(
   "/update-problem/:id",
   authMiddleware,
   checkAdmin,
   updateProblem
 );
-
 problemRouter.delete(
   "/delete-problem/:id",
   authMiddleware,
   checkAdmin,
   deleteProblem
 );
-
+problemRouter.get("/get-all-problems", authMiddleware, getAllProblems);
+problemRouter.get("/get-problem/:id", authMiddleware, getProblemById);
 problemRouter.get(
   "/get-solved-problems",
   authMiddleware,
   getAllProblemsSolvedByUser
 );
-
 problemRouter.get(
   "/problem-created-by-user",
   authMiddleware,
   getAllProblemsCreatedByUser
 );
+problemRouter.get("/get-most-solved-3problem",getMostSolved3Problem);
+problemRouter.get("/get-all-companies-challenges",getProblemsByCompanyChallenges);
+problemRouter.get("/get-all-tags",getAllTags);

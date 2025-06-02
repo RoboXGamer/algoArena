@@ -120,6 +120,16 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.PotdScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  problemId: 'problemId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  solvedUsers: 'solvedUsers'
+};
+
 exports.Prisma.YearlyGridScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -144,7 +154,10 @@ exports.Prisma.UserScalarFieldEnum = {
   isVerified: 'isVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  links: 'links'
+  links: 'links',
+  companyTags: 'companyTags',
+  achievements: 'achievements',
+  badges: 'badges'
 };
 
 exports.Prisma.ProblemScalarFieldEnum = {
@@ -163,7 +176,8 @@ exports.Prisma.ProblemScalarFieldEnum = {
   codeSnippets: 'codeSnippets',
   referenceSolutions: 'referenceSolutions',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  companyTags: 'companyTags'
 };
 
 exports.Prisma.SubmissionScalarFieldEnum = {
@@ -244,15 +258,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 exports.UserRole = exports.$Enums.UserRole = {
   USER: 'USER',
@@ -266,6 +280,7 @@ exports.Difficulty = exports.$Enums.Difficulty = {
 };
 
 exports.Prisma.ModelName = {
+  Potd: 'Potd',
   YearlyGrid: 'YearlyGrid',
   User: 'User',
   Problem: 'Problem',

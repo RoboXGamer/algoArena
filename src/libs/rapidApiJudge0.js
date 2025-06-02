@@ -53,15 +53,16 @@ export const pollBatchResults = async (tokens) => {
   const url = `https://judge0-ce.p.rapidapi.com/submissions/batch`;
   try {
     while (true) {
-      const { data } = await axios.get(url, {
+      const res = await axios.get(url, {
         headers,
         params: {
           tokens: tokens.join(","),
           base64_encoded: "false",
         },
       });
-
-      const results = data.submissions;
+console.log(res)
+      const results = res.data.submissions;
+      console.log(results)
       const isAllDone = results.every(
         (result) => result.status.id !== 1 && result.status.id !== 2
       );

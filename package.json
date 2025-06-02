@@ -26,6 +26,7 @@
     "google-java-format": "^2.0.1",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.0",
+    "node-cron": "^4.1.0",
     "nodemailer": "^7.0.3",
     "prettier": "^3.5.3",
     "prisma": "^6.7.0",
