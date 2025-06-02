@@ -6,6 +6,10 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const getAllUserProfiles = asyncHandler(async (req, res) => {
   const users = await db.user.findMany({
+    take: 5,
+    orderBy: {
+      xp: 'desc'
+    },
     select: {
       id: true,
       name: true,
