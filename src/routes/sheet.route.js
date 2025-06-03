@@ -10,11 +10,13 @@ import {
   getSheetDetails,
   getTopThreeSheet,
   removeProblemFromSheet,
+  updateSheet,
 } from "../controllers/sheet.controller.js";
 
 export const sheetRouter = express.Router();
 
 sheetRouter.post("/create-sheet", authMiddleware, createSheet);
+sheetRouter.post("/update-sheet/:sheetId", authMiddleware, updateSheet);
 
 sheetRouter.get("/public", authMiddleware, getAllPublicSheets);
 sheetRouter.get("/my-sheets", authMiddleware, getAllMySheets);

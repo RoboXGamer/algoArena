@@ -5,7 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const createSheet = asyncHandler(async (req, res) => {
-  const { name, description, visibility,tags } = req.body;
+  const { name, description, visibility, tags } = req.body;
 
   const userId = req.user.id;
 
@@ -19,13 +19,13 @@ export const createSheet = asyncHandler(async (req, res) => {
       description,
       userId,
       visibility,
-      tags
+      tags,
     },
   });
 
   const createdSheet = await db.sheet.findUnique({
     where: {
-      id: sheet.id
+      id: sheet.id,
     },
     include: {
       problems: {
@@ -56,7 +56,7 @@ export const createSheet = asyncHandler(async (req, res) => {
         },
       },
     },
-  })
+  });
   if (!sheet) {
     throw new ApiError(500, "sheet not create pls try again");
   }
@@ -66,10 +66,87 @@ export const createSheet = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdSheet, "sheet created successfully"));
 });
 
+export const updateSheet = asyncHandler(async (req, res) => {
+  const { sheetId } = req.params;
+  const { name, description, tags, visibility } = req.body;
+
+  // Validate inputs
+  if (
+    !name ||
+    !description ||
+    !Array.isArray(tags) ||
+    tags.length === 0 ||
+    !visibility
+  ) {
+    res.status(400);
+    throw new Error(
+      "All fields are required: name, description, tags, and visibility"
+    );
+  }
+
+  // Find the sheet
+  const sheet = await db.sheet.findUnique({
+    where: { id: sheetId },
+  });
+
+  if (!sheet) {
+    res.status(404);
+    throw new Error("Sheet not found");
+  }
+
+  // Optional: Check if the user owns the sheet
+  if (sheet.userId !== req.user.id) {
+    res.status(403);
+    throw new Error("Not authorized to update this sheet");
+  }
+
+  // Update the sheet
+  const updatedSheet = await db.sheet.update({
+    where: { id: sheetId },
+    data: {
+      name,
+      description,
+      tags,
+      visibility,
+    },
+    include: {
+      problems: {
+        include: {
+          problem: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              difficulty: true,
+              tags: true,
+              userId: true,
+              examples: true,
+              constraints: true,
+              hints: true,
+              editorial: true,
+              publicTestcases: true,
+              codeSnippets: true,
+              referenceSolutions: true,
+              createdAt: true,
+              updatedAt: true,
+              user: true,
+              submission: true,
+              solvedBy: true,
+              problemsSheets: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  res.status(200).json(new ApiResponse(200,updatedSheet,"update successfully"));
+});
+
 export const getAllMySheets = asyncHandler(async (req, res) => {
   const sheets = await db.sheet.findMany({
     where: {
-      userId: req.user.id
+      userId: req.user.id,
     },
     include: {
       problems: {
