@@ -4,7 +4,8 @@ import {
   addProblemsToSheet,
   createSheet,
   deleteSheet,
-  getAllSheetDetails,
+  getAllMySheets,
+  getAllPublicSheets,
   getCreatedByUser,
   getSheetDetails,
   getTopThreeSheet,
@@ -15,7 +16,8 @@ export const sheetRouter = express.Router();
 
 sheetRouter.post("/create-sheet", authMiddleware, createSheet);
 
-sheetRouter.get("/", authMiddleware, getAllSheetDetails);
+sheetRouter.get("/public", authMiddleware, getAllPublicSheets);
+sheetRouter.get("/my-sheets", authMiddleware, getAllMySheets);
 
 sheetRouter.get("/top-three-sheet",authMiddleware,getTopThreeSheet);
 

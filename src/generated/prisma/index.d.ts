@@ -3965,6 +3965,8 @@ export namespace Prisma {
     isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    xp: string | null
+    tier: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3985,6 +3987,8 @@ export namespace Prisma {
     isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    xp: string | null
+    tier: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4006,9 +4010,12 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     links: number
-    companyTags: number
     achievements: number
     badges: number
+    xp: number
+    tier: number
+    hintsUsed: number
+    editorialUsed: number
     _all: number
   }
 
@@ -4041,6 +4048,8 @@ export namespace Prisma {
     isVerified?: true
     createdAt?: true
     updatedAt?: true
+    xp?: true
+    tier?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4061,6 +4070,8 @@ export namespace Prisma {
     isVerified?: true
     createdAt?: true
     updatedAt?: true
+    xp?: true
+    tier?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4082,9 +4093,12 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     links?: true
-    companyTags?: true
     achievements?: true
     badges?: true
+    xp?: true
+    tier?: true
+    hintsUsed?: true
+    editorialUsed?: true
     _all?: true
   }
 
@@ -4193,9 +4207,12 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     links: JsonValue | null
-    companyTags: JsonValue | null
     achievements: JsonValue | null
     badges: JsonValue | null
+    xp: string | null
+    tier: string
+    hintsUsed: string[]
+    editorialUsed: string[]
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -4236,9 +4253,12 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     links?: boolean
-    companyTags?: boolean
     achievements?: boolean
     badges?: boolean
+    xp?: boolean
+    tier?: boolean
+    hintsUsed?: boolean
+    editorialUsed?: boolean
     problems?: boolean | User$problemsArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
     problemSolved?: boolean | User$problemSolvedArgs<ExtArgs>
@@ -4266,9 +4286,12 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     links?: boolean
-    companyTags?: boolean
     achievements?: boolean
     badges?: boolean
+    xp?: boolean
+    tier?: boolean
+    hintsUsed?: boolean
+    editorialUsed?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4290,9 +4313,12 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     links?: boolean
-    companyTags?: boolean
     achievements?: boolean
     badges?: boolean
+    xp?: boolean
+    tier?: boolean
+    hintsUsed?: boolean
+    editorialUsed?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -4314,12 +4340,15 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     links?: boolean
-    companyTags?: boolean
     achievements?: boolean
     badges?: boolean
+    xp?: boolean
+    tier?: boolean
+    hintsUsed?: boolean
+    editorialUsed?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "bio" | "currentStreak" | "maxStreak" | "lastSubmission" | "isVerified" | "createdAt" | "updatedAt" | "links" | "companyTags" | "achievements" | "badges", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "bio" | "currentStreak" | "maxStreak" | "lastSubmission" | "isVerified" | "createdAt" | "updatedAt" | "links" | "achievements" | "badges" | "xp" | "tier" | "hintsUsed" | "editorialUsed", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
@@ -4359,9 +4388,12 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       links: Prisma.JsonValue | null
-      companyTags: Prisma.JsonValue | null
       achievements: Prisma.JsonValue | null
       badges: Prisma.JsonValue | null
+      xp: string | null
+      tier: string
+      hintsUsed: string[]
+      editorialUsed: string[]
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4808,9 +4840,12 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly links: FieldRef<"User", 'Json'>
-    readonly companyTags: FieldRef<"User", 'Json'>
     readonly achievements: FieldRef<"User", 'Json'>
     readonly badges: FieldRef<"User", 'Json'>
+    readonly xp: FieldRef<"User", 'String'>
+    readonly tier: FieldRef<"User", 'String'>
+    readonly hintsUsed: FieldRef<"User", 'String[]'>
+    readonly editorialUsed: FieldRef<"User", 'String[]'>
   }
     
 
@@ -10136,6 +10171,8 @@ export namespace Prisma {
     description: number
     userId: number
     visibility: number
+    likes: number
+    tags: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -10168,6 +10205,8 @@ export namespace Prisma {
     description?: true
     userId?: true
     visibility?: true
+    likes?: true
+    tags?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -10251,6 +10290,8 @@ export namespace Prisma {
     description: string | null
     userId: string
     visibility: string
+    likes: string[]
+    tags: string[]
     createdAt: Date
     updatedAt: Date
     _count: SheetCountAggregateOutputType | null
@@ -10278,6 +10319,8 @@ export namespace Prisma {
     description?: boolean
     userId?: boolean
     visibility?: boolean
+    likes?: boolean
+    tags?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     problems?: boolean | Sheet$problemsArgs<ExtArgs>
@@ -10291,6 +10334,8 @@ export namespace Prisma {
     description?: boolean
     userId?: boolean
     visibility?: boolean
+    likes?: boolean
+    tags?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10302,6 +10347,8 @@ export namespace Prisma {
     description?: boolean
     userId?: boolean
     visibility?: boolean
+    likes?: boolean
+    tags?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10313,11 +10360,13 @@ export namespace Prisma {
     description?: boolean
     userId?: boolean
     visibility?: boolean
+    likes?: boolean
+    tags?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SheetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "userId" | "visibility" | "createdAt" | "updatedAt", ExtArgs["result"]["sheet"]>
+  export type SheetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "userId" | "visibility" | "likes" | "tags" | "createdAt" | "updatedAt", ExtArgs["result"]["sheet"]>
   export type SheetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | Sheet$problemsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10342,6 +10391,8 @@ export namespace Prisma {
       description: string | null
       userId: string
       visibility: string
+      likes: string[]
+      tags: string[]
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sheet"]>
@@ -10774,6 +10825,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Sheet", 'String'>
     readonly userId: FieldRef<"Sheet", 'String'>
     readonly visibility: FieldRef<"Sheet", 'String'>
+    readonly likes: FieldRef<"Sheet", 'String[]'>
+    readonly tags: FieldRef<"Sheet", 'String[]'>
     readonly createdAt: FieldRef<"Sheet", 'DateTime'>
     readonly updatedAt: FieldRef<"Sheet", 'DateTime'>
   }
@@ -12335,9 +12388,12 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     links: 'links',
-    companyTags: 'companyTags',
     achievements: 'achievements',
-    badges: 'badges'
+    badges: 'badges',
+    xp: 'xp',
+    tier: 'tier',
+    hintsUsed: 'hintsUsed',
+    editorialUsed: 'editorialUsed'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -12422,6 +12478,8 @@ export namespace Prisma {
     description: 'description',
     userId: 'userId',
     visibility: 'visibility',
+    likes: 'likes',
+    tags: 'tags',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12733,9 +12791,12 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     links?: JsonNullableFilter<"User">
-    companyTags?: JsonNullableFilter<"User">
     achievements?: JsonNullableFilter<"User">
     badges?: JsonNullableFilter<"User">
+    xp?: StringNullableFilter<"User"> | string | null
+    tier?: StringFilter<"User"> | string
+    hintsUsed?: StringNullableListFilter<"User">
+    editorialUsed?: StringNullableListFilter<"User">
     problems?: ProblemListRelationFilter
     submission?: SubmissionListRelationFilter
     problemSolved?: ProblemSolvedListRelationFilter
@@ -12762,9 +12823,12 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     links?: SortOrderInput | SortOrder
-    companyTags?: SortOrderInput | SortOrder
     achievements?: SortOrderInput | SortOrder
     badges?: SortOrderInput | SortOrder
+    xp?: SortOrderInput | SortOrder
+    tier?: SortOrder
+    hintsUsed?: SortOrder
+    editorialUsed?: SortOrder
     problems?: ProblemOrderByRelationAggregateInput
     submission?: SubmissionOrderByRelationAggregateInput
     problemSolved?: ProblemSolvedOrderByRelationAggregateInput
@@ -12794,9 +12858,12 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     links?: JsonNullableFilter<"User">
-    companyTags?: JsonNullableFilter<"User">
     achievements?: JsonNullableFilter<"User">
     badges?: JsonNullableFilter<"User">
+    xp?: StringNullableFilter<"User"> | string | null
+    tier?: StringFilter<"User"> | string
+    hintsUsed?: StringNullableListFilter<"User">
+    editorialUsed?: StringNullableListFilter<"User">
     problems?: ProblemListRelationFilter
     submission?: SubmissionListRelationFilter
     problemSolved?: ProblemSolvedListRelationFilter
@@ -12823,9 +12890,12 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     links?: SortOrderInput | SortOrder
-    companyTags?: SortOrderInput | SortOrder
     achievements?: SortOrderInput | SortOrder
     badges?: SortOrderInput | SortOrder
+    xp?: SortOrderInput | SortOrder
+    tier?: SortOrder
+    hintsUsed?: SortOrder
+    editorialUsed?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -12855,9 +12925,12 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     links?: JsonNullableWithAggregatesFilter<"User">
-    companyTags?: JsonNullableWithAggregatesFilter<"User">
     achievements?: JsonNullableWithAggregatesFilter<"User">
     badges?: JsonNullableWithAggregatesFilter<"User">
+    xp?: StringNullableWithAggregatesFilter<"User"> | string | null
+    tier?: StringWithAggregatesFilter<"User"> | string
+    hintsUsed?: StringNullableListFilter<"User">
+    editorialUsed?: StringNullableListFilter<"User">
   }
 
   export type ProblemWhereInput = {
@@ -13258,6 +13331,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
     visibility?: StringFilter<"Sheet"> | string
+    likes?: StringNullableListFilter<"Sheet">
+    tags?: StringNullableListFilter<"Sheet">
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
     updatedAt?: DateTimeFilter<"Sheet"> | Date | string
     problems?: ProblemInSheetListRelationFilter
@@ -13270,6 +13345,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     userId?: SortOrder
     visibility?: SortOrder
+    likes?: SortOrder
+    tags?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     problems?: ProblemInSheetOrderByRelationAggregateInput
@@ -13286,6 +13363,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
     visibility?: StringFilter<"Sheet"> | string
+    likes?: StringNullableListFilter<"Sheet">
+    tags?: StringNullableListFilter<"Sheet">
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
     updatedAt?: DateTimeFilter<"Sheet"> | Date | string
     problems?: ProblemInSheetListRelationFilter
@@ -13298,6 +13377,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     userId?: SortOrder
     visibility?: SortOrder
+    likes?: SortOrder
+    tags?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SheetCountOrderByAggregateInput
@@ -13314,6 +13395,8 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Sheet"> | string | null
     userId?: StringWithAggregatesFilter<"Sheet"> | string
     visibility?: StringWithAggregatesFilter<"Sheet"> | string
+    likes?: StringNullableListFilter<"Sheet">
+    tags?: StringNullableListFilter<"Sheet">
     createdAt?: DateTimeWithAggregatesFilter<"Sheet"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Sheet"> | Date | string
   }
@@ -13506,9 +13589,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -13535,9 +13621,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -13564,9 +13653,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -13593,9 +13685,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -13622,9 +13717,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
   }
 
   export type UserUpdateManyMutationInput = {
@@ -13646,9 +13744,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -13670,9 +13771,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
   }
 
   export type ProblemCreateInput = {
@@ -14121,6 +14225,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     visibility?: string
+    likes?: SheetCreatelikesInput | string[]
+    tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemInSheetCreateNestedManyWithoutSheetInput
@@ -14133,6 +14239,8 @@ export namespace Prisma {
     description?: string | null
     userId: string
     visibility?: string
+    likes?: SheetCreatelikesInput | string[]
+    tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemInSheetUncheckedCreateNestedManyWithoutSheetInput
@@ -14143,6 +14251,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemInSheetUpdateManyWithoutSheetNestedInput
@@ -14155,6 +14265,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemInSheetUncheckedUpdateManyWithoutSheetNestedInput
@@ -14166,6 +14278,8 @@ export namespace Prisma {
     description?: string | null
     userId: string
     visibility?: string
+    likes?: SheetCreatelikesInput | string[]
+    tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14175,6 +14289,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14185,6 +14301,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14529,9 +14647,12 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     links?: SortOrder
-    companyTags?: SortOrder
     achievements?: SortOrder
     badges?: SortOrder
+    xp?: SortOrder
+    tier?: SortOrder
+    hintsUsed?: SortOrder
+    editorialUsed?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -14557,6 +14678,8 @@ export namespace Prisma {
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    xp?: SortOrder
+    tier?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -14577,6 +14700,8 @@ export namespace Prisma {
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    xp?: SortOrder
+    tier?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -14946,6 +15071,8 @@ export namespace Prisma {
     description?: SortOrder
     userId?: SortOrder
     visibility?: SortOrder
+    likes?: SortOrder
+    tags?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15053,6 +15180,14 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutYearlyGridInput, UserUpdateWithoutYearlyGridInput>, UserUncheckedUpdateWithoutYearlyGridInput>
   }
 
+  export type UserCreatehintsUsedInput = {
+    set: string[]
+  }
+
+  export type UserCreateeditorialUsedInput = {
+    set: string[]
+  }
+
   export type ProblemCreateNestedManyWithoutUserInput = {
     create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
@@ -15141,6 +15276,16 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type UserUpdatehintsUsedInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateeditorialUsedInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type ProblemUpdateManyWithoutUserNestedInput = {
@@ -15590,6 +15735,14 @@ export namespace Prisma {
     update?: XOR<XOR<ProblemUpdateToOneWithWhereWithoutSolvedByInput, ProblemUpdateWithoutSolvedByInput>, ProblemUncheckedUpdateWithoutSolvedByInput>
   }
 
+  export type SheetCreatelikesInput = {
+    set: string[]
+  }
+
+  export type SheetCreatetagsInput = {
+    set: string[]
+  }
+
   export type ProblemInSheetCreateNestedManyWithoutSheetInput = {
     create?: XOR<ProblemInSheetCreateWithoutSheetInput, ProblemInSheetUncheckedCreateWithoutSheetInput> | ProblemInSheetCreateWithoutSheetInput[] | ProblemInSheetUncheckedCreateWithoutSheetInput[]
     connectOrCreate?: ProblemInSheetCreateOrConnectWithoutSheetInput | ProblemInSheetCreateOrConnectWithoutSheetInput[]
@@ -15608,6 +15761,16 @@ export namespace Prisma {
     connectOrCreate?: ProblemInSheetCreateOrConnectWithoutSheetInput | ProblemInSheetCreateOrConnectWithoutSheetInput[]
     createMany?: ProblemInSheetCreateManySheetInputEnvelope
     connect?: ProblemInSheetWhereUniqueInput | ProblemInSheetWhereUniqueInput[]
+  }
+
+  export type SheetUpdatelikesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SheetUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type ProblemInSheetUpdateManyWithoutSheetNestedInput = {
@@ -16055,9 +16218,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -16083,9 +16249,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -16127,9 +16296,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -16155,9 +16327,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -16293,6 +16468,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     visibility?: string
+    likes?: SheetCreatelikesInput | string[]
+    tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemInSheetCreateNestedManyWithoutSheetInput
@@ -16303,6 +16480,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     visibility?: string
+    likes?: SheetCreatelikesInput | string[]
+    tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemInSheetUncheckedCreateNestedManyWithoutSheetInput
@@ -16465,6 +16644,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
     visibility?: StringFilter<"Sheet"> | string
+    likes?: StringNullableListFilter<"Sheet">
+    tags?: StringNullableListFilter<"Sheet">
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
     updatedAt?: DateTimeFilter<"Sheet"> | Date | string
   }
@@ -16513,9 +16694,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
@@ -16541,9 +16725,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
@@ -16705,9 +16892,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
@@ -16733,9 +16923,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
@@ -16849,9 +17042,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
@@ -16877,9 +17073,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
@@ -17012,9 +17211,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
@@ -17040,9 +17242,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
@@ -17244,9 +17449,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     sheets?: SheetCreateNestedManyWithoutUserInput
@@ -17272,9 +17480,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     sheets?: SheetUncheckedCreateNestedManyWithoutUserInput
@@ -17367,9 +17578,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     sheets?: SheetUpdateManyWithoutUserNestedInput
@@ -17395,9 +17609,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     sheets?: SheetUncheckedUpdateManyWithoutUserNestedInput
@@ -17504,9 +17721,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -17532,9 +17752,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: string | null
+    tier?: string
+    hintsUsed?: UserCreatehintsUsedInput | string[]
+    editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -17592,9 +17815,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -17620,9 +17846,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: NullableJsonNullValueInput | InputJsonValue
-    companyTags?: NullableJsonNullValueInput | InputJsonValue
     achievements?: NullableJsonNullValueInput | InputJsonValue
     badges?: NullableJsonNullValueInput | InputJsonValue
+    xp?: NullableStringFieldUpdateOperationsInput | string | null
+    tier?: StringFieldUpdateOperationsInput | string
+    hintsUsed?: UserUpdatehintsUsedInput | string[]
+    editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -17634,6 +17863,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     visibility?: string
+    likes?: SheetCreatelikesInput | string[]
+    tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSheetsInput
@@ -17645,6 +17876,8 @@ export namespace Prisma {
     description?: string | null
     userId: string
     visibility?: string
+    likes?: SheetCreatelikesInput | string[]
+    tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17721,6 +17954,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSheetsNestedInput
@@ -17732,6 +17967,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17840,6 +18077,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     visibility?: string
+    likes?: SheetCreatelikesInput | string[]
+    tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17990,6 +18229,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemInSheetUpdateManyWithoutSheetNestedInput
@@ -18000,6 +18241,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemInSheetUncheckedUpdateManyWithoutSheetNestedInput
@@ -18010,6 +18253,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: StringFieldUpdateOperationsInput | string
+    likes?: SheetUpdatelikesInput | string[]
+    tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

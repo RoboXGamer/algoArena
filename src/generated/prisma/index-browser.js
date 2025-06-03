@@ -155,9 +155,12 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   links: 'links',
-  companyTags: 'companyTags',
   achievements: 'achievements',
-  badges: 'badges'
+  badges: 'badges',
+  xp: 'xp',
+  tier: 'tier',
+  hintsUsed: 'hintsUsed',
+  editorialUsed: 'editorialUsed'
 };
 
 exports.Prisma.ProblemScalarFieldEnum = {
@@ -227,6 +230,8 @@ exports.Prisma.SheetScalarFieldEnum = {
   description: 'description',
   userId: 'userId',
   visibility: 'visibility',
+  likes: 'likes',
+  tags: 'tags',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

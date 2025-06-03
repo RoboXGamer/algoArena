@@ -5,7 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const createSheet = asyncHandler(async (req, res) => {
-  const { name, description, visibility } = req.body;
+  const { name, description, visibility,tags } = req.body;
 
   const userId = req.user.id;
 
@@ -19,23 +19,98 @@ export const createSheet = asyncHandler(async (req, res) => {
       description,
       userId,
       visibility,
+      tags
     },
   });
 
+  const createdSheet = await db.sheet.findUnique({
+    where: {
+      id: sheet.id
+    },
+    include: {
+      problems: {
+        include: {
+          problem: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              difficulty: true,
+              tags: true,
+              userId: true,
+              examples: true,
+              constraints: true,
+              hints: true,
+              editorial: true,
+              publicTestcases: true,
+              codeSnippets: true,
+              referenceSolutions: true,
+              createdAt: true,
+              updatedAt: true,
+              user: true,
+              submission: true,
+              solvedBy: true,
+              problemsSheets: true,
+            },
+          },
+        },
+      },
+    },
+  })
   if (!sheet) {
     throw new ApiError(500, "sheet not create pls try again");
   }
 
   res
     .status(200)
-    .json(new ApiResponse(200, sheet, "sheet created successfully"));
+    .json(new ApiResponse(200, createdSheet, "sheet created successfully"));
 });
 
-export const getAllSheetDetails = asyncHandler(async (req, res) => {
+export const getAllMySheets = asyncHandler(async (req, res) => {
   const sheets = await db.sheet.findMany({
     where: {
-      userId: req.user.id,
-      visibility: "public",
+      userId: req.user.id
+    },
+    include: {
+      problems: {
+        include: {
+          problem: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              difficulty: true,
+              tags: true,
+              userId: true,
+              examples: true,
+              constraints: true,
+              hints: true,
+              editorial: true,
+              publicTestcases: true,
+              codeSnippets: true,
+              referenceSolutions: true,
+              createdAt: true,
+              updatedAt: true,
+              user: true,
+              submission: true,
+              solvedBy: true,
+              problemsSheets: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, sheets, "sheet fetched successfully"));
+});
+
+export const getAllPublicSheets = asyncHandler(async (req, res) => {
+  const sheets = await db.sheet.findMany({
+    where: {
+      visibility: "Public",
     },
     include: {
       problems: {
