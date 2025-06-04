@@ -331,7 +331,7 @@ export const getAllProblems = asyncHandler(async (req, res) => {
       totalProblems,
       start,
       end,
-      message: `Showing problems ${start} to ${end} of ${totalProblems}`,
+      message: `Showing ${start}-${end} of ${totalProblems} problems`,
     },
   };
 
@@ -488,7 +488,7 @@ export const getProblemsByCompanyChallenges = asyncHandler(async (req, res) => {
   });
 
   if (!problems || problems.length === 0) {
-    throw new ApiError(404, "No problems found");
+    throw new ApiResponse(200, [], "No problems found");
   }
 
   const companyStats = {};
@@ -530,7 +530,7 @@ export const getAllTags = asyncHandler(async (req, res) => {
   });
 
   if (!problems || problems.length === 0) {
-    throw new ApiError(404, "No tags found");
+    return res.status(200).json(new ApiResponse(200, [], "No tags found"));
   }
 
   const tagCountMap = new Map();
@@ -548,21 +548,4 @@ export const getAllTags = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, tagWithCount, "Tags fetched successfully"));
-});
-
-export const getRandomProblem = asyncHandler(async (req, res) => {
-  const problems = await db.problem.findMany();
-
-  if (!problems || problems.length === 0) {
-    return res.status(404).json({ message: "No problems found" });
-  }
-
-  const randomIndex = Math.floor(Math.random() * problems.length);
-  const randomProblem = problems[randomIndex];
-  console.log(randomIndex)
-  console.log(randomProblem)
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, randomProblem, "Fetched random problem"));
 });

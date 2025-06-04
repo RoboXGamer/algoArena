@@ -6,6 +6,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { authHelper } from "../utils/tokenGenerateAndVerify.js";
 import { sendMail } from "../libs/sendMail.lib.js";
+import { getLevelAndTier } from "../controllers/executeCode.controller.js";
 
 // Register the user
 export const register = asyncHandler(async (req, res) => {
@@ -46,6 +47,9 @@ export const register = asyncHandler(async (req, res) => {
           localPassword: true,
           otp,
           token,
+          xp: "0",
+          tier: "Bronze",
+          level: 1, // Set initial level
         },
       });
 
@@ -95,6 +99,9 @@ export const register = asyncHandler(async (req, res) => {
         localPassword: true,
         otp,
         token,
+        xp: "0",
+        tier: "Bronze",
+        level: 1, // Set initial level
       },
     });
 
@@ -291,7 +298,9 @@ export const forgotPassword = asyncHandler(async (req, res) => {
 
   return res
     .status(201)
-    .json(new ApiResponse(201, {}, "Otp send in your email pls check your mail box"));
+    .json(
+      new ApiResponse(201, {}, "Otp send in your email pls check your mail box")
+    );
 });
 
 //Reset password
@@ -587,39 +596,35 @@ export const socialAuth = asyncHandler(async (req, res) => {
 
 // get me
 export const check = asyncHandler(async (req, res) => {
-  res.status(200).json(
-    new ApiResponse(
-      200,
-      {
-        id: req.user.id,
-        name: req.user.name,
-        username: req.user.name,
-        email: req.user.email,
-        image: req.user.image,
-        role: req.user.role,
-        localPassword: req.user.localPassword,
-        bio: req.user.bio,
-        currentStreak: req.user.currentStreak,
-        maxStreak: req.user.maxStreak,
-        lastSubmission: req.user.lastSubmission,
-        isVerified: req.user.isVerified,
-        createdAt: req.user.createdAt,
-        updatedAt: req.user.updatedAt,
-        problems: req.user.problems,
-        submission: req.user.submission,
-        problemSolved: req.user.problemSolved,
-        sheets: req.user.sheets,
-        links: req.user.links,
-        yearlyGrid: req.user.yearlyGrid,
-        achievements: req.user.achievements,
-        badges: req.user.badges,
-        xp: req.user.xp,
-        level: req.user.level,
-        tier: req.user.tier,
-        hintsUsed: req.user.hintsUsed,
-        editorialUsed: req.user.editorialUsed,
-      },
-      "User is authenticated"
-    )
-  );
+  const userId = req.user.id;
+
+  // Fetch the latest user data from the database
+  const user = await db.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  // Calculate level and tier
+  if (user.xp) {
+    const totalXP = parseInt(user.xp || "0");
+    const { level, tier } = getLevelAndTier(totalXP);
+    // Update user with calculated level and tier
+    await db.user.update({
+      where: { id: userId },
+      data: { level, tier },
+    });
+
+    // Update the user object for the response
+    user.level = level;
+    user.tier = tier;
+  }
+
+  // Remove sensitive information
+  delete user.password;
+  delete user.otp;
+
+  res.status(200).json(new ApiResponse(200, user, "User is authenticated"));
 });
