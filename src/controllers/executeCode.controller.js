@@ -71,7 +71,7 @@ const LEVELS = [
 
 export function getLevelAndTier(totalXP){
   const {level,tier} = [...LEVELS].reverse().find((l) => totalXP >= l.requiredXP) ?? LEVELS[0]
-  return {level,tire};
+  return {level,tier};
 }
 
 function awardBadges(user,meta) {
