@@ -71,9 +71,9 @@ model User {
   yearlyGrid     YearlyGrid[]
   achievements   Json?           @default("{}")
   badges         Json?           @default("{}")
-  xp             String?         @default("0")
+  xp             Int?            @default(0)
   tier           String          @default("Bronze")
-  level          String?         @default("0")
+  level          Int?            @default(0)
   hintsUsed      String[]
   editorialUsed  String[]
 }
