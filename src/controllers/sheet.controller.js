@@ -140,7 +140,9 @@ export const updateSheet = asyncHandler(async (req, res) => {
     },
   });
 
-  res.status(200).json(new ApiResponse(200,updatedSheet,"update successfully"));
+  res
+    .status(200)
+    .json(new ApiResponse(200, updatedSheet, "update successfully"));
 });
 
 export const getAllMySheets = asyncHandler(async (req, res) => {
@@ -470,3 +472,82 @@ export const removeProblemFromSheet = asyncHandler(async (req, res) => {
       )
     );
 });
+
+export const getSheetById = asyncHandler(async (req, res) => {
+  const { sheetId } = req.params;
+
+  const sheet = await db.sheet.findUnique({
+    where: {
+      id: sheetId,
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true, // include other fields as needed
+        },
+      },
+      problems: {
+        include: {
+          problem: true,
+        },
+      },
+    },
+  });
+
+  if (!sheet) {
+    throw new ApiError(404, "Sheet not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, sheet, "Sheet fetched successfully"));
+});
+
+export const liked = asyncHandler(async (req, res) => {
+  const { userId, sheetId } = req.body;
+
+  if (!userId || !sheetId) {
+    throw new ApiError(400, "userId and sheetId are required");
+  }
+
+  // Fetch current likes
+  const sheet = await db.sheet.findUnique({
+    where: { id: sheetId },
+    select: { likes: true },
+  });
+
+  if (!sheet) {
+    throw new ApiError(404, "Sheet not found");
+  }
+
+  let updatedLikes = [];
+
+  if (sheet.likes.includes(userId)) {
+    // Dislike: remove userId from likes
+    updatedLikes = sheet.likes.filter(id => id !== userId);
+  } else {
+    // Like: add userId to likes
+    updatedLikes = [...sheet.likes, userId];
+  }
+
+  // Update the sheet with new likes
+  const updatedSheet = await db.sheet.update({
+    where: { id: sheetId },
+    data: {
+      likes: {
+        set: updatedLikes,
+      },
+    },
+  });
+
+  const message = sheet.likes.includes(userId)
+    ? "Sheet disliked successfully"
+    : "Sheet liked successfully";
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, updatedSheet, message));
+});
+

@@ -19,9 +19,10 @@ enum Difficulty {
   MEDIUM
   HARD
 }
+
 enum Visibility {
-  Public 
-  Private 
+  Public
+  Private
 }
 
 model Potd {
@@ -72,6 +73,7 @@ model User {
   badges         Json?           @default("{}")
   xp             String?         @default("0")
   tier           String          @default("Bronze")
+  level          String?         @default("0")
   hintsUsed      String[]
   editorialUsed  String[]
 }
@@ -160,11 +162,11 @@ model ProblemSolved {
 }
 
 model Sheet {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   name        String
   description String?
   userId      String
-  visibility  Visibility   @default(Public)
+  visibility  Visibility @default(Public)
   likes       String[]
   tags        String[]
 

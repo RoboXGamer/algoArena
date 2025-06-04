@@ -7,8 +7,10 @@ import {
   getAllMySheets,
   getAllPublicSheets,
   getCreatedByUser,
+  getSheetById,
   getSheetDetails,
   getTopThreeSheet,
+  liked,
   removeProblemFromSheet,
   updateSheet,
 } from "../controllers/sheet.controller.js";
@@ -21,14 +23,19 @@ sheetRouter.post("/update-sheet/:sheetId", authMiddleware, updateSheet);
 sheetRouter.get("/public", authMiddleware, getAllPublicSheets);
 sheetRouter.get("/my-sheets", authMiddleware, getAllMySheets);
 
-sheetRouter.get("/top-three-sheet",authMiddleware,getTopThreeSheet);
+sheetRouter.get("/top-three-sheet", authMiddleware, getTopThreeSheet);
 
-sheetRouter.get("/sheet-created-by-user",authMiddleware,getCreatedByUser);
+sheetRouter.get("/sheet-created-by-user", authMiddleware, getCreatedByUser);
+
+sheetRouter.post("/liked", authMiddleware, liked);
+
+sheetRouter.get("/get-sheet-by-id/:sheetId", authMiddleware, getSheetById);
+sheetRouter.post(
+  "/:sheetId/remove-problem",
+  authMiddleware,
+  removeProblemFromSheet
+);
+sheetRouter.post("/:sheetId/add-problems", authMiddleware, addProblemsToSheet);
 
 sheetRouter.get("/:sheetId", authMiddleware, getSheetDetails);
-
-sheetRouter.post("/:sheetId/add-problems",authMiddleware ,addProblemsToSheet);
-
 sheetRouter.delete("/:sheetId", authMiddleware, deleteSheet);
-
-sheetRouter.post("/:sheetId/remove-problem", authMiddleware, removeProblemFromSheet);

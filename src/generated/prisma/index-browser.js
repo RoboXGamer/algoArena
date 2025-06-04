@@ -159,6 +159,7 @@ exports.Prisma.UserScalarFieldEnum = {
   badges: 'badges',
   xp: 'xp',
   tier: 'tier',
+  level: 'level',
   hintsUsed: 'hintsUsed',
   editorialUsed: 'editorialUsed'
 };
@@ -282,6 +283,11 @@ exports.Difficulty = exports.$Enums.Difficulty = {
   EASY: 'EASY',
   MEDIUM: 'MEDIUM',
   HARD: 'HARD'
+};
+
+exports.Visibility = exports.$Enums.Visibility = {
+  Public: 'Public',
+  Private: 'Private'
 };
 
 exports.Prisma.ModelName = {

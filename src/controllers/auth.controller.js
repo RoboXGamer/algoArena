@@ -600,6 +600,7 @@ export const check = asyncHandler(async (req, res) => {
         localPassword: req.user.localPassword,
         bio: req.user.bio,
         currentStreak: req.user.currentStreak,
+        maxStreak: req.user.maxStreak,
         lastSubmission: req.user.lastSubmission,
         isVerified: req.user.isVerified,
         createdAt: req.user.createdAt,
@@ -610,6 +611,13 @@ export const check = asyncHandler(async (req, res) => {
         sheets: req.user.sheets,
         links: req.user.links,
         yearlyGrid: req.user.yearlyGrid,
+        achievements: req.user.achievements,
+        badges: req.user.badges,
+        xp: req.user.xp,
+        level: req.user.level,
+        tier: req.user.tier,
+        hintsUsed: req.user.hintsUsed,
+        editorialUsed: req.user.editorialUsed,
       },
       "User is authenticated"
     )

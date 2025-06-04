@@ -79,6 +79,14 @@ export const Difficulty: {
 
 export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 
+
+export const Visibility: {
+  Public: 'Public',
+  Private: 'Private'
+};
+
+export type Visibility = (typeof Visibility)[keyof typeof Visibility]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -88,6 +96,10 @@ export const UserRole: typeof $Enums.UserRole
 export type Difficulty = $Enums.Difficulty
 
 export const Difficulty: typeof $Enums.Difficulty
+
+export type Visibility = $Enums.Visibility
+
+export const Visibility: typeof $Enums.Visibility
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3967,6 +3979,7 @@ export namespace Prisma {
     updatedAt: Date | null
     xp: string | null
     tier: string | null
+    level: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3989,6 +4002,7 @@ export namespace Prisma {
     updatedAt: Date | null
     xp: string | null
     tier: string | null
+    level: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4014,6 +4028,7 @@ export namespace Prisma {
     badges: number
     xp: number
     tier: number
+    level: number
     hintsUsed: number
     editorialUsed: number
     _all: number
@@ -4050,6 +4065,7 @@ export namespace Prisma {
     updatedAt?: true
     xp?: true
     tier?: true
+    level?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4072,6 +4088,7 @@ export namespace Prisma {
     updatedAt?: true
     xp?: true
     tier?: true
+    level?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4097,6 +4114,7 @@ export namespace Prisma {
     badges?: true
     xp?: true
     tier?: true
+    level?: true
     hintsUsed?: true
     editorialUsed?: true
     _all?: true
@@ -4211,6 +4229,7 @@ export namespace Prisma {
     badges: JsonValue | null
     xp: string | null
     tier: string
+    level: string | null
     hintsUsed: string[]
     editorialUsed: string[]
     _count: UserCountAggregateOutputType | null
@@ -4257,6 +4276,7 @@ export namespace Prisma {
     badges?: boolean
     xp?: boolean
     tier?: boolean
+    level?: boolean
     hintsUsed?: boolean
     editorialUsed?: boolean
     problems?: boolean | User$problemsArgs<ExtArgs>
@@ -4290,6 +4310,7 @@ export namespace Prisma {
     badges?: boolean
     xp?: boolean
     tier?: boolean
+    level?: boolean
     hintsUsed?: boolean
     editorialUsed?: boolean
   }, ExtArgs["result"]["user"]>
@@ -4317,6 +4338,7 @@ export namespace Prisma {
     badges?: boolean
     xp?: boolean
     tier?: boolean
+    level?: boolean
     hintsUsed?: boolean
     editorialUsed?: boolean
   }, ExtArgs["result"]["user"]>
@@ -4344,11 +4366,12 @@ export namespace Prisma {
     badges?: boolean
     xp?: boolean
     tier?: boolean
+    level?: boolean
     hintsUsed?: boolean
     editorialUsed?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "bio" | "currentStreak" | "maxStreak" | "lastSubmission" | "isVerified" | "createdAt" | "updatedAt" | "links" | "achievements" | "badges" | "xp" | "tier" | "hintsUsed" | "editorialUsed", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "image" | "role" | "password" | "localPassword" | "token" | "otp" | "bio" | "currentStreak" | "maxStreak" | "lastSubmission" | "isVerified" | "createdAt" | "updatedAt" | "links" | "achievements" | "badges" | "xp" | "tier" | "level" | "hintsUsed" | "editorialUsed", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
@@ -4392,6 +4415,7 @@ export namespace Prisma {
       badges: Prisma.JsonValue | null
       xp: string | null
       tier: string
+      level: string | null
       hintsUsed: string[]
       editorialUsed: string[]
     }, ExtArgs["result"]["user"]>
@@ -4844,6 +4868,7 @@ export namespace Prisma {
     readonly badges: FieldRef<"User", 'Json'>
     readonly xp: FieldRef<"User", 'String'>
     readonly tier: FieldRef<"User", 'String'>
+    readonly level: FieldRef<"User", 'String'>
     readonly hintsUsed: FieldRef<"User", 'String[]'>
     readonly editorialUsed: FieldRef<"User", 'String[]'>
   }
@@ -10150,7 +10175,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     userId: string | null
-    visibility: string | null
+    visibility: $Enums.Visibility | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10160,7 +10185,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     userId: string | null
-    visibility: string | null
+    visibility: $Enums.Visibility | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10289,7 +10314,7 @@ export namespace Prisma {
     name: string
     description: string | null
     userId: string
-    visibility: string
+    visibility: $Enums.Visibility
     likes: string[]
     tags: string[]
     createdAt: Date
@@ -10390,7 +10415,7 @@ export namespace Prisma {
       name: string
       description: string | null
       userId: string
-      visibility: string
+      visibility: $Enums.Visibility
       likes: string[]
       tags: string[]
       createdAt: Date
@@ -10824,7 +10849,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Sheet", 'String'>
     readonly description: FieldRef<"Sheet", 'String'>
     readonly userId: FieldRef<"Sheet", 'String'>
-    readonly visibility: FieldRef<"Sheet", 'String'>
+    readonly visibility: FieldRef<"Sheet", 'Visibility'>
     readonly likes: FieldRef<"Sheet", 'String[]'>
     readonly tags: FieldRef<"Sheet", 'String[]'>
     readonly createdAt: FieldRef<"Sheet", 'DateTime'>
@@ -12392,6 +12417,7 @@ export namespace Prisma {
     badges: 'badges',
     xp: 'xp',
     tier: 'tier',
+    level: 'level',
     hintsUsed: 'hintsUsed',
     editorialUsed: 'editorialUsed'
   };
@@ -12643,6 +12669,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Visibility'
+   */
+  export type EnumVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Visibility'>
+    
+
+
+  /**
+   * Reference to a field of type 'Visibility[]'
+   */
+  export type ListEnumVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Visibility[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -12795,6 +12835,7 @@ export namespace Prisma {
     badges?: JsonNullableFilter<"User">
     xp?: StringNullableFilter<"User"> | string | null
     tier?: StringFilter<"User"> | string
+    level?: StringNullableFilter<"User"> | string | null
     hintsUsed?: StringNullableListFilter<"User">
     editorialUsed?: StringNullableListFilter<"User">
     problems?: ProblemListRelationFilter
@@ -12827,6 +12868,7 @@ export namespace Prisma {
     badges?: SortOrderInput | SortOrder
     xp?: SortOrderInput | SortOrder
     tier?: SortOrder
+    level?: SortOrderInput | SortOrder
     hintsUsed?: SortOrder
     editorialUsed?: SortOrder
     problems?: ProblemOrderByRelationAggregateInput
@@ -12862,6 +12904,7 @@ export namespace Prisma {
     badges?: JsonNullableFilter<"User">
     xp?: StringNullableFilter<"User"> | string | null
     tier?: StringFilter<"User"> | string
+    level?: StringNullableFilter<"User"> | string | null
     hintsUsed?: StringNullableListFilter<"User">
     editorialUsed?: StringNullableListFilter<"User">
     problems?: ProblemListRelationFilter
@@ -12894,6 +12937,7 @@ export namespace Prisma {
     badges?: SortOrderInput | SortOrder
     xp?: SortOrderInput | SortOrder
     tier?: SortOrder
+    level?: SortOrderInput | SortOrder
     hintsUsed?: SortOrder
     editorialUsed?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -12929,6 +12973,7 @@ export namespace Prisma {
     badges?: JsonNullableWithAggregatesFilter<"User">
     xp?: StringNullableWithAggregatesFilter<"User"> | string | null
     tier?: StringWithAggregatesFilter<"User"> | string
+    level?: StringNullableWithAggregatesFilter<"User"> | string | null
     hintsUsed?: StringNullableListFilter<"User">
     editorialUsed?: StringNullableListFilter<"User">
   }
@@ -13330,7 +13375,7 @@ export namespace Prisma {
     name?: StringFilter<"Sheet"> | string
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
-    visibility?: StringFilter<"Sheet"> | string
+    visibility?: EnumVisibilityFilter<"Sheet"> | $Enums.Visibility
     likes?: StringNullableListFilter<"Sheet">
     tags?: StringNullableListFilter<"Sheet">
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
@@ -13362,7 +13407,7 @@ export namespace Prisma {
     name?: StringFilter<"Sheet"> | string
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
-    visibility?: StringFilter<"Sheet"> | string
+    visibility?: EnumVisibilityFilter<"Sheet"> | $Enums.Visibility
     likes?: StringNullableListFilter<"Sheet">
     tags?: StringNullableListFilter<"Sheet">
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
@@ -13394,7 +13439,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Sheet"> | string
     description?: StringNullableWithAggregatesFilter<"Sheet"> | string | null
     userId?: StringWithAggregatesFilter<"Sheet"> | string
-    visibility?: StringWithAggregatesFilter<"Sheet"> | string
+    visibility?: EnumVisibilityWithAggregatesFilter<"Sheet"> | $Enums.Visibility
     likes?: StringNullableListFilter<"Sheet">
     tags?: StringNullableListFilter<"Sheet">
     createdAt?: DateTimeWithAggregatesFilter<"Sheet"> | Date | string
@@ -13593,6 +13638,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -13625,6 +13671,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -13657,6 +13704,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -13689,6 +13737,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
@@ -13721,6 +13770,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
   }
@@ -13748,6 +13798,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
   }
@@ -13775,6 +13826,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
   }
@@ -14224,7 +14276,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    visibility?: string
+    visibility?: $Enums.Visibility
     likes?: SheetCreatelikesInput | string[]
     tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
@@ -14238,7 +14290,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     userId: string
-    visibility?: string
+    visibility?: $Enums.Visibility
     likes?: SheetCreatelikesInput | string[]
     tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
@@ -14250,7 +14302,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14264,7 +14316,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14277,7 +14329,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     userId: string
-    visibility?: string
+    visibility?: $Enums.Visibility
     likes?: SheetCreatelikesInput | string[]
     tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
@@ -14288,7 +14340,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14300,7 +14352,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14651,6 +14703,7 @@ export namespace Prisma {
     badges?: SortOrder
     xp?: SortOrder
     tier?: SortOrder
+    level?: SortOrder
     hintsUsed?: SortOrder
     editorialUsed?: SortOrder
   }
@@ -14680,6 +14733,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     xp?: SortOrder
     tier?: SortOrder
+    level?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -14702,6 +14756,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     xp?: SortOrder
     tier?: SortOrder
+    level?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -15060,6 +15115,13 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumVisibilityFilter<$PrismaModel = never> = {
+    equals?: $Enums.Visibility | EnumVisibilityFieldRefInput<$PrismaModel>
+    in?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>
+    not?: NestedEnumVisibilityFilter<$PrismaModel> | $Enums.Visibility
+  }
+
   export type SheetNameUserIdCompoundUniqueInput = {
     name: string
     userId: string
@@ -15095,6 +15157,16 @@ export namespace Prisma {
     visibility?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Visibility | EnumVisibilityFieldRefInput<$PrismaModel>
+    in?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>
+    not?: NestedEnumVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.Visibility
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVisibilityFilter<$PrismaModel>
+    _max?: NestedEnumVisibilityFilter<$PrismaModel>
   }
 
   export type SheetScalarRelationFilter = {
@@ -15763,6 +15835,10 @@ export namespace Prisma {
     connect?: ProblemInSheetWhereUniqueInput | ProblemInSheetWhereUniqueInput[]
   }
 
+  export type EnumVisibilityFieldUpdateOperationsInput = {
+    set?: $Enums.Visibility
+  }
+
   export type SheetUpdatelikesInput = {
     set?: string[]
     push?: string | string[]
@@ -16091,6 +16167,23 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumVisibilityFilter<$PrismaModel = never> = {
+    equals?: $Enums.Visibility | EnumVisibilityFieldRefInput<$PrismaModel>
+    in?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>
+    not?: NestedEnumVisibilityFilter<$PrismaModel> | $Enums.Visibility
+  }
+
+  export type NestedEnumVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Visibility | EnumVisibilityFieldRefInput<$PrismaModel>
+    in?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>
+    not?: NestedEnumVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.Visibility
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVisibilityFilter<$PrismaModel>
+    _max?: NestedEnumVisibilityFilter<$PrismaModel>
+  }
+
   export type ProblemCreateWithoutPotdInput = {
     id?: string
     title: string
@@ -16222,6 +16315,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -16253,6 +16347,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -16300,6 +16395,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -16331,6 +16427,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
@@ -16467,7 +16564,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    visibility?: string
+    visibility?: $Enums.Visibility
     likes?: SheetCreatelikesInput | string[]
     tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
@@ -16479,7 +16576,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    visibility?: string
+    visibility?: $Enums.Visibility
     likes?: SheetCreatelikesInput | string[]
     tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
@@ -16643,7 +16740,7 @@ export namespace Prisma {
     name?: StringFilter<"Sheet"> | string
     description?: StringNullableFilter<"Sheet"> | string | null
     userId?: StringFilter<"Sheet"> | string
-    visibility?: StringFilter<"Sheet"> | string
+    visibility?: EnumVisibilityFilter<"Sheet"> | $Enums.Visibility
     likes?: StringNullableListFilter<"Sheet">
     tags?: StringNullableListFilter<"Sheet">
     createdAt?: DateTimeFilter<"Sheet"> | Date | string
@@ -16698,6 +16795,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     submission?: SubmissionCreateNestedManyWithoutUserInput
@@ -16729,6 +16827,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -16896,6 +16995,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     submission?: SubmissionUpdateManyWithoutUserNestedInput
@@ -16927,6 +17027,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -17046,6 +17147,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -17077,6 +17179,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -17215,6 +17318,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -17246,6 +17350,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
@@ -17453,6 +17558,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -17484,6 +17590,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -17582,6 +17689,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -17613,6 +17721,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
@@ -17725,6 +17834,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemCreateNestedManyWithoutUserInput
@@ -17756,6 +17866,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: string | null
     tier?: string
+    level?: string | null
     hintsUsed?: UserCreatehintsUsedInput | string[]
     editorialUsed?: UserCreateeditorialUsedInput | string[]
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
@@ -17819,6 +17930,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUpdateManyWithoutUserNestedInput
@@ -17850,6 +17962,7 @@ export namespace Prisma {
     badges?: NullableJsonNullValueInput | InputJsonValue
     xp?: NullableStringFieldUpdateOperationsInput | string | null
     tier?: StringFieldUpdateOperationsInput | string
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     hintsUsed?: UserUpdatehintsUsedInput | string[]
     editorialUsed?: UserUpdateeditorialUsedInput | string[]
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
@@ -17862,7 +17975,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    visibility?: string
+    visibility?: $Enums.Visibility
     likes?: SheetCreatelikesInput | string[]
     tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
@@ -17875,7 +17988,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     userId: string
-    visibility?: string
+    visibility?: $Enums.Visibility
     likes?: SheetCreatelikesInput | string[]
     tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
@@ -17953,7 +18066,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17966,7 +18079,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18076,7 +18189,7 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    visibility?: string
+    visibility?: $Enums.Visibility
     likes?: SheetCreatelikesInput | string[]
     tags?: SheetCreatetagsInput | string[]
     createdAt?: Date | string
@@ -18228,7 +18341,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18240,7 +18353,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18252,7 +18365,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: StringFieldUpdateOperationsInput | string
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
     likes?: SheetUpdatelikesInput | string[]
     tags?: SheetUpdatetagsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

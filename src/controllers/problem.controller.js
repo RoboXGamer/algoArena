@@ -537,16 +537,32 @@ export const getAllTags = asyncHandler(async (req, res) => {
 
   problems.forEach((problem) => {
     problem.tags.forEach((tag) => {
-      tagCountMap.set(tag,(tagCountMap.get(tag) || 0) + 1)
+      tagCountMap.set(tag, (tagCountMap.get(tag) || 0) + 1);
     });
   });
 
   const tagWithCount = Array.from(tagCountMap.entries()).map(
     ([tag, count]) => ({ tag, count })
   );
- 
 
   return res
     .status(200)
     .json(new ApiResponse(200, tagWithCount, "Tags fetched successfully"));
+});
+
+export const getRandomProblem = asyncHandler(async (req, res) => {
+  const problems = await db.problem.findMany();
+
+  if (!problems || problems.length === 0) {
+    return res.status(404).json({ message: "No problems found" });
+  }
+
+  const randomIndex = Math.floor(Math.random() * problems.length);
+  const randomProblem = problems[randomIndex];
+  console.log(randomIndex)
+  console.log(randomProblem)
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, randomProblem, "Fetched random problem"));
 });

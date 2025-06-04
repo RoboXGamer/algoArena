@@ -10,6 +10,7 @@ import {
   getMostSolved3Problem,
   getProblemById,
   getProblemsByCompanyChallenges,
+  getRandomProblem,
   updateProblem,
 } from "../controllers/problem.controller.js";
 
@@ -47,4 +48,5 @@ problemRouter.get(
 );
 problemRouter.get("/get-most-solved-3problem",getMostSolved3Problem);
 problemRouter.get("/get-all-companies-challenges",getProblemsByCompanyChallenges);
+problemRouter.get("/random-problem",authMiddleware,getRandomProblem);
 problemRouter.get("/get-all-tags",getAllTags);
