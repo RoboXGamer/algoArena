@@ -69,7 +69,7 @@ const LEVELS = [
   { level: 50, requiredXP: 26500, tier: "Grandmaster" },
 ];
 
-function getLevelAndTier(totalXP){
+export function getLevelAndTier(totalXP){
   const {level,tier} = [...LEVELS].reverse().find((l) => totalXP >= l.requiredXP) ?? LEVELS[0]
   return {level,tire};
 }

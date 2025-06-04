@@ -117,3 +117,4 @@ assignments/
 tmp/
 temps/
 src/generated/
+pnpm-lock.yaml

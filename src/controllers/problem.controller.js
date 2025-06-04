@@ -549,3 +549,19 @@ export const getAllTags = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, tagWithCount, "Tags fetched successfully"));
 });
+export const getRandomProblem = asyncHandler(async (req, res) => {
+  const problems = await db.problem.findMany();
+
+  if (!problems || problems.length === 0) {
+    return res.status(404).json({ message: "No problems found" });
+  }
+
+  const randomIndex = Math.floor(Math.random() * problems.length);
+  const randomProblem = problems[randomIndex];
+  console.log(randomIndex)
+  console.log(randomProblem)
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, randomProblem, "Fetched random problem"));
+});
