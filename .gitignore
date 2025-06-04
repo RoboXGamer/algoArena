@@ -116,3 +116,4 @@ assignments/
 # Temporary folders
 tmp/
 temps/
+src/generated/
